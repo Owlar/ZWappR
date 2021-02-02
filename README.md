@@ -1,4 +1,4 @@
-# zwappr
+# ZWappR
 
 BO-G40-ZWappR
 

@@ -41,6 +41,15 @@ class LoginPage extends StatelessWidget {
                 height: 70
             )
           ),
+          RaisedButton(
+              onPressed: () {
+                context.read<AuthenticationService>().signInWithFacebook();
+              },
+              child: Image(
+                  image: AssetImage('assets/facebook_logo.png'),
+                  height: 70
+              )
+          ),
         ],
       )
     );

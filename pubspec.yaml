@@ -34,6 +34,9 @@ dependencies:
 
   # Sign in options
   google_sign_in: ^4.5.9
+  flutter_facebook_login: ^3.0.0
+  flutter_facebook_auth: ^2.0.2
+
 
   provider: ^4.3.3
 

@@ -46,6 +46,5 @@ class AuthenticationWrapper extends StatelessWidget {
       return HomePage();
     }
     return LoginPage();
-
   }
 }

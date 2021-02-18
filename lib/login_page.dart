@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/button_view.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:provider/provider.dart';
 import 'package:zwappr/authentication_service.dart';
 
@@ -24,22 +26,19 @@ class LoginPage extends StatelessWidget {
             ),
           ),
           RaisedButton(
-              onPressed: () {
-                context.read<AuthenticationService>().signIn(
-                  email: emailController.text.trim(),
-                  password: passwordController.text.trim(),
-                );
-              },
-              child: Text("Logg inn"),
+            onPressed: () {
+              context.read<AuthenticationService>().signIn(
+                email: emailController.text.trim(),
+                password: passwordController.text.trim(),
+              );
+            },
+            child: Text("Logg inn"),
           ),
-          RaisedButton(
-              onPressed: () {
-                context.read<AuthenticationService>().signInWithFacebook();
-              },
-              child: Image(
-                  image: AssetImage('assets/facebook_logo.png'),
-                  height: 70
-              )
+          SignInButton(
+            Buttons.FacebookNew,
+            onPressed: () {
+              context.read<AuthenticationService>().signInWithFacebook();
+            },
           ),
         ],
       )

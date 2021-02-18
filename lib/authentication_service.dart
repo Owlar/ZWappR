@@ -29,16 +29,6 @@ class AuthenticationService {
     }
   }
 
-  Future<UserCredential> signInWithGoogle() async {
-    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
-    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-    final GoogleAuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-    return await FirebaseAuth.instance.signInWithCredential(credential);
-  }
-
   Future<UserCredential> signInWithFacebook() async {
     final AccessToken result = await FacebookAuth.instance.login();
     final FacebookAuthCredential credential = FacebookAuthProvider.credential(result.token);

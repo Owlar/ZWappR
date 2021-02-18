@@ -33,15 +33,6 @@ class LoginPage extends StatelessWidget {
               child: Text("Logg inn"),
           ),
           RaisedButton(
-            onPressed: () {
-              context.read<AuthenticationService>().signInWithGoogle();
-            },
-            child: Image(
-                image: AssetImage('assets/google_logo.png'),
-                height: 70
-            )
-          ),
-          RaisedButton(
               onPressed: () {
                 context.read<AuthenticationService>().signInWithFacebook();
               },

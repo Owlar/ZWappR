@@ -3,6 +3,7 @@ import 'package:flutter_signin_button/button_view.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:provider/provider.dart';
 import 'package:zwappr/authentication_service.dart';
+import 'package:zwappr/register_page.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -33,6 +34,12 @@ class LoginPage extends StatelessWidget {
               );
             },
             child: Text("Logg inn"),
+          ),
+          RaisedButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterPage()));
+            },
+            child: Text("Registrer"),
           ),
           SignInButton(
             Buttons.FacebookNew,

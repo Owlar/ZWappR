@@ -21,7 +21,7 @@ class LoginPage extends StatelessWidget {
         ),
         child: Column(
           children: <Widget> [
-            SizedBox(height: 120),
+            SizedBox(height: 138),
             TextField(
               controller: emailController,
               decoration: InputDecoration(
@@ -35,6 +35,8 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             RaisedButton(
+              color: Colors.black,
+              textColor: Colors.white,
               onPressed: () {
                 context.read<AuthenticationService>().signIn(
                   email: emailController.text.trim(),
@@ -44,6 +46,8 @@ class LoginPage extends StatelessWidget {
               child: Text("Logg inn"),
             ),
             RaisedButton(
+              color: Colors.black,
+              textColor: Colors.white,
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterPage()));
               },

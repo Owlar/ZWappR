@@ -18,7 +18,7 @@ class RegisterPage extends StatelessWidget {
           ),
           child: Column(
             children: <Widget> [
-              SizedBox(height: 120),
+              SizedBox(height: 138),
               TextField(
                 controller: emailController,
                 decoration: InputDecoration(
@@ -32,6 +32,8 @@ class RegisterPage extends StatelessWidget {
                 ),
               ),
               RaisedButton(
+                color: Colors.black,
+                textColor: Colors.white,
                 onPressed: () {
                   context.read<AuthenticationService>().register(
                     email: emailController.text.trim(),

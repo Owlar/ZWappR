@@ -12,42 +12,50 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          TextField(
-            controller: emailController,
-            decoration: InputDecoration(
-              labelText: "E-post",
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/background_screen_with_logo.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Column(
+          children: [
+            TextField(
+              controller: emailController,
+              decoration: InputDecoration(
+                labelText: "E-post",
+              ),
             ),
-          ),
-          TextField(
-            controller: passwordController,
-            decoration: InputDecoration(
-              labelText: "Passord",
+            TextField(
+              controller: passwordController,
+              decoration: InputDecoration(
+                labelText: "Passord",
+              ),
             ),
-          ),
-          RaisedButton(
-            onPressed: () {
-              context.read<AuthenticationService>().signIn(
-                email: emailController.text.trim(),
-                password: passwordController.text.trim(),
-              );
-            },
-            child: Text("Logg inn"),
-          ),
-          RaisedButton(
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterPage()));
-            },
-            child: Text("Registrer"),
-          ),
-          SignInButton(
-            Buttons.FacebookNew,
-            onPressed: () {
-              context.read<AuthenticationService>().signInWithFacebook();
-            },
-          ),
-        ],
+            RaisedButton(
+              onPressed: () {
+                context.read<AuthenticationService>().signIn(
+                  email: emailController.text.trim(),
+                  password: passwordController.text.trim(),
+                );
+              },
+              child: Text("Logg inn"),
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterPage()));
+              },
+              child: Text("Registrer"),
+            ),
+            SignInButton(
+              Buttons.FacebookNew,
+              onPressed: () {
+                context.read<AuthenticationService>().signInWithFacebook();
+              },
+            ),
+          ],
+        )
       )
     );
   }

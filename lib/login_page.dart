@@ -15,12 +15,13 @@ class LoginPage extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/background_screen_with_logo.png"),
+            image: AssetImage("assets/images/background_screen.png"),
             fit: BoxFit.cover,
           ),
         ),
         child: Column(
-          children: [
+          children: <Widget> [
+            SizedBox(height: 120),
             TextField(
               controller: emailController,
               decoration: InputDecoration(

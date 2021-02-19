@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:zwappr/authentication_service.dart';
 import 'package:zwappr/register_page.dart';
@@ -21,7 +22,9 @@ class LoginPage extends StatelessWidget {
         ),
         child: Column(
           children: <Widget> [
-            SizedBox(height: 138),
+            SizedBox(height: 50),
+            SvgPicture.asset("assets/icons/zwappr_logo.svg", height: 100),
+            SizedBox(height: 100),
             TextField(
               controller: emailController,
               decoration: InputDecoration(

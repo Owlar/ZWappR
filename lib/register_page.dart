@@ -9,33 +9,41 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-          children: [
-            TextField(
-              controller: emailController,
-              decoration: InputDecoration(
-                labelText: "E-post",
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/background_screen_with_logo.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Column(
+            children: [
+              TextField(
+                controller: emailController,
+                decoration: InputDecoration(
+                  labelText: "E-post",
+                ),
               ),
-            ),
-            TextField(
-              controller: passwordController,
-              decoration: InputDecoration(
-                labelText: "Passord",
+              TextField(
+                controller: passwordController,
+                decoration: InputDecoration(
+                  labelText: "Passord",
+                ),
               ),
-            ),
-            RaisedButton(
-              onPressed: () {
-                context.read<AuthenticationService>().register(
-                  email: emailController.text.trim(),
-                  password: passwordController.text.trim(),
-                ).then((_) {
-                  // Back to login page
-                  Navigator.pop(context);
-                });
-              },
-              child: Text("Lag bruker"),
-            ),
-          ],
+              RaisedButton(
+                onPressed: () {
+                  context.read<AuthenticationService>().register(
+                    email: emailController.text.trim(),
+                    password: passwordController.text.trim(),
+                  ).then((_) {
+                    // Back to login page
+                    Navigator.pop(context);
+                  });
+                },
+                child: Text("Lag bruker"),
+              ),
+            ],
+          )
         )
     );
   }

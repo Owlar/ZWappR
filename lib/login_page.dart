@@ -37,6 +37,7 @@ class LoginPage extends StatelessWidget {
                 labelText: "Passord",
               ),
             ),
+            SizedBox(height: 10),
             RaisedButton(
               color: Colors.black,
               textColor: Colors.white,
@@ -56,6 +57,7 @@ class LoginPage extends StatelessWidget {
               },
               child: Text("Registrer"),
             ),
+            SizedBox(height: 30),
             SignInButton(
               Buttons.FacebookNew,
               onPressed: () {

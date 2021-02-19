@@ -34,6 +34,7 @@ class RegisterPage extends StatelessWidget {
                   labelText: "Passord",
                 ),
               ),
+              SizedBox(height: 10),
               RaisedButton(
                 color: Colors.black,
                 textColor: Colors.white,

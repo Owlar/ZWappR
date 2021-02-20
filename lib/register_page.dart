@@ -19,7 +19,7 @@ class RegisterPage extends StatelessWidget {
           ),
           child: Column(
             children: <Widget> [
-              SizedBox(height: 50),
+              SizedBox(height: 22),
               SvgPicture.asset("assets/icons/zwappr_logo.svg", height: 100),
               SizedBox(height: 100),
               TextField(
@@ -51,7 +51,8 @@ class RegisterPage extends StatelessWidget {
               ),
             ],
           )
-        )
+        ),
+        resizeToAvoidBottomInset: false,
     );
   }
 }

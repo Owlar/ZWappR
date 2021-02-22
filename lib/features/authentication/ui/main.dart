@@ -2,9 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'file:///C:/Users/Gunther/AndroidStudioProjects/zwappr/lib/features/authentication/services/authentication_service.dart';
-import 'file:///C:/Users/Gunther/AndroidStudioProjects/zwappr/lib/features/home/ui/home_page.dart';
-import 'file:///C:/Users/Gunther/AndroidStudioProjects/zwappr/lib/features/authentication/ui/login_page.dart';
+import 'package:zwappr/features/authentication/services/authentication_service.dart';
+import 'package:zwappr/features/authentication/ui/login_page.dart';
+import 'package:zwappr/features/home/ui/home_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

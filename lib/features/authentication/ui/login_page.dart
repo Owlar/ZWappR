@@ -3,8 +3,8 @@ import 'package:flutter_signin_button/button_view.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'file:///C:/Users/Gunther/AndroidStudioProjects/zwappr/lib/features/authentication/services/authentication_service.dart';
-import 'file:///C:/Users/Gunther/AndroidStudioProjects/zwappr/lib/features/authentication/ui/register_page.dart';
+import 'package:zwappr/features/authentication/services/authentication_service.dart';
+import 'package:zwappr/features/authentication/ui/register_page.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();

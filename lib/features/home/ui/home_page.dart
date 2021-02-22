@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'file:///C:/Users/Gunther/AndroidStudioProjects/zwappr/lib/features/authentication/services/authentication_service.dart';
+import 'package:zwappr/features/authentication/services/authentication_service.dart';
 
 class HomePage extends StatelessWidget {
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:zwappr/authentication_service.dart';
+import 'file:///C:/Users/Gunther/AndroidStudioProjects/zwappr/lib/features/authentication/services/authentication_service.dart';
 
 class RegisterPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();

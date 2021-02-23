@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zwappr/features/profile/ui/profliePicture.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -9,9 +10,14 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-          //sd
-          child: Text("Profil"),
+      appBar: AppBar(
+
+        title: Text("Profile"),
+        backgroundColor: Color(0xFF1E1E),
+      ),
+        body:  Center(
+          child: ProfilePicture(),
+          
         )
     );
   }

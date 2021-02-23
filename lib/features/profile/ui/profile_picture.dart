@@ -1,15 +1,9 @@
-
-
-
-
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
-
-import 'profile_page.dart';
 
 // ignore: must_be_immutable
 class ProfilePicture extends StatelessWidget{
@@ -18,9 +12,7 @@ class ProfilePicture extends StatelessWidget{
 
   Future getImage() async{
     final image = await imagePicker.getImage(source: ImageSource.camera);
-
      _image = File(image.path);
-
   }
 
   @override
@@ -71,8 +63,5 @@ class ProfilePicture extends StatelessWidget{
       ],
     );
   }
-
-
-
 
 }

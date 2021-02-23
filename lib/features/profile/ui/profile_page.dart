@@ -3,27 +3,23 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:zwappr/features/profile/ui/profliePicture.dart';
 
 class ProfilePage extends StatefulWidget {
-
   @override
   _ProfilePageState createState() => _ProfilePageState();
-
 }
 
 class _ProfilePageState extends State<ProfilePage> {
   File _image;
   final imagePicker = ImagePicker();
 
-  Future getImage() async{
+  Future getImage() async {
     final image = await imagePicker.getImage(source: ImageSource.camera);
     setState(() {
       _image = File(image.path);
     });
-
-
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,4 +84,5 @@ class _ProfilePageState extends State<ProfilePage> {
         )
     );
   }
+
 }

@@ -237,7 +237,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         onPressed: (){},
                       ),
-                      Text("Log ut"),
+                      Text("Logg ut"),
                     ],
                   ),
                 ),

@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:zwappr/features/profile/ui/settings_page.dart';
+
+import 'edit_page.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -75,9 +78,18 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: SizedBox(
                             height: 46,
                             width: 46,
-                            child: IconButton(
-                              icon: Icon(Icons.settings),
-                              onPressed: () {},
+                            child: FlatButton(
+                              child: new Icon(
+                                Icons.settings,
+                                size: 36,
+                                color: Colors.black,
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => SettingsPage()),
+                                );
+                              },
                             ),
                           ),
                         ),
@@ -86,25 +98,34 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: SizedBox(
                         height: 46,
                         width: 46,
-                          child: IconButton(
-                            icon: Icon(Icons.edit),
-                            onPressed: () {},
+                          child: FlatButton(
+                            child: new Icon(
+                              Icons.edit,
+                              size: 36,
+                              color: Colors.black,
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => EditPage()),
+                              );
+                            },
                           ),
                         ),
                     ),
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 125, vertical: 0),
+                  padding: const EdgeInsets.fromLTRB( 125, 0,  125, 30),
                   child: ButtonTheme(
 
-                    height: 20,
+                    height: 10,
                     minWidth: 100,
                     child: FlatButton(
 
                         padding: EdgeInsets.all(20),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100),
+                            borderRadius: BorderRadius.circular(50),
                             side: BorderSide(color: Color(0xFFFFFF))),
                         color: Color(0xFFE0E0E0),
                         onPressed: (){},
@@ -113,7 +134,44 @@ class _ProfilePageState extends State<ProfilePage> {
                             textAlign: TextAlign.center,))],
                         )),
                   ),
-                )
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                  ),
+                  child: Row(
+                    children: [
+                      FlatButton(
+                        child: new Icon(
+                          Icons.star,
+                          size: 36,
+                          color: Colors.black,
+                        ),
+                        onPressed: (){},
+                      ),
+                      Text("Likt"),
+                    ],
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                  ),
+                  child: Row(
+                    children: [
+                      FlatButton(
+                        child: new Icon(
+                          Icons.favorite,
+                          size: 36,
+                          color: Colors.black,
+
+                        ),
+                        onPressed: (){},
+                      ),
+                      Text("Favoritter"),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

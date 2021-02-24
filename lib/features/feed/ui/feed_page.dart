@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:zwappr/features/authentication/services/authentication_service.dart';
 import 'package:zwappr/features/authentication/ui/login_page.dart';
 
 class FeedPage extends StatefulWidget {

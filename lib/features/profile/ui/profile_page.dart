@@ -50,15 +50,17 @@ class _ProfilePageState extends State<ProfilePage> {
               FlatButton(
                 child: new Icon(
                   Icons.camera_alt,
+                  color: Colors.black,
                 ),
                 onPressed: () {
-                  getGallery();
+                  getImage();
                   Navigator.of(context).pop();
                 },
               ),
               FlatButton(
                 child: new Icon(
                   Icons.insert_photo,
+                  color: Colors.black,
 
                 ),
                 onPressed: () {

@@ -26,7 +26,7 @@ class AuthenticationService implements IAuthenticationService {
   }
 
   @override
-  Future<String> register({String displayName, String email, String password, String username}) async {
+  Future<String> register({String displayName, String email, String password}) async {
     try {
       final user = (await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password)).user;
       await setUser(user, displayName);
@@ -44,7 +44,6 @@ class AuthenticationService implements IAuthenticationService {
       "email": user.email,
       "displayName": displayName,
     });
-
   }
 
   @override

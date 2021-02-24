@@ -6,6 +6,7 @@ import 'package:zwappr/features/authentication/services/authentication_service.d
 class RegisterPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController displayNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,13 @@ class RegisterPage extends StatelessWidget {
             children: <Widget> [
               SizedBox(height: 22),
               SvgPicture.asset("assets/icons/zwappr_logo.svg", height: 100),
-              SizedBox(height: 100),
+              SizedBox(height: 70),
+              TextField(
+                controller: displayNameController,
+                decoration: InputDecoration(
+                  labelText: "Brukernavn",
+                ),
+              ),
               TextField(
                 controller: emailController,
                 decoration: InputDecoration(
@@ -40,6 +47,7 @@ class RegisterPage extends StatelessWidget {
                 textColor: Colors.white,
                 onPressed: () {
                   context.read<AuthenticationService>().register(
+                    displayName: displayNameController.text.trim(),
                     email: emailController.text.trim(),
                     password: passwordController.text.trim(),
                   ).then((_) {

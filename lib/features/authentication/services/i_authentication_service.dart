@@ -12,9 +12,15 @@ abstract class IAuthenticationService {
   Future<String> signIn({String email, String password});
 
   // Registering a user with:
+  /// [displayName]
   /// [email]
   /// [password]
-  Future<String> register({String email, String password, String username});
+  Future<String> register({String displayName, String email, String password});
+
+  // Setting user in Firestore with:
+  /// [user]
+  /// [displayName]
+  Future<void> setUser(User user, String displayName);
 
   // Signing in through Facebook auth provider
   Future<UserCredential> signInWithFacebook();

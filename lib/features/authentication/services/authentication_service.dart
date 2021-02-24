@@ -26,21 +26,23 @@ class AuthenticationService implements IAuthenticationService {
   }
 
   @override
-  Future<String> register({String email, String password, String username}) async {
+  Future<String> register({String displayName, String email, String password, String username}) async {
     try {
       final user = (await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password)).user;
-      await _setUser(user);
+      await setUser(user, displayName);
       return "Registered";
     } on FirebaseAuthException catch (e) {
       return e.message;
     }
   }
 
-  Future<void> _setUser(User user) async {
+  @override
+  Future<void> setUser(User user, String displayName) async {
     final reference = _db.collection("users").doc(user.uid);
     await reference.set({
       "uid": user.uid,
       "email": user.email,
+      "displayName": displayName,
     });
 
   }

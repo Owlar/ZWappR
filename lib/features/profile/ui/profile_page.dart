@@ -22,7 +22,55 @@ class _ProfilePageState extends State<ProfilePage> {
       _image = File(image.path);
     });
   }
+  Future getGallery() async {
+    final image = await ImagePicker.pickImage(
+        source: ImageSource.gallery, imageQuality: 50
+    );
 
+    setState(() {
+      _image = image;
+    });
+  }
+
+        Future<void> photoPicker() async {
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title:  Text("Camera or Gallery"),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text("Choose camera or gallery"),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: new Icon(
+                  Icons.camera_alt,
+                ),
+                onPressed: () {
+                  getGallery();
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                child: new Icon(
+                  Icons.insert_photo,
+
+                ),
+                onPressed: () {
+                  getGallery();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +108,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     borderRadius: BorderRadius.circular(50),
                                     side: BorderSide(color: Color(0xFFFFFF))),
                                 color: Color(0xFFE0E0E0),
-                                onPressed: getImage,
+                                onPressed: photoPicker,
                                 child: SvgPicture.asset("assets/icons/photo_camera-24px.svg"),
                               )
                           ),
@@ -179,4 +227,6 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  //https://medium.com/fabcoding/adding-an-image-picker-in-a-flutter-app-pick-images-using-camera-and-gallery-photos-7f016365d856
+  //https://api.flutter.dev/flutter/material/AlertDialog-class.html
 }

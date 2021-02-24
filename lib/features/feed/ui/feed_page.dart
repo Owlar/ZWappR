@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:zwappr/features/authentication/services/authentication_service.dart';
+import 'package:zwappr/features/authentication/ui/login_page.dart';
 
 class FeedPage extends StatefulWidget {
   @override
@@ -10,7 +12,15 @@ class _FeedPageState extends State<FeedPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-          child: Text("Hjem"),
+          // TEMPORARY Log out button
+          child: RaisedButton(
+            color: Colors.black,
+            textColor: Colors.white,
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginPage()));
+            },
+            child: Text("Logg ut")
+          )
         )
     );
   }

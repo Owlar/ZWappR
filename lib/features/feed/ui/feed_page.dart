@@ -17,7 +17,7 @@ class _FeedPageState extends State<FeedPage> {
             color: Colors.black,
             textColor: Colors.white,
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginPage()));
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginPage()));
             },
             child: Text("Logg ut")
           )

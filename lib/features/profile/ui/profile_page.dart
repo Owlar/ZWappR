@@ -222,6 +222,25 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   ),
                 ),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                  ),
+                  child: Row(
+                    children: [
+                      FlatButton(
+                        child: new Icon(
+                          Icons.logout,
+                          size: 36,
+                          color: Colors.black,
+
+                        ),
+                        onPressed: (){},
+                      ),
+                      Text("Log ut"),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

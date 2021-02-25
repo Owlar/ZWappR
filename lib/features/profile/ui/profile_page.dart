@@ -1,11 +1,15 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:zwappr/features/profile/ui/settings_page.dart';
 
+import 'button.dart';
 import 'edit_page.dart';
+import 'icon_buttons.dart';
+import 'menu.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -26,13 +30,19 @@ class _ProfilePageState extends State<ProfilePage> {
     final image = await ImagePicker.pickImage(
         source: ImageSource.gallery, imageQuality: 50
     );
-
     setState(() {
       _image = image;
     });
   }
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
-        Future<void> photoPicker() async {
+  /*void inputData() async {
+    final FirebaseUser user = await auth.currentUser();
+    final uid = user.uid;
+    // here you write the codes to input the data into firestore
+  }*/
+
+  Future<void> photoPicker() async {
       return showDialog<void>(
         context: context,
         barrierDismissible: true,
@@ -73,6 +83,7 @@ class _ProfilePageState extends State<ProfilePage> {
         },
       );
     }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,122 +134,47 @@ class _ProfilePageState extends State<ProfilePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal:20, vertical: 0),
-                          child: SizedBox(
-                            height: 46,
-                            width: 46,
-                            child: FlatButton(
-                              child: new Icon(
-                                Icons.settings,
-                                size: 36,
-                                color: Colors.black,
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => SettingsPage()),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal:20, vertical: 0),
-                      child: SizedBox(
-                        height: 46,
-                        width: 46,
-                          child: FlatButton(
-                            child: new Icon(
-                              Icons.edit,
-                              size: 36,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => EditPage()),
-                              );
-                            },
-                          ),
-                        ),
+                    IconButtons(
+                      icon: Icons.settings,
+                      press: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SettingsPage()),
+                        );
+                      },
+                    ),
+                    IconButtons(
+                      icon: Icons.edit,
+                      press: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => EditPage()),
+                        );
+                      },
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB( 125, 0,  125, 30),
-                  child: ButtonTheme(
-
-                    height: 10,
-                    minWidth: 100,
-                    child: FlatButton(
-
-                        padding: EdgeInsets.all(20),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            side: BorderSide(color: Color(0xFFFFFF))),
-                        color: Color(0xFFE0E0E0),
-                        onPressed: (){},
-                        child: Row(
-                          children: [Expanded(child: Text("Inviter",
-                            textAlign: TextAlign.center,))],
-                        )),
-                  ),
+                Button(press: () {},),
+                Menu(
+                  text: "likt",
+                  icon: Icons.star,
+                  press: () {},
+                ),
+                Menu(
+                  text: "Favoritter",
+                  icon: Icons.favorite,
+                  press: () {},
                 ),
                 Container(
                   decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
+                    border: Border(
+                      bottom: BorderSide(color: Colors.black),
+                    ),
                   ),
-                  child: Row(
-                    children: [
-                      FlatButton(
-                        child: new Icon(
-                          Icons.star,
-                          size: 36,
-                          color: Colors.black,
-                        ),
-                        onPressed: (){},
-                      ),
-                      Text("Likt"),
-                    ],
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                  ),
-                  child: Row(
-                    children: [
-                      FlatButton(
-                        child: new Icon(
-                          Icons.favorite,
-                          size: 36,
-                          color: Colors.black,
-
-                        ),
-                        onPressed: (){},
-                      ),
-                      Text("Favoritter"),
-                    ],
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                  ),
-                  child: Row(
-                    children: [
-                      FlatButton(
-                        child: new Icon(
-                          Icons.logout,
-                          size: 36,
-                          color: Colors.black,
-
-                        ),
-                        onPressed: (){},
-                      ),
-                      Text("Logg ut"),
-                    ],
+                  child: Menu(
+                    text: "Logg ut",
+                    icon: Icons.logout,
+                    press: () {},
                   ),
                 ),
               ],

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:zwappr/features/authentication/models/user_model.dart';
-import 'package:zwappr/features/authentication/repositories/authentication_repository.dart';
+import 'package:zwappr/features/authentication/repository/authentication_repository.dart';
 import 'package:zwappr/features/authentication/services/i_authentication_service.dart';
 
 class AuthenticationService implements IAuthenticationService {
@@ -36,6 +36,7 @@ class AuthenticationService implements IAuthenticationService {
     }
   }
 
+  // Is CRUD operation and should be abstracted out in repository
   @override
   Future<void> setUser(User user, String displayName) async => _repository.setUser(user, displayName);
 

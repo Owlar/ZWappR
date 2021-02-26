@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:zwappr/features/profile/ui/profile_picture.dart';
 import 'package:zwappr/features/profile/ui/settings_page.dart';
 
 import 'button.dart';
@@ -97,40 +98,11 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Center(
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                  child: SizedBox(
-                    height: 115,
-                    width: 115,
-                    child: Stack(
-                      fit: StackFit.expand,
-                      overflow: Overflow.visible,
-                      children: [
-                        CircleAvatar(
-                          backgroundImage: _image == null ? AssetImage("assets/images/profile_test.png") : FileImage(_image),
-                        ),
-                        Positioned(
-                          right: -12,
-                          bottom: 0,
-                          child: SizedBox(
-                              height: 46,
-                              width: 46,
-                              child: FlatButton(
-
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50),
-                                    side: BorderSide(color: Color(0xFFFFFF))),
-                                color: Color(0xFFE0E0E0),
-                                onPressed: photoPicker,
-                                child: SvgPicture.asset("assets/icons/photo_camera-24px.svg"),
-                              )
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ), SizedBox(height: 20,),
-                Text("Tina Olsen"),
+                ProfilePicture(
+                    image: _image,
+                    press: photoPicker),
+                SizedBox(height: 20,),
+                Text(auth.currentUser.email.toString()),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -187,3 +159,5 @@ class _ProfilePageState extends State<ProfilePage> {
   //https://medium.com/fabcoding/adding-an-image-picker-in-a-flutter-app-pick-images-using-camera-and-gallery-photos-7f016365d856
   //https://api.flutter.dev/flutter/material/AlertDialog-class.html
 }
+
+

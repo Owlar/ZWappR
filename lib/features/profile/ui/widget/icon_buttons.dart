@@ -3,13 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class IconButtons extends StatelessWidget {
+  final IconData icon;
+  final  VoidCallback press;
+
   const IconButtons({
     Key key,
     @required this.icon,
     @required this.press,
   }) : super(key: key);
-  final IconData icon;
-  final  VoidCallback press;
+
   @override
   Widget build(BuildContext context) {
     return Padding(

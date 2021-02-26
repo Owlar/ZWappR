@@ -1,12 +1,10 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:zwappr/features/profile/ui/pages/settings_page.dart';
 import 'package:zwappr/features/profile/ui/widget/menu.dart';
 import 'package:zwappr/features/profile/ui/widget/profile_picture.dart';
-import 'package:zwappr/features/profile/ui/pages/settings_page.dart';
 
 import '../widget/icon_buttons.dart';
 
@@ -66,8 +64,6 @@ class _EditPageState extends State<EditPage> {
                   icon: Icons.book,
                   press: () {},
                 ),
-
-
                 Container(
                   decoration: BoxDecoration(
                     border: Border(

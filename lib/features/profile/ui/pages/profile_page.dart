@@ -2,16 +2,14 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:zwappr/features/profile/ui/pages/settings_page.dart';
 import 'package:zwappr/features/profile/ui/widget/menu.dart';
 import 'package:zwappr/features/profile/ui/widget/profile_picture.dart';
-import 'package:zwappr/features/profile/ui/pages/settings_page.dart';
 
 import '../widget/button.dart';
-import 'edit_page.dart';
 import '../widget/icon_buttons.dart';
+import 'edit_page.dart';
 
 
 class ProfilePage extends StatefulWidget {
@@ -74,7 +72,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: new Icon(
                   Icons.insert_photo,
                   color: Colors.black,
-
                 ),
                 onPressed: () {
                   getGallery();
@@ -160,6 +157,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  // SOURCES:
   //https://medium.com/fabcoding/adding-an-image-picker-in-a-flutter-app-pick-images-using-camera-and-gallery-photos-7f016365d856
   //https://api.flutter.dev/flutter/material/AlertDialog-class.html
 }

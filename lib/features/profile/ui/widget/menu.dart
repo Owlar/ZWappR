@@ -2,15 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Menu extends StatelessWidget {
+  final String text;
+  final IconData icon;
+  final VoidCallback press;
+
   const Menu({
     Key key,
     @required this.text,
     @required this.icon,
     @required this.press,
   }) : super(key: key);
-  final String text;
-  final IconData icon;
-  final VoidCallback press;
 
   @override
   Widget build(BuildContext context) {

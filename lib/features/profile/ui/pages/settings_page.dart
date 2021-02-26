@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:zwappr/features/profile/ui/widget/menu.dart';
 import 'package:zwappr/features/profile/ui/widget/profile_picture.dart';
 
-import '../widget/button.dart';
-import 'edit_page.dart';
 import '../widget/icon_buttons.dart';
+import 'edit_page.dart';
 
 class SettingsPage extends StatefulWidget {
 
@@ -68,7 +67,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   press: () {},
                 ),
                 Menu(
-                  text: "E-postinnstillinger",
+                  text: "E-post innstillinger",
                   icon: Icons.email,
                   press: () {},
                 ),

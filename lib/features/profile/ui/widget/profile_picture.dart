@@ -8,14 +8,14 @@ import 'package:flutter_svg/svg.dart';
 
 
 class ProfilePicture extends StatelessWidget {
+  final File _image;
+  final  VoidCallback press;
+
   const ProfilePicture({
     Key key,
     @required File image,
     @required  this.press,
   }) : _image = image, super(key: key);
-
-  final File _image;
-  final  VoidCallback press;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,6 @@ class ProfilePicture extends StatelessWidget {
                   height: 46,
                   width: 46,
                   child: FlatButton(
-
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50),
                         side: BorderSide(color: Color(0xFFFFFF))),

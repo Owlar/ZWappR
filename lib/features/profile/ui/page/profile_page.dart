@@ -4,13 +4,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:zwappr/features/profile/ui/profile_picture.dart';
-import 'package:zwappr/features/profile/ui/settings_page.dart';
 
-import 'button.dart';
+import 'package:zwappr/features/profile/ui/widget/menu.dart';
+import 'file:///D:/code/2021/ZWappRCode/ZWappR/lib/features/profile/ui/widget/profile_picture.dart';
+import 'file:///D:/code/2021/ZWappRCode/ZWappR/lib/features/profile/ui/page/settings_page.dart';
+
+import '../widget/button.dart';
 import 'edit_page.dart';
-import 'icon_buttons.dart';
-import 'menu.dart';
+import '../widget/icon_buttons.dart';
+
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -28,11 +30,11 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
   Future getGallery() async {
-    final image = await ImagePicker.pickImage(
+    final image = await imagePicker.getImage(
         source: ImageSource.gallery, imageQuality: 50
     );
     setState(() {
-      _image = image;
+      _image = File(image.path);;
     });
   }
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -84,6 +86,8 @@ class _ProfilePageState extends State<ProfilePage> {
         },
       );
     }
+
+  File get image => _image;
 
   @override
   Widget build(BuildContext context) {

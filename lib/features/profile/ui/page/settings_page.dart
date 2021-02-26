@@ -1,19 +1,25 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:zwappr/features/profile/ui/profile_picture.dart';
-import 'package:zwappr/features/profile/ui/settings_page.dart';
+import 'package:zwappr/features/profile/ui/widget/menu.dart';
+import 'file:///D:/code/2021/ZWappRCode/ZWappR/lib/features/profile/ui/widget/profile_picture.dart';
 
-import 'icon_buttons.dart';
-import 'menu.dart';
+import '../widget/button.dart';
+import 'edit_page.dart';
+import '../widget/icon_buttons.dart';
 
-class EditPage extends StatefulWidget {
+class SettingsPage extends StatefulWidget {
+
   @override
-  _EditPageState createState() => _EditPageState();
+  _SettingsPageState createState() => _SettingsPageState();
 }
 
-class _EditPageState extends State<EditPage> {
+class _SettingsPageState extends State<SettingsPage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
+  File image;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,9 +33,10 @@ class _EditPageState extends State<EditPage> {
           child: Center(
             child: Column(
               children: [
-                /*ProfilePicture(
-                    image: _image,
-                    press: photoPicker),*/
+                ProfilePicture(
+                    image: image,
+                    press: (){}
+                ),
                 SizedBox(height: 20,),
                 Text(auth.currentUser.email.toString()),
                 Row(
@@ -40,7 +47,7 @@ class _EditPageState extends State<EditPage> {
                       press: (){
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => SettingsPage()),
+                          MaterialPageRoute(builder: (context) =>SettingsPage()),
                         );
                       },
                     ),
@@ -56,12 +63,25 @@ class _EditPageState extends State<EditPage> {
                   ],
                 ),
                 Menu(
-                  text: "Om deg selv",
-                  icon: Icons.book,
+                  text: "Varsling",
+                  icon: Icons.notification_important,
                   press: () {},
                 ),
-
-
+                Menu(
+                  text: "E-postinnstillinger",
+                  icon: Icons.email,
+                  press: () {},
+                ),
+                Menu(
+                  text: "Kontoinnstillingerr",
+                  icon: Icons.account_box,
+                  press: () {},
+                ),
+                Menu(
+                  text: "Administrer adresser",
+                  icon: Icons.account_tree,
+                  press: () {},
+                ),
                 Container(
                   decoration: BoxDecoration(
                     border: Border(
@@ -69,8 +89,8 @@ class _EditPageState extends State<EditPage> {
                     ),
                   ),
                   child: Menu(
-                    text: "Tekst",
-                    icon: Icons.text_fields,
+                    text: "Juridisk og vilkår",
+                    icon: Icons.account_balance,
                     press: () {},
                   ),
                 ),

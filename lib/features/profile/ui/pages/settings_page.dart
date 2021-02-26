@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:zwappr/features/profile/ui/widget/menu.dart';
-import 'file:///D:/code/2021/ZWappRCode/ZWappR/lib/features/profile/ui/widget/profile_picture.dart';
+import 'package:zwappr/features/profile/ui/widget/profile_picture.dart';
 
 import '../widget/button.dart';
 import 'edit_page.dart';

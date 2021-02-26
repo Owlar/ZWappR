@@ -3,7 +3,7 @@ import 'package:zwappr/features/activity/ui/activity_page.dart';
 import 'package:zwappr/features/chat/ui/chat_page.dart';
 import 'package:zwappr/features/feed/ui/feed_page.dart';
 import 'package:zwappr/features/map/ui/map_page.dart';
-import 'file:///D:/code/2021/ZWappRCode/ZWappR/lib/features/profile/ui/page/profile_page.dart';
+import 'package:zwappr/features/profile/ui/pages/profile_page.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);

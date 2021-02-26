@@ -6,8 +6,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:zwappr/features/profile/ui/widget/menu.dart';
-import 'file:///D:/code/2021/ZWappRCode/ZWappR/lib/features/profile/ui/widget/profile_picture.dart';
-import 'file:///D:/code/2021/ZWappRCode/ZWappR/lib/features/profile/ui/page/settings_page.dart';
+import 'package:zwappr/features/profile/ui/widget/profile_picture.dart';
+import 'package:zwappr/features/profile/ui/pages/settings_page.dart';
 
 import '../widget/button.dart';
 import 'edit_page.dart';

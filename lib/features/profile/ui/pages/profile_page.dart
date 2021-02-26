@@ -32,7 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
         source: ImageSource.gallery, imageQuality: 50
     );
     setState(() {
-      _image = File(image.path);;
+      _image = File(image.path);
     });
   }
   final FirebaseAuth auth = FirebaseAuth.instance;

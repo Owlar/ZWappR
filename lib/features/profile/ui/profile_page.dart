@@ -128,7 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Button(press: () {},),
                 Menu(
-                  text: "likt",
+                  text: "Likt",
                   icon: Icons.star,
                   press: () {},
                 ),

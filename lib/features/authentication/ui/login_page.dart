@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 import 'package:zwappr/features/authentication/services/authentication_service.dart';
 import 'package:zwappr/features/authentication/ui/register_page.dart';
+import 'package:zwappr/features/home/ui/home_page.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  final AuthenticationService _authenticationService = AuthenticationService();
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +43,11 @@ class LoginPage extends StatelessWidget {
             RaisedButton(
               color: Colors.black,
               textColor: Colors.white,
-              onPressed: () {
-                context.read<AuthenticationService>().signIn(
-                  email: emailController.text.trim(),
-                  password: passwordController.text.trim(),
-                );
+              onPressed: () async {
+                final user = (await _authenticationService.signIn(email: emailController.text.trim(), password: passwordController.text.trim()));
+                if (user != null) {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
+                }
               },
               child: Text("Logg inn"),
             ),
@@ -60,8 +62,11 @@ class LoginPage extends StatelessWidget {
             SizedBox(height: 30),
             SignInButton(
               Buttons.FacebookNew,
-              onPressed: () {
-                context.read<AuthenticationService>().signInWithFacebook();
+              onPressed: () async {
+                final userCredential = (await _authenticationService.signInWithFacebook());
+                if (userCredential != null) {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
+                }
               },
             ),
           ],

@@ -5,10 +5,8 @@ import 'package:zwappr/features/authentication/models/user_model.dart';
 import 'package:zwappr/features/authentication/services/i_authentication_service.dart';
 
 class AuthenticationService implements IAuthenticationService {
-  final FirebaseFirestore _db;
-  final FirebaseAuth _firebaseAuth;
-  AuthenticationService(this._firebaseAuth, this._db);
-  Stream<User> get authStateChanges => _firebaseAuth.idTokenChanges();
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   @override
   Future<void> signOut() async {
@@ -16,23 +14,25 @@ class AuthenticationService implements IAuthenticationService {
   }
 
   @override
-  Future<String> signIn({String email, String password}) async {
+  Future<UserModel> signIn({String email, String password}) async {
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
-      return "Signed in";
+      final user = (await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password)).user;
+      return UserModel(user.uid, user.displayName);
     } on FirebaseAuthException catch (e) {
-      return e.message;
+      print(e.message);
+      return null;
     }
   }
 
   @override
-  Future<String> register({String displayName, String email, String password}) async {
+  Future<UserModel> register({String displayName, String email, String password}) async {
     try {
       final user = (await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password)).user;
       await setUser(user, displayName);
-      return "Registered";
+      return UserModel(user.uid, user.displayName);
     } on FirebaseAuthException catch (e) {
-      return e.message;
+      print(e.message);
+      return null;
     }
   }
 
@@ -55,7 +55,7 @@ class AuthenticationService implements IAuthenticationService {
 
   @override
   Future<UserModel> getLoggedInUser(User user) async {
-    return user != null ? UserModel(user.uid) : null;
+    return user != null ? UserModel(user.uid, user.displayName) : null;
   }
 
 

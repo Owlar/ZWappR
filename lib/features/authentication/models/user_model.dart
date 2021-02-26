@@ -2,6 +2,7 @@
 class UserModel {
   // Unique identifier
   final String uid;
+  final String displayName;
 
-  UserModel(this.uid);
+  UserModel(this.uid, this.displayName);
 }

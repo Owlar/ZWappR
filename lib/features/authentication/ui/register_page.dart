@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 import 'package:zwappr/features/authentication/services/authentication_service.dart';
 
 class RegisterPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController displayNameController = TextEditingController();
+
+  final AuthenticationService _authenticationService = AuthenticationService();
 
   @override
   Widget build(BuildContext context) {
@@ -45,15 +46,12 @@ class RegisterPage extends StatelessWidget {
               RaisedButton(
                 color: Colors.black,
                 textColor: Colors.white,
-                onPressed: () {
-                  context.read<AuthenticationService>().register(
-                    displayName: displayNameController.text.trim(),
-                    email: emailController.text.trim(),
-                    password: passwordController.text.trim(),
-                  ).then((_) {
-                    // Back to login page
+                onPressed: () async {
+                  final user = (await _authenticationService.register(email: emailController.text.trim(), password: passwordController.text.trim()));
+                  if (user != null) {
+                    //Back to login page
                     Navigator.pop(context);
-                  });
+                  }
                 },
                 child: Text("Lag bruker"),
               ),

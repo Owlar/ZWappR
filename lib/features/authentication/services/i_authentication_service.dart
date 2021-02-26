@@ -9,13 +9,13 @@ abstract class IAuthenticationService {
   // Signing in a user with:
   /// [email]
   /// [password]
-  Future<String> signIn({String email, String password});
+  Future<UserModel> signIn({String email, String password});
 
   // Registering a user with:
   /// [displayName]
   /// [email]
   /// [password]
-  Future<String> register({String displayName, String email, String password});
+  Future<UserModel> register({String displayName, String email, String password});
 
   // Setting user in Firestore with:
   /// [user]

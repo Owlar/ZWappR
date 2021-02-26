@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:zwappr/features/profile/ui/pages/settings_page.dart';
-import 'package:zwappr/features/profile/ui/widget/menu.dart';
-import 'package:zwappr/features/profile/ui/widget/profile_picture.dart';
+import 'package:zwappr/features/profile/ui/widgets/menu.dart';
+import 'package:zwappr/features/profile/ui/widgets/profile_picture.dart';
 
-import '../widget/icon_buttons.dart';
+import '../widgets/icon_buttons.dart';
 
 
 class EditPage extends StatefulWidget {

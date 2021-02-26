@@ -2,11 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:zwappr/features/authentication/models/user_model.dart';
+import 'package:zwappr/features/authentication/repositories/authentication_repository.dart';
 import 'package:zwappr/features/authentication/services/i_authentication_service.dart';
 
 class AuthenticationService implements IAuthenticationService {
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final AuthenticationRepository _repository = AuthenticationRepository();
 
   @override
   Future<void> signOut() async {
@@ -37,14 +38,7 @@ class AuthenticationService implements IAuthenticationService {
   }
 
   @override
-  Future<void> setUser(User user, String displayName) async {
-    final reference = _db.collection("users").doc(user.uid);
-    await reference.set({
-      "uid": user.uid,
-      "email": user.email,
-      "displayName": displayName,
-    });
-  }
+  Future<void> setUser(User user, String displayName) async => _repository.setUser(user, displayName);
 
   @override
   Future<UserCredential> signInWithFacebook() async {

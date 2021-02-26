@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:zwappr/features/authentication/repositories/authentication_repository.dart';
 import 'package:zwappr/features/authentication/services/authentication_service.dart';
+import 'package:zwappr/features/authentication/services/i_authentication_service.dart';
 import 'package:zwappr/features/authentication/ui/register_page.dart';
 import 'package:zwappr/features/home/ui/home_page.dart';
 
@@ -10,7 +12,7 @@ class LoginPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  final AuthenticationService _authenticationService = AuthenticationService();
+  static final IAuthenticationService _authenticationService = AuthenticationService();
 
   @override
   Widget build(BuildContext context) {

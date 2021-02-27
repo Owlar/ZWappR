@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:zwappr/features/feed/models/thing.dart';
 
 class FeedRepository {
   final FirebaseFirestore _db = FirebaseFirestore.instance;

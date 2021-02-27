@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:zwappr/features/feed/models/thing.dart';
 import 'package:zwappr/features/feed/services/feed_service.dart';
 import 'package:zwappr/features/feed/services/i_feed_service.dart';
 
@@ -24,11 +23,21 @@ class _FeedPageState extends State<FeedPage> {
               fit: BoxFit.cover,
             ),
           ),
-          child: RaisedButton(
-            onPressed: () {
-              _feedService.getAll(auth.currentUser.uid);
-            },
-
+          child: Center(
+            child: Column(
+              children: [
+                RaisedButton(
+                  color: Colors.black,
+                  textColor: Colors.white,
+                  child: Center(
+                    child: Text("Print data om innlogget bruker"),
+                  ),
+                  onPressed: () {
+                    _feedService.getAll(auth.currentUser.uid);
+                  },
+                )
+              ]
+            )
           )
         )
     );

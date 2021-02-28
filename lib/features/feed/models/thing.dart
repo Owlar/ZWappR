@@ -1,21 +1,19 @@
-import 'package:zwappr/features/feed/models/category.dart';
+import 'package:flutter/foundation.dart';
 
 class Thing {
   final String uid;
   final String title;
   final String description;
-  final List<Category> categories;
   final int numberOfLikes;
   final bool isSwipedOff;
   final bool isLiked;
 
-  Thing(
-      this.uid,
-      this.title, 
-      this.description,
-      this.categories,
-      this.numberOfLikes,
-      this.isSwipedOff,
-      this.isLiked
-      );
+  Thing({
+    @required this.uid,
+    @required this.title,
+    @required this.description,
+    @required this.numberOfLikes,
+    @required this.isSwipedOff,
+    @required this.isLiked
+  });
 }

@@ -1,5 +1,9 @@
+import 'package:flutter/foundation.dart';
+
 class Category {
   final String name;
 
-  Category(this.name);
+  Category({
+    @required this.name
+  });
 }

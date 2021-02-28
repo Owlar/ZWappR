@@ -9,14 +9,11 @@ import 'package:zwappr/features/profile/ui/widgets/profile_picture.dart';
 import '../widgets/icon_buttons.dart';
 
 
-class EditPage extends StatefulWidget {
-  @override
-  _EditPageState createState() => _EditPageState();
-}
-
-class _EditPageState extends State<EditPage> {
+class EditPage extends StatelessWidget {
+  final File image;
+ EditPage({Key key, @required this.image}) : super(key: key);
   final FirebaseAuth auth = FirebaseAuth.instance;
-  File myImage ;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,11 +28,11 @@ class _EditPageState extends State<EditPage> {
             child: Column(
               children: [
                 ProfilePicture(
-                    image: myImage,
+                    image: image,
                     press: (){}
                     ),
                 SizedBox(height: 20,),
-                Text(auth.currentUser.email.toString()),
+                Text(auth.currentUser.displayName.toString()),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -44,7 +41,7 @@ class _EditPageState extends State<EditPage> {
                       press: (){
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => SettingsPage()),
+                          MaterialPageRoute(builder: (context) => SettingsPage(image: image)),
                         );
                       },
                     ),
@@ -53,7 +50,7 @@ class _EditPageState extends State<EditPage> {
                       press: (){
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => EditPage()),
+                          MaterialPageRoute(builder: (context) => EditPage(image: image)),
                         );
                       },
                     ),

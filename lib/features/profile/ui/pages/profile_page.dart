@@ -21,6 +21,7 @@ class _ProfilePageState extends State<ProfilePage> {
   File _image;
   final imagePicker = ImagePicker();
 
+
   Future getImage() async {
     final image = await imagePicker.getImage(source: ImageSource.camera);
     setState(() {
@@ -84,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
       );
     }
 
-  File get image => _image;
+
 
   @override
   Widget build(BuildContext context) {
@@ -100,10 +101,10 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Column(
               children: [
                 ProfilePicture(
-                    image: _image,
+                    image:_image,
                     press: photoPicker),
                 SizedBox(height: 20,),
-                Text(auth.currentUser.email.toString()),
+                Text(auth.currentUser.displayName.toString()),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -112,7 +113,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       press: (){
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => SettingsPage()),
+                          MaterialPageRoute(builder: (context) => SettingsPage(image: _image)),
                         );
                       },
                     ),
@@ -121,7 +122,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       press: (){
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => EditPage()),
+                          MaterialPageRoute(builder: (context) => EditPage(image: _image)),
                         );
                       },
                     ),

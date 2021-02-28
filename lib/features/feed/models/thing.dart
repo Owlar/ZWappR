@@ -9,5 +9,13 @@ class Thing {
   final bool isSwipedOff;
   final bool isLiked;
 
-  Thing(this.uid, this.title, this.description, this.categories, this.numberOfLikes, this.isSwipedOff, this.isLiked);
+  Thing(
+      this.uid,
+      this.title, 
+      this.description,
+      this.categories,
+      this.numberOfLikes,
+      this.isSwipedOff,
+      this.isLiked
+      );
 }

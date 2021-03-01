@@ -91,7 +91,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-
+    List providerData = auth.currentUser.providerData.toString().split(',');
+    List email = providerData[1].split(':');
     return Scaffold(
         body:  Container(
           decoration: BoxDecoration(
@@ -108,7 +109,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     uri: auth.currentUser.photoURL,
                     press: photoPicker),
                 SizedBox(height: 20,),
-                Text(auth.currentUser.displayName.toString()),
+                auth.currentUser.displayName == null ? Text(email[1]) : Text(auth.currentUser.displayName.toString()),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

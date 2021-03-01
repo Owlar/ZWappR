@@ -20,7 +20,10 @@ class SettingsPage extends StatelessWidget {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
+
   Widget build(BuildContext context) {
+    List providerData = auth.currentUser.providerData.toString().split(',');
+    List email = providerData[1].split(':');
     return Scaffold(
         body:  Container(
           decoration: BoxDecoration(
@@ -39,7 +42,7 @@ class SettingsPage extends StatelessWidget {
                     press: (){}
                 ),
                 SizedBox(height: 20,),
-                Text(auth.currentUser.displayName.toString()),
+                auth.currentUser.displayName == null ? Text(email[1]) : Text(auth.currentUser.displayName.toString()),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -66,11 +69,6 @@ class SettingsPage extends StatelessWidget {
                 Menu(
                   text: "Varsling",
                   icon: Icons.notification_important,
-                  press: () {},
-                ),
-                Menu(
-                  text: "E-post innstillinger",
-                  icon: Icons.email,
                   press: () {},
                 ),
                 Menu(

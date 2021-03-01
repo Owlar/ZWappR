@@ -21,7 +21,10 @@ class ProfilePicture extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String pic = uri+"?type=large";
+    String pic;
+    if(uri != null) {
+      pic = uri + "?type=large";
+    }
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
       child: SizedBox(
@@ -32,7 +35,7 @@ class ProfilePicture extends StatelessWidget {
           overflow: Overflow.visible,
           children: [
             CircleAvatar(
-              backgroundImage: _image == null ? NetworkImage(pic) : FileImage(_image),
+              backgroundImage: _image == null ? (uri == null ? AssetImage("assets/images/profile_test.png") : NetworkImage(pic)) : FileImage(_image),
             ),
             Positioned(
               right: -12,

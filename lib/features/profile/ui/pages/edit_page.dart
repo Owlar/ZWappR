@@ -16,6 +16,9 @@ class EditPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List providerData = auth.currentUser.providerData.toString().split(',');
+    List email = providerData[1].split(':');
+
     return Scaffold(
         body:  Container(
           decoration: BoxDecoration(
@@ -33,7 +36,7 @@ class EditPage extends StatelessWidget {
                     press: (){}
                     ),
                 SizedBox(height: 20,),
-                Text(auth.currentUser.displayName.toString()),
+                auth.currentUser.displayName == null ? Text(email[1]) : Text(auth.currentUser.displayName.toString()),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -69,9 +72,12 @@ class EditPage extends StatelessWidget {
                     ),
                   ),
                   child: Menu(
-                    text: "Tekst",
+                    text: "tekst",
                     icon: Icons.text_fields,
-                    press: () {},
+                    press: () {
+                      print(auth.currentUser.providerData.toString());
+                      print(email[1]);
+                },
                   ),
                 ),
               ],

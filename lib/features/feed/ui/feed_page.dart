@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:zwappr/features/feed/models/thing.dart';
+import 'package:zwappr/features/feed/repository/feed_repository.dart';
 import 'package:zwappr/features/feed/services/feed_service.dart';
 import 'package:zwappr/features/feed/services/i_feed_service.dart';
 
@@ -30,10 +32,11 @@ class _FeedPageState extends State<FeedPage> {
                   color: Colors.black,
                   textColor: Colors.white,
                   child: Center(
-                    child: Text("Print data om innlogget bruker"),
+                    child: Text("Print data om tingene til innlogget bruker"),
                   ),
-                  onPressed: () {
-                    _feedService.getAll(auth.currentUser.uid);
+                  onPressed: () async {
+                    final List<Thing> things = await _feedService.getAll(this.auth.currentUser.uid);
+                    
                   },
                 )
               ]

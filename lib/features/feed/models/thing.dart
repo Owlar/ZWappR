@@ -13,7 +13,7 @@ class Thing {
     @required this.title,
     @required this.description,
     @required this.numberOfLikes,
-    @required this.isSwipedOff,
-    @required this.isLiked
+    this.isSwipedOff,
+    this.isLiked
   });
 }

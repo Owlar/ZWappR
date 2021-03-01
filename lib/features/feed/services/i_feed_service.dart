@@ -1,5 +1,3 @@
-
-
 import 'package:zwappr/features/feed/models/thing.dart';
 
 abstract class IFeedService {

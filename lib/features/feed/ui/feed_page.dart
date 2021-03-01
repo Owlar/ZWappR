@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:zwappr/features/feed/models/thing.dart';
-import 'package:zwappr/features/feed/repository/feed_repository.dart';
 import 'package:zwappr/features/feed/services/feed_service.dart';
 import 'package:zwappr/features/feed/services/i_feed_service.dart';
 

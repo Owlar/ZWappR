@@ -38,6 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
   final FirebaseAuth auth = FirebaseAuth.instance;
 
+
   /*void inputData() async {
     final FirebaseUser user = await auth.currentUser();
     final uid = user.uid;
@@ -89,6 +90,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         body:  Container(
           decoration: BoxDecoration(
@@ -102,6 +104,7 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 ProfilePicture(
                     image:_image,
+                    uri: auth.currentUser.photoURL,
                     press: photoPicker),
                 SizedBox(height: 20,),
                 Text(auth.currentUser.displayName.toString()),
@@ -111,6 +114,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     IconButtons(
                       icon: Icons.settings,
                       press: (){
+                        print(auth.currentUser.photoURL);
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => SettingsPage(image: _image)),

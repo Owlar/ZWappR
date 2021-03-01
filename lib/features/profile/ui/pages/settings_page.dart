@@ -11,7 +11,12 @@ import 'edit_page.dart';
 
 class SettingsPage extends StatelessWidget {
   final File image;
-  SettingsPage({Key key, @required this.image}) : super(key: key);
+  SettingsPage(
+      {
+        Key key,
+        @required this.image
+      })
+      : super(key: key);
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
@@ -26,9 +31,11 @@ class SettingsPage extends StatelessWidget {
           ),
           child: Center(
             child: Column(
+
               children: [
                 ProfilePicture(
                     image: image,
+                    uri: auth.currentUser.photoURL,
                     press: (){}
                 ),
                 SizedBox(height: 20,),

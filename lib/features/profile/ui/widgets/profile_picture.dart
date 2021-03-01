@@ -6,12 +6,17 @@ import 'package:flutter_svg/svg.dart';
 
 class ProfilePicture extends StatelessWidget {
   final File _image;
+  final String uri;
   final  VoidCallback press;
+
+
 
   const ProfilePicture({
     Key key,
     @required File image,
     @required  this.press,
+    this.uri,
+
   }) : _image = image, super(key: key);
 
   @override
@@ -26,7 +31,7 @@ class ProfilePicture extends StatelessWidget {
           overflow: Overflow.visible,
           children: [
             CircleAvatar(
-              backgroundImage: _image == null ? AssetImage("assets/images/profile_test.png") : FileImage(_image),
+              backgroundImage: _image == null ? NetworkImage(uri) : FileImage(_image),
             ),
             Positioned(
               right: -12,

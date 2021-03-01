@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zwappr/features/activity/ui/activity_page.dart';
-import 'package:zwappr/features/chat/ui/chat_page.dart';
+import 'package:zwappr/features/chat/ui/page/chat_page.dart';
+
 import 'package:zwappr/features/feed/ui/feed_page.dart';
 import 'package:zwappr/features/map/ui/map_page.dart';
 import 'package:zwappr/features/profile/ui/pages/profile_page.dart';

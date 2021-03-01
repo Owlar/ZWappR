@@ -29,6 +29,7 @@ class EditPage extends StatelessWidget {
               children: [
                 ProfilePicture(
                     image: image,
+                    uri: auth.currentUser.photoURL,
                     press: (){}
                     ),
                 SizedBox(height: 20,),

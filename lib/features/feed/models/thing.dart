@@ -5,8 +5,8 @@ class Thing {
   final String title;
   final String description;
   final int numberOfLikes;
-  final bool isSwipedOff;
-  final bool isLiked;
+  bool isSwipedOff;
+  bool isLiked;
 
   Thing({
     @required this.uid,

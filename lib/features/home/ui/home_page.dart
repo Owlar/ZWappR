@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:zwappr/features/activity/ui/activity_page.dart';
 import 'package:zwappr/features/chat/ui/chat_page.dart';
+import 'package:zwappr/features/feed/providers/feedback_position_provider.dart';
 import 'package:zwappr/features/feed/ui/feed_page.dart';
 import 'package:zwappr/features/map/ui/map_page.dart';
 import 'package:zwappr/features/profile/ui/pages/profile_page.dart';
@@ -38,7 +40,7 @@ class _HomePageState extends State<HomePage> {
         itemBuilder: (BuildContext context, int index) {
           switch(index) {
             case 0:
-              return FeedPage();
+              return ChangeNotifierProvider(create: (context) => FeedbackPositionProvider(), child: FeedPage());
             case 1:
               return ActivityPage();
             case 2:

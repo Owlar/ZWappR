@@ -1,26 +1,29 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:zwappr/features/profile/ui/widgets/icon_buttons.dart';
 import 'package:zwappr/features/profile/ui/widgets/menu.dart';
 import 'package:zwappr/features/profile/ui/widgets/profile_picture.dart';
 
-import '../widgets/icon_buttons.dart';
 import 'edit_page.dart';
 
-class SettingsPage extends StatefulWidget {
-
-  @override
-  _SettingsPageState createState() => _SettingsPageState();
-}
-
-class _SettingsPageState extends State<SettingsPage> {
+class SettingsPage extends StatelessWidget {
+  final File image;
+  SettingsPage(
+      {
+        Key key,
+        @required this.image
+      })
+      : super(key: key);
   final FirebaseAuth auth = FirebaseAuth.instance;
-  File image;
-
 
   @override
+
   Widget build(BuildContext context) {
+    List providerData = auth.currentUser.providerData.toString().split(',');
+    List email = providerData[1].split(':');
     return Scaffold(
         body:  Container(
           decoration: BoxDecoration(
@@ -31,13 +34,15 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           child: Center(
             child: Column(
+
               children: [
                 ProfilePicture(
                     image: image,
+                    uri: auth.currentUser.photoURL,
                     press: (){}
                 ),
                 SizedBox(height: 20,),
-                Text(auth.currentUser.email.toString()),
+                auth.currentUser.displayName == null ? Text(email[1]) : Text(auth.currentUser.displayName.toString()),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -46,7 +51,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       press: (){
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) =>SettingsPage()),
+                          MaterialPageRoute(builder: (context) => SettingsPage(image: image)),
                         );
                       },
                     ),
@@ -55,7 +60,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       press: (){
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => EditPage()),
+                          MaterialPageRoute(builder: (context) => EditPage(image: image)),
                         );
                       },
                     ),
@@ -64,11 +69,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 Menu(
                   text: "Varsling",
                   icon: Icons.notification_important,
-                  press: () {},
-                ),
-                Menu(
-                  text: "E-post innstillinger",
-                  icon: Icons.email,
                   press: () {},
                 ),
                 Menu(
@@ -99,4 +99,5 @@ class _SettingsPageState extends State<SettingsPage> {
         )
     );
   }
+
 }

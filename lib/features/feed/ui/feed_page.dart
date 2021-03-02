@@ -36,7 +36,7 @@ class _FeedPageState extends State<FeedPage> {
                   SizedBox(height: 22),
                   Stack(children: things.map(_buildThing).toList()),
                   Expanded(child: Container(
-                    // This is where buttons go
+                      child: _swipeBottomButtons(),
                   ))
                 ]
             )
@@ -173,6 +173,31 @@ class _FeedPageState extends State<FeedPage> {
             )
           ]
         )
+    );
+  }
+
+  Widget _swipeBottomButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CircleAvatar(
+          child: Icon(Icons.close, color: Colors.red, size: 70),
+          backgroundColor: Colors.black,
+          radius: 40,
+        ),
+        SizedBox(width: 14),
+        CircleAvatar(
+          child: Icon(Icons.star, color: Colors.yellow, size: 60),
+          backgroundColor: Colors.black,
+          radius: 40,
+        ),
+        SizedBox(width: 14),
+        CircleAvatar(
+          child: Icon(Icons.favorite, color: Colors.blue, size: 60),
+          backgroundColor: Colors.black,
+          radius: 40,
+        ),
+      ]
     );
   }
 

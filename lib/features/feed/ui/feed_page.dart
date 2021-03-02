@@ -34,10 +34,11 @@ class _FeedPageState extends State<FeedPage> {
                   SizedBox(height: 22),
                   SvgPicture.asset("assets/icons/zwappr_logo.svg", height: 100),
                   SizedBox(height: 22),
-                  Stack(children: things.map(_buildThing).toList()),
-                  Expanded(child: Container(
-                      child: _swipeBottomButtons(),
-                  ))
+                  Expanded(
+                    child: Stack(children: things.map(_buildThing).toList()),
+                  ),
+                  SizedBox(child: _swipeBottomButtons()),
+                  SizedBox(height: 22),
                 ]
             )
           ),

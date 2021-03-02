@@ -10,15 +10,12 @@ class ProfilePicture extends StatelessWidget {
   final bool camera;
   final  VoidCallback press;
 
-
-
   const ProfilePicture({
     Key key,
     @required File image,
     @required  this.press,
     this.camera,
     this.uri,
-
   }) : _image = image, super(key: key);
 
   @override
@@ -28,6 +25,7 @@ class ProfilePicture extends StatelessWidget {
     if(uri != null) {
       pic = uri + "?type=large";
     }
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
       child: SizedBox(

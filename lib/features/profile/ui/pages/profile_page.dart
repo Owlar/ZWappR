@@ -39,8 +39,6 @@ class _ProfilePageState extends State<ProfilePage> {
   }
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-
-
   /*void inputData() async {
     final FirebaseUser user = await auth.currentUser();
     final uid = user.uid;
@@ -87,8 +85,6 @@ class _ProfilePageState extends State<ProfilePage> {
         },
       );
     }
-
-
 
   @override
   Widget build(BuildContext context) {

@@ -6,9 +6,10 @@ class ChatUsers {
   String image;
   String date;
 
-  ChatUsers(
-      {@required this.name,
-      @required this.message,
-      @required this.image,
-      @required this.date});
+  ChatUsers({
+    @required this.name,
+    @required this.message,
+    @required this.image,
+    @required this.date
+  });
 }

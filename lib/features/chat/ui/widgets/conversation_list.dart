@@ -9,12 +9,13 @@ class ConversationList extends StatefulWidget {
   String date;
   bool isMessageRead;
 
-  ConversationList(
-      {@required this.name,
-      @required this.message,
-      @required this.image,
-      @required this.date,
-      @required this.isMessageRead});
+  ConversationList({
+    @required this.name,
+    @required this.message,
+    @required this.image,
+    @required this.date,
+    @required this.isMessageRead
+  });
 
   @override
   _ConversationListState createState() => _ConversationListState();
@@ -79,7 +80,8 @@ class _ConversationListState extends State<ConversationList> {
                   fontSize: 12,
                   fontWeight: widget.isMessageRead
                       ? FontWeight.bold
-                      : FontWeight.normal),
+                      : FontWeight.normal
+              ),
             ),
           ],
         ),

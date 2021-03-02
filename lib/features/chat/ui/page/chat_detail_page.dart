@@ -11,15 +11,28 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   @override
   Widget build(BuildContext context) {
     List<ChatMessage> messages = [
-      ChatMessage(messageContent: "Hello, Will", messageType: "receiver"),
+      ChatMessage(messageContent: "", messageType: "receiver"),
+
+      ChatMessage(messageContent: "Hei, paa", messageType: "receiver"),
       ChatMessage(
-          messageContent: "How have you been?", messageType: "receiver"),
+          messageContent: "kult hahah?", messageType: "receiver"),
+      ChatMessage(messageContent: "Hei, paa", messageType: "sender"),
       ChatMessage(
-          messageContent: "Hey Kriss, I am doing fine dude. wbu?",
-          messageType: "sender"),
-      ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
+          messageContent: "kult hahah?", messageType: "sender"),
+      ChatMessage(messageContent: "Hei, paa", messageType: "receiver"),
       ChatMessage(
-          messageContent: "Is there any thing wrong?", messageType: "sender"),
+          messageContent: "kult hahah?", messageType: "receiver"),
+      ChatMessage(messageContent: "Hei, paa", messageType: "sender"),
+      ChatMessage(
+          messageContent: "kult hahah?", messageType: "sender"),
+      ChatMessage(messageContent: "Hei, paa", messageType: "receiver"),
+      ChatMessage(
+          messageContent: "kult hahah?", messageType: "receiver"),
+      ChatMessage(messageContent: "Hei, paa", messageType: "sender"),
+      ChatMessage(
+          messageContent: "kult hahah?", messageType: "sender"),
+
+
     ];
     return Scaffold(
       body: Container(
@@ -35,7 +48,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
               itemCount: messages.length,
               shrinkWrap: true,
               padding: EdgeInsets.only(top: 10, bottom: 10),
-              physics: NeverScrollableScrollPhysics(),
+              physics: BouncingScrollPhysics(),
               itemBuilder: (context, index) {
                 return Container(
                   padding:
@@ -76,13 +89,45 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                         height: 30,
                         width: 30,
                         decoration: BoxDecoration(
-                          color: Colors.lightBlue,
+
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Icon(
-                          Icons.add,
-                          color: Colors.white,
-                          size: 20,
+                          Icons.attach_file,
+                          color: Colors.black,
+                          size: 26,
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Icon(
+                          Icons.location_on,
+                          color: Colors.black,
+                          size: 26,
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Icon(
+                          Icons.camera_alt,
+                          color: Colors.black,
+                          size: 26,
                         ),
                       ),
                     ),
@@ -104,14 +149,24 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                       onPressed: () {},
                       child: Icon(
                         Icons.send,
-                        color: Colors.white,
-                        size: 18,
+                        color: Colors.black,
+                        size: 26,
                       ),
-                      backgroundColor: Colors.blue,
+                      backgroundColor: Colors.white,
                       elevation: 0,
                     ),
                   ],
                 ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
+                height: 90,
+                width: double.infinity,
+                color: Colors.white,
+                child: ChatInfo(),
               ),
             ),
           ],

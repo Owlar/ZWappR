@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 class ProfilePicture extends StatelessWidget {
   final File _image;
   final String uri;
+  final bool camera;
   final  VoidCallback press;
 
 
@@ -15,6 +16,7 @@ class ProfilePicture extends StatelessWidget {
     Key key,
     @required File image,
     @required  this.press,
+    this.camera,
     this.uri,
 
   }) : _image = image, super(key: key);
@@ -22,6 +24,7 @@ class ProfilePicture extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String pic;
+
     if(uri != null) {
       pic = uri + "?type=large";
     }
@@ -37,7 +40,7 @@ class ProfilePicture extends StatelessWidget {
             CircleAvatar(
               backgroundImage: _image == null ? (uri == null ? AssetImage("assets/images/profile_test.png") : NetworkImage(pic)) : FileImage(_image),
             ),
-            Positioned(
+            camera == true ? Positioned(
               right: -12,
               bottom: 0,
               child: SizedBox(
@@ -52,7 +55,7 @@ class ProfilePicture extends StatelessWidget {
                     child: SvgPicture.asset("assets/icons/photo_camera-24px.svg"),
                   )
               ),
-            ),
+            ) : Text(""),
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:zwappr/features/chat/ui/widgets/conversation_list.dart';
 
 import 'package:zwappr/features/chat/ui/widgets/list_view_chat.dart';
 
@@ -24,59 +25,107 @@ class _ChatPageState extends State<ChatPage> {
       ChatUsers(
           name: "Oscar",
           message: "Helst så fort som mulig. Tar litt tid å få fikset UI",
-          image:  "https://randomuser.me/api/portraits/men/1.jpg",
+          image: "https://randomuser.me/api/portraits/men/1.jpg",
           date: "Yesterday"),
       ChatUsers(
-          name: "Magnus",
-          message: "Det hadde gått helt i glemmeboka",
-          image:  "https://randomuser.me/api/portraits/men/5.jpg",
-          date: "31 Mar"),
+          name: "Ina",
+          message: "Awesome Setup",
+          image: "https://randomuser.me/api/portraits/women/1.jpg",
+          date: "Now"),
       ChatUsers(
-          name: "Emilio",
-          message: "hey, glemte den forelesingen saa jeg dro kl 1400. kom hjem har fiksa facebook navn og profil bilde",
-          image:  "https://randomuser.me/api/portraits/men/2.jpg",
-          date: "28 Mar"),
+          name: "Oscar",
+          message: "Helst så fort som mulig. Tar litt tid å få fikset UI",
+          image: "https://randomuser.me/api/portraits/men/1.jpg",
+          date: "Yesterday"),
+      ChatUsers(
+          name: "Ina",
+          message: "Awesome Setup",
+          image: "https://randomuser.me/api/portraits/women/1.jpg",
+          date: "Now"),
+      ChatUsers(
+          name: "Oscar",
+          message: "Helst så fort som mulig. Tar litt tid å få fikset UI",
+          image: "https://randomuser.me/api/portraits/men/1.jpg",
+          date: "Yesterday"),
+      ChatUsers(
+          name: "Ina",
+          message: "Awesome Setup",
+          image: "https://randomuser.me/api/portraits/women/1.jpg",
+          date: "Now"),
+      ChatUsers(
+          name: "Oscar",
+          message: "Helst så fort som mulig. Tar litt tid å få fikset UI",
+          image: "https://randomuser.me/api/portraits/men/1.jpg",
+          date: "Yesterday"),
+      ChatUsers(
+          name: "Ina",
+          message: "Awesome Setup",
+          image: "https://randomuser.me/api/portraits/women/1.jpg",
+          date: "Now"),
+      ChatUsers(
+          name: "Oscar",
+          message: "Helst så fort som mulig. Tar litt tid å få fikset UI",
+          image: "https://randomuser.me/api/portraits/men/1.jpg",
+          date: "Yesterday"),
     ];
 
     return Scaffold(
-      body: Container(decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/images/background_screen.png"),
-          fit: BoxFit.cover,
-        ),
-      ),
-        child: Center(
-          child: Column(
-            children: [
-              SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SafeArea(
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 16, right: 16, top: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              "Meldinger",
-                              style:
-                                  TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
+      body: Center(
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/background_screen.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: SafeArea(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 16, right: 16, top: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            "Meldinger",
+                            style: TextStyle(
+                                fontSize: 32, fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
                     ),
-                    ListViewChat(chatUsers: chatUsers),
-                  ],
+                  ),
                 ),
-              ),
-            ],
+                Padding(
+                  padding: EdgeInsets.only(top: 16,left: 16,right: 16),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: "Search...",
+                      hintStyle: TextStyle(color: Colors.grey.shade600),
+                      prefixIcon: Icon(Icons.search,color: Colors.grey.shade600, size: 20,),
+                      filled: true,
+                      fillColor: Colors.grey.shade100,
+                      contentPadding: EdgeInsets.all(8),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(
+                              color: Colors.grey.shade100
+                          )
+                      ),
+                    ),
+                  ),
+                ),
+                ListViewChat(chatUsers: chatUsers),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 }
-

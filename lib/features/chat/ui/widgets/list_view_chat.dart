@@ -21,14 +21,9 @@ class ListViewChat extends StatelessWidget {
       shrinkWrap: true,
       padding: EdgeInsets.only(top: 16),
       physics: NeverScrollableScrollPhysics(),
+      //physics: BouncingScrollPhysics(),
       itemBuilder: (context, index) {
         return Container(
-          decoration: BoxDecoration(
-            border: Border(
-              top: BorderSide(color: Colors.black),
-              
-            ),
-          ),
           child: ConversationList(
             name: chatUsers[index].name,
             message: chatUsers[index].message,

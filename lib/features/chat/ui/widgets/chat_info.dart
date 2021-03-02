@@ -36,12 +36,9 @@ class ChatInfo extends StatelessWidget {
                   Text("Gunnar", style: TextStyle(
                       fontSize: 16, fontWeight: FontWeight.w600),),
                   SizedBox(height: 6,),
-                  Text("Online", style: TextStyle(
-                      color: Colors.grey.shade600, fontSize: 13),),
                 ],
               ),
             ),
-            Icon(Icons.settings, color: Colors.black54,),
           ],
         ),
       ),

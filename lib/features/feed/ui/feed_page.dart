@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:zwappr/features/feed/data/things.dart';
 import 'package:zwappr/features/feed/models/thing.dart';
@@ -30,6 +31,9 @@ class _FeedPageState extends State<FeedPage> {
             padding: const EdgeInsets.all(8),
             child: Column(
                 children: [
+                  SizedBox(height: 22),
+                  SvgPicture.asset("assets/icons/zwappr_logo.svg", height: 100),
+                  SizedBox(height: 22),
                   Stack(children: things.map(_buildThing).toList()),
                   Expanded(child: Container(
                     // This is where buttons go
@@ -75,8 +79,9 @@ class _FeedPageState extends State<FeedPage> {
     final size = MediaQuery.of(context).size;
 
     return Container(
-      height: size.height * 0.6,
+      height: size.height * 0.5,
       width: size.width * 0.90,
+
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
@@ -118,7 +123,7 @@ class _FeedPageState extends State<FeedPage> {
 
   Widget _buildLikeBadge(SwipingDirection swipingDirection) {
     final isSwipingRight = swipingDirection == SwipingDirection.right;
-    final angle = isSwipingRight ? -0.6 : 0.6;
+    final angle = isSwipingRight ? -0.5 : 0.5;
     final color = isSwipingRight ? Colors.green : Colors.red;
 
     if (swipingDirection == SwipingDirection.none)
@@ -133,13 +138,13 @@ class _FeedPageState extends State<FeedPage> {
           child: Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              border: Border.all(color: color, width: 2),
+              border: Border.all(color: color, width: 3),
             ),
             child: Text(
               isSwipingRight ? "YES!" : "NO!",
               style: TextStyle(
                 color: color,
-                fontSize: 28,
+                fontSize: 40,
                 fontWeight: FontWeight.bold,
               )
 

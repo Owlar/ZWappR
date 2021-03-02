@@ -180,22 +180,32 @@ class _FeedPageState extends State<FeedPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CircleAvatar(
+        RaisedButton(
+          shape: CircleBorder(),
+          padding: const EdgeInsets.all(4),
           child: Icon(Icons.close, color: Colors.red, size: 70),
-          backgroundColor: Colors.black,
-          radius: 40,
+          color: Colors.black,
+          onPressed: () {
+
+          },
         ),
-        SizedBox(width: 14),
-        CircleAvatar(
-          child: Icon(Icons.star, color: Colors.yellow, size: 60),
-          backgroundColor: Colors.black,
-          radius: 40,
+        RaisedButton(
+          shape: CircleBorder(),
+          padding: const EdgeInsets.all(4),
+          child: Icon(Icons.star, color: Colors.yellow, size: 70),
+          color: Colors.black,
+          onPressed: () {
+
+          },
         ),
-        SizedBox(width: 14),
-        CircleAvatar(
-          child: Icon(Icons.favorite, color: Colors.blue, size: 60),
-          backgroundColor: Colors.black,
-          radius: 40,
+        RaisedButton(
+          shape: CircleBorder(),
+          padding: const EdgeInsets.all(4),
+          child: Icon(Icons.favorite, color: Colors.blue, size: 70),
+          color: Colors.black,
+          onPressed: () {
+
+          },
         ),
       ]
     );

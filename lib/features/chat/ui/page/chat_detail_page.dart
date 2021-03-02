@@ -12,27 +12,18 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   Widget build(BuildContext context) {
     List<ChatMessage> messages = [
       ChatMessage(messageContent: "", messageType: "receiver"),
-
       ChatMessage(messageContent: "Hei, paa", messageType: "receiver"),
-      ChatMessage(
-          messageContent: "kult hahah?", messageType: "receiver"),
+      ChatMessage(messageContent: "kult hahah?", messageType: "receiver"),
       ChatMessage(messageContent: "Hei, paa", messageType: "sender"),
-      ChatMessage(
-          messageContent: "kult hahah?", messageType: "sender"),
+      ChatMessage(messageContent: "kult hahah?", messageType: "sender"),
       ChatMessage(messageContent: "Hei, paa", messageType: "receiver"),
-      ChatMessage(
-          messageContent: "kult hahah?", messageType: "receiver"),
+      ChatMessage(messageContent: "kult hahah?", messageType: "receiver"),
       ChatMessage(messageContent: "Hei, paa", messageType: "sender"),
-      ChatMessage(
-          messageContent: "kult hahah?", messageType: "sender"),
+      ChatMessage(messageContent: "kult hahah?", messageType: "sender"),
       ChatMessage(messageContent: "Hei, paa", messageType: "receiver"),
-      ChatMessage(
-          messageContent: "kult hahah?", messageType: "receiver"),
+      ChatMessage(messageContent: "kult hahah?", messageType: "receiver"),
       ChatMessage(messageContent: "Hei, paa", messageType: "sender"),
-      ChatMessage(
-          messageContent: "kult hahah?", messageType: "sender"),
-
-
+      ChatMessage(messageContent: "kult hahah?", messageType: "sender"),
     ];
     return Scaffold(
       body: Container(
@@ -89,7 +80,6 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                         height: 30,
                         width: 30,
                         decoration: BoxDecoration(
-
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Icon(
@@ -105,7 +95,6 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                         height: 30,
                         width: 30,
                         decoration: BoxDecoration(
-
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Icon(
@@ -121,7 +110,6 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                         height: 30,
                         width: 30,
                         decoration: BoxDecoration(
-
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Icon(

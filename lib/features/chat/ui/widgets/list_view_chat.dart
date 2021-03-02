@@ -1,8 +1,6 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../model/chat_users.dart';
-
 
 import 'conversation_list.dart';
 

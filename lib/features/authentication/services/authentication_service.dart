@@ -38,7 +38,7 @@ class AuthenticationService implements IAuthenticationService {
 
   // Is CRUD operation and should be abstracted out in repository
   @override
-  Future<void> setUser(User user, String displayName) async => _repository.setUser(user, displayName);
+  Future<void> setUser(User user, String displayName) async => _repository.createUser(user, displayName);
 
   @override
   Future<UserCredential> signInWithFacebook() async {

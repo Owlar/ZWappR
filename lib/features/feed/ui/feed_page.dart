@@ -189,6 +189,7 @@ class _FeedPageState extends State<FeedPage> {
 
           },
         ),
+        SizedBox(width: 10),
         RaisedButton(
           shape: CircleBorder(),
           padding: const EdgeInsets.all(4),
@@ -198,6 +199,7 @@ class _FeedPageState extends State<FeedPage> {
 
           },
         ),
+        SizedBox(width: 10),
         RaisedButton(
           shape: CircleBorder(),
           padding: const EdgeInsets.all(4),

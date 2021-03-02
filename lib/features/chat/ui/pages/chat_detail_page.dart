@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zwappr/features/chat/ui/model/chat_message.dart';
+import 'package:zwappr/features/chat/ui/models/chat_message.dart';
 import 'package:zwappr/features/chat/ui/widgets/chat_info.dart';
 
 class ChatDetailPage extends StatefulWidget {

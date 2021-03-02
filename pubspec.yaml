@@ -49,6 +49,9 @@ dependencies:
 
   provider: ^4.3.3
 
+  # Http
+  http: ^0.12.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

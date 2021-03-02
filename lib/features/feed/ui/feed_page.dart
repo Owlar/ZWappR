@@ -4,9 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:zwappr/features/feed/data/things.dart';
 import 'package:zwappr/features/feed/models/thing.dart';
-import 'package:zwappr/features/feed/providers/feedback_position_provider.dart';
 import 'package:zwappr/features/feed/services/feed_service.dart';
 import 'package:zwappr/features/feed/services/i_feed_service.dart';
+import 'package:zwappr/features/feed/providers/feedback_position_provider.dart';
 
 class FeedPage extends StatefulWidget {
   @override
@@ -109,7 +109,9 @@ class _FeedPageState extends State<FeedPage> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _buildThingInformation(thing: thing),
+                  Expanded(
+                    child: _buildThingInformation(thing: thing),
+                  )
                 ],
               )
             ),

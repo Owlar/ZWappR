@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:zwappr/features/activity/ui/activity_page.dart';
 import 'package:zwappr/features/chat/ui/page/chat_page.dart';
 
-import 'package:zwappr/features/chat/ui/chat_page.dart';
+
 import 'package:zwappr/features/feed/providers/feedback_position_provider.dart';
 import 'package:zwappr/features/feed/ui/feed_page.dart';
 import 'package:zwappr/features/map/ui/map_page.dart';

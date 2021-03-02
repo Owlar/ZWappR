@@ -107,6 +107,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ProfilePicture(
                     image:_image,
                     uri: auth.currentUser.photoURL,
+                    camera: true,
                     press: photoPicker),
                 SizedBox(height: 20,),
                 auth.currentUser.displayName == null ? Text(email[1]) : Text(auth.currentUser.displayName.toString()),

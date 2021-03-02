@@ -90,7 +90,6 @@ class _HomePageState extends State<HomePage> {
   void _onItemTapped(int index) {
     setState(() => _selectedIndex = index);
     _pageController.jumpToPage(index);
-    print(index);
   }
 
 }

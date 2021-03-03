@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:zwappr/features/chat/ui/model/chat_message.dart';
+
+import 'package:zwappr/features/chat/ui/models/chat_message.dart';
 import 'package:zwappr/features/chat/ui/widgets/chat_info_person.dart';
 
 class ChatDetailPage extends StatefulWidget {

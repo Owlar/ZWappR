@@ -1,8 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zwappr/features/chat/ui/model/chat_message.dart';
-import 'package:zwappr/features/chat/ui/widgets/chat_info.dart';
+import 'package:zwappr/features/chat/ui/widgets/chat_info_person.dart';
 
 class ChatDetailPage extends StatefulWidget {
+  String name;
+  String image;
+
+
+  ChatDetailPage(
+      {@required this.name,
+
+        @required this.image,
+
+      });
   @override
   _ChatDetailPageState createState() => _ChatDetailPageState();
 }
@@ -11,19 +22,22 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   @override
   Widget build(BuildContext context) {
     List<ChatMessage> messages = [
-      ChatMessage(messageContent: "", messageType: "receiver"),
+
+      ChatMessage(messageContent: "FIRST!", messageType: "receiver"),
+      ChatMessage(messageContent: "kult hahah?", messageType: "receiver"),
+      ChatMessage(messageContent: "Hei, paa", messageType: "sender"),
+      ChatMessage(messageContent: "kult hahah?", messageType: "receiver"),
+      ChatMessage(messageContent: "Hei, paa", messageType: "receiver"),
+      ChatMessage(messageContent: "kult hahah?", messageType: "receiver"),
+      ChatMessage(messageContent: "AspectRatio, a widget that attempts to fit within the parent's constraints ", messageType: "sender"),
       ChatMessage(messageContent: "Hei, paa", messageType: "receiver"),
       ChatMessage(messageContent: "kult hahah?", messageType: "receiver"),
       ChatMessage(messageContent: "Hei, paa", messageType: "sender"),
-      ChatMessage(messageContent: "kult hahah?", messageType: "sender"),
+      ChatMessage(messageContent: "kult hahah?", messageType: "receiver"),
       ChatMessage(messageContent: "Hei, paa", messageType: "receiver"),
       ChatMessage(messageContent: "kult hahah?", messageType: "receiver"),
-      ChatMessage(messageContent: "Hei, paa", messageType: "sender"),
-      ChatMessage(messageContent: "kult hahah?", messageType: "sender"),
-      ChatMessage(messageContent: "Hei, paa", messageType: "receiver"),
-      ChatMessage(messageContent: "kult hahah?", messageType: "receiver"),
-      ChatMessage(messageContent: "Hei, paa", messageType: "sender"),
-      ChatMessage(messageContent: "kult hahah?", messageType: "sender"),
+      ChatMessage(messageContent: "LAST! ", messageType: "sender"),
+
     ];
     return Scaffold(
       body: Container(
@@ -35,10 +49,12 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
         ),
         child: Stack(
           children: <Widget>[
+
+
             ListView.builder(
               itemCount: messages.length,
               shrinkWrap: true,
-              padding: EdgeInsets.only(top: 10, bottom: 10),
+              padding: EdgeInsets.only(top: 85, bottom: 60),
               physics: BouncingScrollPhysics(),
               itemBuilder: (context, index) {
                 return Container(
@@ -50,7 +66,16 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                         : Alignment.topRight),
                     child: Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                          bottomLeft: (messages[index].messageType == "receiver"
+                              ? Radius.circular(0)
+                              : Radius.circular(20)),
+                          bottomRight: (messages[index].messageType == "receiver"
+                              ? Radius.circular(20)
+                              : Radius.circular(0)),
+                        ),
                         color: (messages[index].messageType == "receiver"
                             ? Colors.grey.shade300
                             : Colors.white),
@@ -154,7 +179,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                 height: 90,
                 width: double.infinity,
                 color: Colors.white,
-                child: ChatInfo(),
+                child: ChatInfoPerson(name: widget.name, image: widget.image),
               ),
             ),
           ],

@@ -19,54 +19,67 @@ class _ChatPageState extends State<ChatPage> {
     List<ChatUsers> chatUsers = [
       ChatUsers(
           name: "Ina",
-          message: "Awesome Setup",
+          message: "Husk å skrive om arkitektur, løst koblet kode, repository, services, MVC...",
           image: "https://randomuser.me/api/portraits/women/1.jpg",
           date: "Now"),
       ChatUsers(
           name: "Oscar",
-          message: "Helst så fort som mulig. Tar litt tid å få fikset UI",
+          message: "I dette kapittel ble det snakket om hvordan prosjektgruppen har implementer ZWappR systemet",
           image: "https://randomuser.me/api/portraits/men/1.jpg",
+          date: "Yesterday"),
+      ChatUsers(
+          name: "Magnus",
+          message: "Før implementeringen av autentisering så var REST API'et fullstendig åpent.",
+          image: "https://randomuser.me/api/portraits/men/3.jpg",
+          date: "Now"),
+      ChatUsers(
+          name: "Emilio",
+          message: "Hei alle sammen",
+          image: "https://randomuser.me/api/portraits/men/2.jpg",
           date: "Yesterday"),
       ChatUsers(
           name: "Ina",
-          message: "Awesome Setup",
+          message: "Husk å skrive om arkitektur, løst koblet kode, repository, services, MVC...",
           image: "https://randomuser.me/api/portraits/women/1.jpg",
           date: "Now"),
       ChatUsers(
           name: "Oscar",
-          message: "Helst så fort som mulig. Tar litt tid å få fikset UI",
+          message: "I dette kapittel ble det snakket om hvordan prosjektgruppen har implementer ZWappR systemet",
           image: "https://randomuser.me/api/portraits/men/1.jpg",
           date: "Yesterday"),
+      ChatUsers(
+          name: "Magnus",
+          message: "Før implementeringen av autentisering så var REST API'et fullstendig åpent.",
+          image: "https://randomuser.me/api/portraits/men/3.jpg",
+          date: "Now"),
+      ChatUsers(
+          name: "Emilio",
+          message: "Hei alle sammen",
+          image: "https://randomuser.me/api/portraits/men/2.jpg",
+          date: "Yesterday"),
+
       ChatUsers(
           name: "Ina",
-          message: "Awesome Setup",
+          message: "Husk å skrive om arkitektur, løst koblet kode, repository, services, MVC...",
           image: "https://randomuser.me/api/portraits/women/1.jpg",
           date: "Now"),
       ChatUsers(
           name: "Oscar",
-          message: "Helst så fort som mulig. Tar litt tid å få fikset UI",
+          message: "I dette kapittel ble det snakket om hvordan prosjektgruppen har implementer ZWappR systemet",
           image: "https://randomuser.me/api/portraits/men/1.jpg",
           date: "Yesterday"),
       ChatUsers(
-          name: "Ina",
-          message: "Awesome Setup",
-          image: "https://randomuser.me/api/portraits/women/1.jpg",
+          name: "Magnus",
+          message: "Før implementeringen av autentisering så var REST API'et fullstendig åpent.",
+          image: "https://randomuser.me/api/portraits/men/3.jpg",
           date: "Now"),
       ChatUsers(
-          name: "Oscar",
-          message: "Helst så fort som mulig. Tar litt tid å få fikset UI",
-          image: "https://randomuser.me/api/portraits/men/1.jpg",
+          name: "Emilio",
+          message: "Hei alle sammen",
+          image: "https://randomuser.me/api/portraits/men/2.jpg",
           date: "Yesterday"),
-      ChatUsers(
-          name: "Ina",
-          message: "Awesome Setup",
-          image: "https://randomuser.me/api/portraits/women/1.jpg",
-          date: "Now"),
-      ChatUsers(
-          name: "Oscar",
-          message: "Helst så fort som mulig. Tar litt tid å få fikset UI",
-          image: "https://randomuser.me/api/portraits/men/1.jpg",
-          date: "Yesterday"),
+
+
     ];
 
     return Scaffold(

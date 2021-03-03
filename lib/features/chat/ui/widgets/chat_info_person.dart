@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ChatInfo extends StatelessWidget {
-  const ChatInfo({
+class ChatInfoPerson extends StatelessWidget {
+  final name;
+  final image;
+
+
+  const ChatInfoPerson({
     Key key,
-    image,
+    this.image, this.name,
   }) : super(key: key);
 
   @override
@@ -29,7 +33,7 @@ class ChatInfo extends StatelessWidget {
             ),
             CircleAvatar(
               backgroundImage:
-                  NetworkImage("https://randomuser.me/api/portraits/men/5.jpg"),
+                  NetworkImage(image),
               maxRadius: 20,
             ),
             SizedBox(
@@ -41,7 +45,7 @@ class ChatInfo extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "Gunnar",
+                    name,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                   SizedBox(

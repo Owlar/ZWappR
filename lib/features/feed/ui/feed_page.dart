@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:zwappr/features/color/color_theme.dart';
 import 'package:zwappr/features/feed/data/things.dart';
 import 'package:zwappr/features/feed/models/thing.dart';
 import 'package:zwappr/features/feed/providers/feedback_position_provider.dart';
@@ -85,7 +86,7 @@ class _FeedPageState extends State<FeedPage> {
 
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
+        color: zwapprWhite,
       ),
       child: Container(
         decoration: BoxDecoration(
@@ -127,7 +128,7 @@ class _FeedPageState extends State<FeedPage> {
   Widget _buildLikeBadge(SwipingDirection swipingDirection) {
     final isSwipingRight = swipingDirection == SwipingDirection.right;
     final angle = isSwipingRight ? -0.5 : 0.5;
-    final color = isSwipingRight ? Colors.green : Colors.red;
+    final color = isSwipingRight ? zwapprGreen : zwapprRed;
 
     if (swipingDirection == SwipingDirection.none)
       return Container();
@@ -167,12 +168,12 @@ class _FeedPageState extends State<FeedPage> {
           children: [
             Text(
               "${thing.title}",
-              style: TextStyle(color: Colors.black, fontSize: 30),
+              style: TextStyle(color: zwapprBlack, fontSize: 30),
             ),
             SizedBox(height: 10),
             Text(
               "${thing.description}",
-              style: TextStyle(color: Colors.black, fontSize: 18),
+              style: TextStyle(color: zwapprBlack, fontSize: 18),
             )
           ]
         )
@@ -186,8 +187,8 @@ class _FeedPageState extends State<FeedPage> {
         RaisedButton(
           shape: CircleBorder(),
           padding: const EdgeInsets.all(4),
-          child: Icon(Icons.close, color: Colors.red, size: 70),
-          color: Colors.black,
+          child: Icon(Icons.close, color: zwapprRed, size: 70),
+          color: zwapprBlack,
           onPressed: () {
 
           },
@@ -196,8 +197,8 @@ class _FeedPageState extends State<FeedPage> {
         RaisedButton(
           shape: CircleBorder(),
           padding: const EdgeInsets.all(4),
-          child: Icon(Icons.star, color: Colors.yellow, size: 70),
-          color: Colors.black,
+          child: Icon(Icons.star, color: zwapprYellow, size: 70),
+          color: zwapprBlack,
           onPressed: () {
 
           },
@@ -206,8 +207,8 @@ class _FeedPageState extends State<FeedPage> {
         RaisedButton(
           shape: CircleBorder(),
           padding: const EdgeInsets.all(4),
-          child: Icon(Icons.favorite, color: Colors.blue, size: 70),
-          color: Colors.black,
+          child: Icon(Icons.favorite, color: zwapprBlue, size: 70),
+          color: zwapprBlack,
           onPressed: () {
 
           },

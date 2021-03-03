@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:zwappr/features/color/color_theme.dart';
 
 class Button extends StatelessWidget {
   final VoidCallback press;
@@ -20,8 +21,8 @@ class Button extends StatelessWidget {
             padding: EdgeInsets.all(20),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50),
-                side: BorderSide(color: Color(0xFFFFFF))),
-            color: Color(0xFFE0E0E0),
+               ),
+            color: zwapprLightGray,
             onPressed: press,
             child: Row(
               children: [Expanded(child: Text("Inviter",

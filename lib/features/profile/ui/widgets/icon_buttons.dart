@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:zwappr/features/color/color_theme.dart';
 
 class IconButtons extends StatelessWidget {
   final IconData icon;
@@ -21,7 +22,7 @@ class IconButtons extends StatelessWidget {
         child: IconButton(
             icon: Icon(icon),
             iconSize: 36,
-            color: Colors.black,
+            color: zwapprBlack,
             onPressed: press
         ),
       ),

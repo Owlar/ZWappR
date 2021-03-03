@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:zwappr/features/color/color_theme.dart';
 
 class ProfilePicture extends StatelessWidget {
   final File _image;
@@ -47,8 +48,8 @@ class ProfilePicture extends StatelessWidget {
                   child: FlatButton(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50),
-                        side: BorderSide(color: Color(0xFFFFFF))),
-                    color: Color(0xFFE0E0E0),
+                        side: BorderSide(color: zwapprWhite)),
+                    color: zwapprLightGray,
                     onPressed:press,//photoPicker,
                     child: SvgPicture.asset("assets/icons/photo_camera-24px.svg"),
                   )

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:zwappr/features/color/color_theme.dart';
 
 class Menu extends StatelessWidget {
   final String text;
@@ -18,7 +19,7 @@ class Menu extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         border: Border(
-          top: BorderSide(color: Colors.black),
+          top: BorderSide(color: zwapprBlack),
         ),
       ),
       child: Row(
@@ -27,7 +28,7 @@ class Menu extends StatelessWidget {
             child: new Icon(
               icon,
               size: 36,
-              color: Colors.black,
+              color: zwapprBlack,
             ),
             onPressed: press,
           ),

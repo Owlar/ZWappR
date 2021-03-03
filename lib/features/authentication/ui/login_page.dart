@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:zwappr/features/authentication/services/authentication_service.dart';
 import 'package:zwappr/features/authentication/services/i_authentication_service.dart';
 import 'package:zwappr/features/authentication/ui/register_page.dart';
+import 'package:zwappr/features/color/color_theme.dart';
 import 'package:zwappr/features/home/ui/home_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -42,8 +43,8 @@ class LoginPage extends StatelessWidget {
             ),
             SizedBox(height: 10),
             RaisedButton(
-              color: Colors.black,
-              textColor: Colors.white,
+              color: zwapprBlack,
+              textColor: zwapprWhite,
               onPressed: () async {
                 final user = (await _authenticationService.signIn(email: emailController.text.trim(), password: passwordController.text.trim()));
                 if (user != null) {
@@ -53,8 +54,8 @@ class LoginPage extends StatelessWidget {
               child: Text("Logg inn"),
             ),
             RaisedButton(
-              color: Colors.black,
-              textColor: Colors.white,
+              color: zwapprBlack,
+              textColor: zwapprWhite,
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterPage()));
               },

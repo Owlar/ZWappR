@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:zwappr/features/authentication/services/authentication_service.dart';
+import 'package:zwappr/features/color/color_theme.dart';
 
 class RegisterPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -44,8 +45,8 @@ class RegisterPage extends StatelessWidget {
               ),
               SizedBox(height: 10),
               RaisedButton(
-                color: Colors.black,
-                textColor: Colors.white,
+                color: zwapprBlack,
+                textColor: zwapprWhite,
                 onPressed: () async {
                   final user = (await _authenticationService.register(email: emailController.text.trim(), password: passwordController.text.trim()));
                   if (user != null) {

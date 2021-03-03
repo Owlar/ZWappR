@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:zwappr/features/color/color_theme.dart';
 
 class ChatInfoPerson extends StatelessWidget {
   final name;
   final image;
 
-
   const ChatInfoPerson({
     Key key,
-    this.image, this.name,
+    this.image,
+    this.name,
   }) : super(key: key);
 
   @override
@@ -24,7 +25,7 @@ class ChatInfoPerson extends StatelessWidget {
               },
               icon: Icon(
                 Icons.keyboard_arrow_left,
-                color: Colors.black,
+                color: zwapprBlue,
                 size: 26,
               ),
             ),
@@ -32,8 +33,7 @@ class ChatInfoPerson extends StatelessWidget {
               width: 2,
             ),
             CircleAvatar(
-              backgroundImage:
-                  NetworkImage(image),
+              backgroundImage: NetworkImage(image),
               maxRadius: 20,
             ),
             SizedBox(

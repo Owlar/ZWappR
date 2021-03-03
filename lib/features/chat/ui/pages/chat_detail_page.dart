@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:zwappr/features/chat/ui/models/chat_message.dart';
 import 'package:zwappr/features/chat/ui/widgets/chat_info_person.dart';
+import 'package:zwappr/features/color/color_theme.dart';
 
 class ChatDetailPage extends StatefulWidget {
   String name;
@@ -80,8 +81,8 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                               : Radius.circular(0)),
                         ),
                         color: (messages[index].messageType == "receiver"
-                            ? Colors.grey.shade300
-                            : Colors.white),
+                            ? zwapprLightGray
+                            : zwapprWhite),
                       ),
                       padding: EdgeInsets.all(16),
                       child: Text(
@@ -112,7 +113,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                         ),
                         child: Icon(
                           Icons.attach_file,
-                          color: Colors.black,
+                          color: zwapprBlue,
                           size: 26,
                         ),
                       ),
@@ -127,7 +128,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                         ),
                         child: Icon(
                           Icons.location_on,
-                          color: Colors.black,
+                          color: zwapprBlue,
                           size: 26,
                         ),
                       ),
@@ -142,7 +143,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                         ),
                         child: Icon(
                           Icons.camera_alt,
-                          color: Colors.black,
+                          color: zwapprBlue,
                           size: 26,
                         ),
                       ),
@@ -165,10 +166,10 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                       onPressed: () {},
                       child: Icon(
                         Icons.send,
-                        color: Colors.black,
+                        color: zwapprBlue,
                         size: 26,
                       ),
-                      backgroundColor: Colors.white,
+                      backgroundColor: zwapprWhite,
                       elevation: 0,
                     ),
                   ],
@@ -181,7 +182,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                 padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
                 height: 90,
                 width: double.infinity,
-                color: Colors.white,
+                color: zwapprWhite,
                 child: ChatInfoPerson(name: widget.name, image: widget.image),
               ),
             ),

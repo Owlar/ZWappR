@@ -21,7 +21,7 @@ class ChatDetailPage extends StatefulWidget {
 class _ChatDetailPageState extends State<ChatDetailPage> {
   @override
   Widget build(BuildContext context) {
-    List<ChatMessage> messages = [
+    List<ChatMessage> messagesReverse = [
 
       ChatMessage(messageContent: "FIRST!", messageType: "receiver"),
       ChatMessage(messageContent: "kult hahah?", messageType: "receiver"),
@@ -39,6 +39,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
       ChatMessage(messageContent: "LAST! ", messageType: "sender"),
 
     ];
+    List<ChatMessage> messages = messagesReverse.reversed.toList();
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -54,6 +55,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
             ListView.builder(
               itemCount: messages.length,
               shrinkWrap: true,
+              reverse: true,
               padding: EdgeInsets.only(top: 85, bottom: 60),
               physics: BouncingScrollPhysics(),
               itemBuilder: (context, index) {

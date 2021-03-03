@@ -28,7 +28,7 @@ class _ConversationListState extends State<ConversationList> {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ChatDetailPage()),
+          MaterialPageRoute(builder: (context) => ChatDetailPage(name: widget.name, image: widget.image )),
         );
       },
       child: Container(

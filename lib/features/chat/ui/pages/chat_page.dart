@@ -36,47 +36,25 @@ class _ChatPageState extends State<ChatPage> {
           image: "https://randomuser.me/api/portraits/men/2.jpg",
           date: "Yesterday"),
       ChatUsers(
-          name: "Ina",
-          message: "Husk å skrive om arkitektur, løst koblet kode, repository, services, MVC...",
-          image: "https://randomuser.me/api/portraits/women/1.jpg",
+          name: "Vilde",
+          message: "Harket er datteren til A-ha-stjernen Morten Harket, ",
+          image: "https://randomuser.me/api/portraits/women/2.jpg",
           date: "Now"),
       ChatUsers(
-          name: "Oscar",
-          message: "I dette kapittel ble det snakket om hvordan prosjektgruppen har implementer ZWappR systemet",
-          image: "https://randomuser.me/api/portraits/men/1.jpg",
+          name: "Nora",
+          message: "Harket mener det har påvirket henne på en måte som gjør at hun ikke klarer å fullføre ting hun har startet på.",
+          image: "https://randomuser.me/api/portraits/women/3.jpg",
           date: "Yesterday"),
       ChatUsers(
-          name: "Magnus",
-          message: "Før implementeringen av autentisering så var REST API'et fullstendig åpent.",
-          image: "https://randomuser.me/api/portraits/men/3.jpg",
+          name: "Ole",
+          message: "Hun forklarer at ADHD (Attention deficit hyperactivity disorder) og ADD (attention deficit disorder) er litt det samme ",
+          image: "https://randomuser.me/api/portraits/men/4.jpg",
           date: "Now"),
       ChatUsers(
-          name: "Emilio",
-          message: "Hei alle sammen",
-          image: "https://randomuser.me/api/portraits/men/2.jpg",
-          date: "Yesterday"),
-
-      ChatUsers(
-          name: "Ina",
-          message: "Husk å skrive om arkitektur, løst koblet kode, repository, services, MVC...",
-          image: "https://randomuser.me/api/portraits/women/1.jpg",
+          name: "Line",
+          message: "Samtidig påpeker hun at denne diagnosen ikke vil gjøre noe særlig forskjell i livet hennes. ",
+          image: "https://randomuser.me/api/portraits/women/4.jpg",
           date: "Now"),
-      ChatUsers(
-          name: "Oscar",
-          message: "I dette kapittel ble det snakket om hvordan prosjektgruppen har implementer ZWappR systemet",
-          image: "https://randomuser.me/api/portraits/men/1.jpg",
-          date: "Yesterday"),
-      ChatUsers(
-          name: "Magnus",
-          message: "Før implementeringen av autentisering så var REST API'et fullstendig åpent.",
-          image: "https://randomuser.me/api/portraits/men/3.jpg",
-          date: "Now"),
-      ChatUsers(
-          name: "Emilio",
-          message: "Hei alle sammen",
-          image: "https://randomuser.me/api/portraits/men/2.jpg",
-          date: "Yesterday"),
-
 
     ];
 

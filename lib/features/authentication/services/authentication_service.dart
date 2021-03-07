@@ -28,7 +28,7 @@ class AuthenticationService implements IAuthenticationService {
   Future<UserModel> register({String displayName, String email, String password}) async {
     try {
       final user = (await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password)).user;
-      await setUser(user, displayName);
+      await createUser(user, displayName);
       return UserModel(user.uid, user.displayName);
     } on FirebaseAuthException catch (e) {
       print(e.message);
@@ -38,7 +38,7 @@ class AuthenticationService implements IAuthenticationService {
 
   // Is CRUD operation and should be abstracted out in repository
   @override
-  Future<void> setUser(User user, String displayName) async => _repository.createUser(user, displayName);
+  Future<void> createUser(User user, String displayName) async => _repository.createUser(user, displayName);
 
   @override
   Future<UserCredential> signInWithFacebook() async {

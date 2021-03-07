@@ -20,7 +20,7 @@ abstract class IAuthenticationService {
   // Setting user in Firestore with:
   /// [user]
   /// [displayName]
-  Future<void> setUser(User user, String displayName);
+  Future<void> createUser(User user, String displayName);
 
   // Signing in through Facebook auth provider
   Future<UserCredential> signInWithFacebook();

@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:zwappr/features/color/color_theme.dart';
+import 'package:zwappr/utils/colors/color_theme.dart';
 import 'package:zwappr/features/feed/data/things.dart';
 import 'package:zwappr/features/feed/models/thing.dart';
 import 'package:zwappr/features/feed/providers/feedback_position_provider.dart';

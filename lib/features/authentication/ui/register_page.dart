@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:zwappr/features/authentication/services/authentication_service.dart';
-import 'package:zwappr/features/color/color_theme.dart';
+import 'package:zwappr/utils/colors/color_theme.dart';
 
 class RegisterPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();

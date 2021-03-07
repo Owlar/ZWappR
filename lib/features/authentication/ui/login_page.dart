@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:zwappr/features/authentication/services/authentication_service.dart';
 import 'package:zwappr/features/authentication/services/i_authentication_service.dart';
 import 'package:zwappr/features/authentication/ui/register_page.dart';
-import 'package:zwappr/features/color/color_theme.dart';
+import 'package:zwappr/utils/colors/color_theme.dart';
 import 'package:zwappr/features/home/ui/home_page.dart';
 
 class LoginPage extends StatelessWidget {

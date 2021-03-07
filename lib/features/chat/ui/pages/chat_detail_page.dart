@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:zwappr/features/chat/ui/models/chat_message.dart';
 import 'package:zwappr/features/chat/ui/widgets/chat_info_person.dart';
-import 'package:zwappr/features/color/color_theme.dart';
+import 'package:zwappr/utils/colors/color_theme.dart';
 
 class ChatDetailPage extends StatefulWidget {
   String name;

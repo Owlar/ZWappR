@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:zwappr/features/authentication/ui/login_page.dart';
-import 'package:zwappr/features/color/color_theme.dart';
+import 'package:zwappr/utils/colors/color_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

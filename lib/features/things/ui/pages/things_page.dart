@@ -40,9 +40,12 @@ class _ThingsPageState extends State<ThingsPage> {
           );
           // TESTING
           final ThingModel thing = ThingModel("test", "testesen");
+          final ThingModel shoes = ThingModel("Selskapsko", "Blanke og nye sko i stor størrelse");
 
           // 1. Creating
           _thingsService.create(thing);
+          _thingsService.create(shoes);
+
 
           // 2. Listing
           List<ThingModel> things = List();
@@ -54,6 +57,11 @@ class _ThingsPageState extends State<ThingsPage> {
 
           // 4. Deleting
           _thingsService.delete("Gzb685FYsTS9OmFekp4j");
+
+          // 5. Getting
+          final ThingModel shouldBeShoes = await _thingsService.get("dvdGzMSdTu6UtRbJ4Amy");
+          print(shouldBeShoes);
+
         },
         label: Text("Ny ting"),
         icon: Icon(Icons.add),

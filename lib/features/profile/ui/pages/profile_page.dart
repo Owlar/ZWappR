@@ -14,6 +14,7 @@ import '../widgets/button.dart';
 import '../widgets/icon_buttons.dart';
 import 'edit_page.dart';
 
+import 'package:firebase_storage/firebase_storage.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -43,11 +44,20 @@ class _ProfilePageState extends State<ProfilePage> {
   }
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  /*void inputData() async {
-    final FirebaseUser user = await auth.currentUser();
-    final uid = user.uid;
-    // here you write the codes to input the data into firestore
-  }*/
+
+
+  Future<void> dis() async {
+    auth.currentUser.getIdToken(true).then((idToken) async => {
+      await http.get(
+        "https://us-central1-zwappr.cloudfunctions.net/api/users/me",
+        headers: <String, String>{
+          "Content-Type": "application/json; charset=UTF-8",
+          "idToken": idToken
+        },
+
+      )
+    });
+  }
 
   Future<void> photoPicker() async {
       return showDialog<void>(
@@ -103,6 +113,18 @@ class _ProfilePageState extends State<ProfilePage> {
    }),
    )
   });
+   Future<void> dis() async {
+     auth.currentUser.getIdToken(true).then((idToken) async => {
+       await http.get(
+         "https://us-central1-zwappr.cloudfunctions.net/api/users/me",
+         headers: <String, String>{
+           "Content-Type": "application/json; charset=UTF-8",
+           "idToken": idToken
+         },
+
+       )
+     });
+   }
 
 
     /*await http.put(
@@ -116,9 +138,22 @@ class _ProfilePageState extends State<ProfilePage> {
     );*/
 
   }
+  uploadPic(File _image1) async {
+    FirebaseStorage storage = FirebaseStorage.instance;
+    String url;
+    Reference ref = storage.ref().child("users/image1" + DateTime.now().toString());
+    UploadTask uploadTask = ref.putFile(_image1);
+    uploadTask.whenComplete(() {
+      url = ref.getDownloadURL() as String;
+    }).catchError((onError) {
+      print(onError);
+    });
+    return url;
+  }
 
   @override
   Widget build(BuildContext context) {
+
     List providerData = auth.currentUser.providerData.toString().split(',');
     List email = providerData[1].split(':');
     return Scaffold(
@@ -136,9 +171,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     image:_image,
                     uri: auth.currentUser.photoURL,
                     camera: true,
-                    press: photoPicker,
+                    press: (){photoPicker();
+                    uploadPic(_image);}
+
                 ),
                 SizedBox(height: 20,),
+
                 auth.currentUser.displayName == null ? Text(email[1]) : Text(auth.currentUser.displayName.toString()),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -147,8 +185,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       icon: Icons.settings,
                       press: (){
 
-
-                        update("sdsd");
                         print(auth.currentUser.photoURL);
                         Navigator.push(
                           context,

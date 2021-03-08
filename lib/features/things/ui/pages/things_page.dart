@@ -39,13 +39,12 @@ class _ThingsPageState extends State<ThingsPage> {
               MaterialPageRoute(builder: (context) => NewThingPage())
           );
           // TESTING
-          final ThingModel thing = ThingModel("test", "testesen");
-          final ThingModel shoes = ThingModel("Selskapsko", "Blanke og nye sko i stor størrelse");
+          final ThingModel thing = ThingModel(title: "test", description: "testesen");
+          final ThingModel shoes = ThingModel(title: "Selskapsko", description: "Blanke og nye sko i stor størrelse");
 
           // 1. Creating
           _thingsService.create(thing);
           _thingsService.create(shoes);
-
 
           // 2. Listing
           List<ThingModel> things = List();

@@ -22,13 +22,16 @@ class ThingsRepository {
   }
 
   Future<List<ThingModel>> getAll() async {
-    await http.read(
+    final response = await http.get(
       "https://us-central1-zwappr.cloudfunctions.net/api/things",
       headers: <String, String>{
         "Content-Type": "application/json; charset=UTF-8",
         "idToken": await _firebaseAuth.currentUser.getIdToken()
       }
     );
+    //return parsed.map<Photo>((json) => Photo.fromJson(json)).toList();
+    final Map<String, dynamic> parsed = jsonDecode(response.body);
+    return List<ThingModel>.from(parsed["data"].map((x) => ThingModel.fromJson(x)));
   }
 
   put(String uid) async {

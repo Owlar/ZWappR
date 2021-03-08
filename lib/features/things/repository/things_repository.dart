@@ -7,8 +7,8 @@ import 'package:http/http.dart' as http;
 class ThingsRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  Future<void> createThing(ThingModel thing) async {
-    var apiCall = await http.post(
+  Future<void> create(ThingModel thing) async {
+    await http.post(
       "https://us-central1-zwappr.cloudfunctions.net/api/things",
       headers: <String, String>{
         "Content-Type": "application/json; charset=UTF-8",
@@ -20,5 +20,13 @@ class ThingsRepository {
       }),
     );
   }
+
+  getAll() {}
+
+  put(String uid) {}
+
+  delete(String uid) {}
+
+  get(String uid) {}
 
 }

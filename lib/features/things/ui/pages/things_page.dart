@@ -39,7 +39,7 @@ class _ThingsPageState extends State<ThingsPage> {
               MaterialPageRoute(builder: (context) => NewThingPage())
           );
           final ThingModel thing = ThingModel("testesen123123", "test", "testesen");
-          _thingsService.createThing(thing);
+          _thingsService.create(thing);
 
         },
         label: Text("Ny ting"),

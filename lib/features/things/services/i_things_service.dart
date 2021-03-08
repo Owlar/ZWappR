@@ -4,6 +4,21 @@ abstract class IThingsService {
 
   // Creating a thing with:
   /// [thing]
-  Future<void> createThing(ThingModel thing);
+  Future<void> create(ThingModel thing);
+
+  // Listing all things
+  Future<List<ThingModel>> getAll();
+
+  // Updating a thing with:
+  /// [uid]
+  Future<void> put(String uid);
+
+  // Deleting a thing with:
+  /// [uid]
+  Future<void> delete(String uid);
+
+  // Getting a thing with:
+  /// [uid]
+  Future<ThingModel> get(String uid);
 
 }

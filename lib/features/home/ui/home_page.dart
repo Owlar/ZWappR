@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:zwappr/features/activity/ui/activity_page.dart';
-import 'package:zwappr/features/chat/ui/pages/chat_page.dart';
+import 'package:zwappr/features/things/ui/things_page.dart';
 import 'package:zwappr/features/feed/providers/feedback_position_provider.dart';
 import 'package:zwappr/features/feed/ui/feed_page.dart';
 import 'package:zwappr/features/map/ui/map_page.dart';
@@ -44,9 +44,9 @@ class _HomePageState extends State<HomePage> {
             case 1:
               return ActivityPage();
             case 2:
-              return MapPage();
+              return ThingsPage();
             case 3:
-              return ChatPage();
+              return MapPage();
             case 4:
               return ProfilePage();
             default:
@@ -70,12 +70,12 @@ class _HomePageState extends State<HomePage> {
               label: "Aktivitet",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.map),
-              label: "Kart",
+              icon: Icon(Icons.post_add),
+              label: "Ting",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.chat),
-              label: "Chat",
+              icon: Icon(Icons.map),
+              label: "Kart",
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),

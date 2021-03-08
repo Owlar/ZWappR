@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:zwappr/features/activity/models/chat_message.dart';
 import 'package:zwappr/features/activity/ui/widgets/chat_info_person.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';

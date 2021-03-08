@@ -14,6 +14,7 @@ class _ActivityPageState extends State<ActivityPage> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+            automaticallyImplyLeading: false,
             backgroundColor: zwapprBlue,
             bottom: TabBar(
                 tabs: [

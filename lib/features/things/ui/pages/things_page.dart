@@ -38,9 +38,19 @@ class _ThingsPageState extends State<ThingsPage> {
               context,
               MaterialPageRoute(builder: (context) => NewThingPage())
           );
-          final ThingModel thing = ThingModel("testesen123123", "test", "testesen");
-          _thingsService.create(thing);
+          // TESTING
+          // 1. Creating
+          //final ThingModel thing = ThingModel("testesen123123", "test", "testesen");
+          //_thingsService.create(thing);
 
+          // 2. Listing
+          List<ThingModel> things = List();
+          things = await _thingsService.getAll();
+          print(things);
+
+          // 3. Putting
+
+          // 4. Deleting
         },
         label: Text("Ny ting"),
         icon: Icon(Icons.add),

@@ -21,7 +21,15 @@ class ThingsRepository {
     );
   }
 
-  getAll() {}
+  Future<List<ThingModel>> getAll() async {
+    await http.read(
+      "https://us-central1-zwappr.cloudfunctions.net/api/things",
+      headers: <String, String>{
+        "Content-Type": "application/json; charset=UTF-8",
+        "idToken": await _firebaseAuth.currentUser.getIdToken()
+      }
+    );
+  }
 
   put(String uid) {}
 

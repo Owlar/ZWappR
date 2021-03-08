@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,7 +9,7 @@ import 'package:zwappr/features/color/color_theme.dart';
 import 'package:zwappr/features/profile/ui/pages/settings_page.dart';
 import 'package:zwappr/features/profile/ui/widgets/menu.dart';
 import 'package:zwappr/features/profile/ui/widgets/profile_picture.dart';
-
+import 'package:http/http.dart' as http;
 import '../widgets/button.dart';
 import '../widgets/icon_buttons.dart';
 import 'edit_page.dart';
@@ -22,6 +23,8 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   File _image;
   final imagePicker = ImagePicker();
+
+
 
 
   Future getImage() async {
@@ -86,6 +89,33 @@ class _ProfilePageState extends State<ProfilePage> {
         },
       );
     }
+  Future<void> update(String name) async {
+
+   auth.currentUser.getIdToken(true).then((idToken) async => {
+   await http.put(
+   "https://us-central1-zwappr.cloudfunctions.net/api/users/me",
+   headers: <String, String>{
+   "Content-Type": "application/json; charset=UTF-8",
+   "idToken": idToken
+   },
+   body: jsonEncode(<String, String>{
+   "displayName": name
+   }),
+   )
+  });
+
+
+    /*await http.put(
+      "https://us-central1-zwappr.cloudfunctions.net/api/users/me",
+      headers: <String, String>{
+        "Content-Type": "application/json; charset=UTF-8" + idToken
+      },
+      body: jsonEncode(<String, String>{
+        "displayName": name
+      }),
+    );*/
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +136,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     image:_image,
                     uri: auth.currentUser.photoURL,
                     camera: true,
-                    press: photoPicker),
+                    press: photoPicker,
+                ),
                 SizedBox(height: 20,),
                 auth.currentUser.displayName == null ? Text(email[1]) : Text(auth.currentUser.displayName.toString()),
                 Row(
@@ -115,6 +146,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     IconButtons(
                       icon: Icons.settings,
                       press: (){
+
+
+                        update("sdsd");
                         print(auth.currentUser.photoURL);
                         Navigator.push(
                           context,

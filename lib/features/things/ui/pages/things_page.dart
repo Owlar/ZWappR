@@ -20,9 +20,7 @@ class _ThingsPageState extends State<ThingsPage> {
           itemCount: 10,
           itemBuilder: (BuildContext context, int index) {
             return Observer(
-              builder: (_) => ThingListItem(
-
-              )
+              builder: (_) => ThingListItem()
             );
           }
         ),

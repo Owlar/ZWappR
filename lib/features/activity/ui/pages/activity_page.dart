@@ -22,7 +22,9 @@ class _ActivityPageState extends State<ActivityPage> {
                   Tab(icon: Icon(Icons.favorite))
                 ]
             ),
-            title: Text("Aktivitet")
+            title: Center(
+                child: Text("Aktivitet")
+            ),
         ),
         body: TabBarView(
           children: [

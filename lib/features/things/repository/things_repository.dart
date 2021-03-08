@@ -47,7 +47,7 @@ class ThingsRepository {
     );
   }
 
-  delete(String uid) async {
+  Future<void> delete(String uid) async {
     await http.delete(
       "https://us-central1-zwappr.cloudfunctions.net/api/things/$uid",
       headers: <String, String>{

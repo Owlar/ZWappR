@@ -39,9 +39,10 @@ class _ThingsPageState extends State<ThingsPage> {
               MaterialPageRoute(builder: (context) => NewThingPage())
           );
           // TESTING
-          // 1. Creating
           final ThingModel thing = ThingModel("test", "testesen");
-          //_thingsService.create(thing);
+
+          // 1. Creating
+          _thingsService.create(thing);
 
           // 2. Listing
           List<ThingModel> things = List();
@@ -52,6 +53,7 @@ class _ThingsPageState extends State<ThingsPage> {
           _thingsService.put("Gzb685FYsTS9OmFekp4j");
 
           // 4. Deleting
+          _thingsService.delete("Gzb685FYsTS9OmFekp4j");
         },
         label: Text("Ny ting"),
         icon: Icon(Icons.add),

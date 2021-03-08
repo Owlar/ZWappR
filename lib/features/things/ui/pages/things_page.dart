@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:zwappr/features/things/models/thing_model.dart';
+import 'package:zwappr/features/things/services/i_things_service.dart';
+import 'package:zwappr/features/things/services/things_service.dart';
 import 'package:zwappr/features/things/ui/widgets/thing_list_item.dart';
 
 import 'new_thing_page.dart';
@@ -9,7 +12,10 @@ class ThingsPage extends StatefulWidget {
   _ThingsPageState createState() => _ThingsPageState();
 }
 
+
 class _ThingsPageState extends State<ThingsPage> {
+  static final IThingsService _thingsService = ThingsService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,10 +33,15 @@ class _ThingsPageState extends State<ThingsPage> {
 
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => NewThingPage())
-        ),
+        onPressed: () async {
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => NewThingPage())
+          );
+          final ThingModel thing = ThingModel("testesen123123", "test", "testesen");
+          _thingsService.createThing(thing);
+
+        },
         label: Text("Ny ting"),
         icon: Icon(Icons.add),
       )

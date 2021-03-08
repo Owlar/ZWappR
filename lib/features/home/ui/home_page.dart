@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'file:///C:/Users/Gunther/AndroidStudioProjects/zwappr/lib/features/activity/ui/pages/activity_page.dart';
+import 'package:zwappr/features/activity/ui/pages/activity_page.dart';
 import 'package:zwappr/features/things/ui/things_page.dart';
 import 'package:zwappr/features/feed/providers/feedback_position_provider.dart';
 import 'package:zwappr/features/feed/ui/feed_page.dart';

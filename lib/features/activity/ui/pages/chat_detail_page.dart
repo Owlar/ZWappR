@@ -9,13 +9,11 @@ class ChatDetailPage extends StatefulWidget {
   String name;
   String image;
 
+  ChatDetailPage({
+    @required this.name,
+    @required this.image,
+  });
 
-  ChatDetailPage(
-      {@required this.name,
-
-        @required this.image,
-
-      });
   @override
   _ChatDetailPageState createState() => _ChatDetailPageState();
 }
@@ -52,8 +50,6 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
         ),
         child: Stack(
           children: <Widget>[
-
-
             ListView.builder(
               itemCount: messages.length,
               shrinkWrap: true,

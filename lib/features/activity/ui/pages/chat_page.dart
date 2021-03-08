@@ -76,8 +76,6 @@ class _ChatPageState extends State<ChatPage> {
           message: "Hei alle sammen",
           image: "https://randomuser.me/api/portraits/men/2.jpg",
           date: "Yesterday"),
-
-
     ];
 
     return Scaffold(

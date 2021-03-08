@@ -59,7 +59,7 @@ class _ThingsPageState extends State<ThingsPage> {
 
           // 5. Getting
           final ThingModel shouldBeShoes = await _thingsService.get("dvdGzMSdTu6UtRbJ4Amy");
-          print(shouldBeShoes);
+          print(shouldBeShoes.title);
 
         },
         label: Text("Ny ting"),

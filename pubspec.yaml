@@ -21,11 +21,6 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  #Camera
-  image_picker: ^0.6.7+22
-  path_provider: ^1.6.27
-  #chat bubble
-  flutter_chat_bubble: ^1.0.2
 
   flutter:
     sdk: flutter
@@ -39,6 +34,16 @@ dependencies:
   firebase_auth: ^0.20.0+1
   cloud_firestore: ^0.16.0+1
 
+  # Camera
+  image_picker: ^0.6.7+22
+  path_provider: ^1.6.27
+
+  # Chat bubble
+  flutter_chat_bubble: ^1.0.2
+
+  # MobX
+  flutter_mobx: ^1.1.0+2
+
   # Sign in options
   flutter_facebook_login: ^3.0.0
   flutter_facebook_auth: ^2.0.2
@@ -49,6 +54,7 @@ dependencies:
   # SVG
   flutter_svg: ^0.19.1
 
+  # Providers
   provider: ^4.3.3
 
   # Http

@@ -40,7 +40,7 @@ class _ThingsPageState extends State<ThingsPage> {
           );
           // TESTING
           // 1. Creating
-          //final ThingModel thing = ThingModel("testesen123123", "test", "testesen");
+          final ThingModel thing = ThingModel("test", "testesen");
           //_thingsService.create(thing);
 
           // 2. Listing
@@ -49,6 +49,7 @@ class _ThingsPageState extends State<ThingsPage> {
           print(things);
 
           // 3. Putting
+          _thingsService.put("Gzb685FYsTS9OmFekp4j");
 
           // 4. Deleting
         },

@@ -31,7 +31,19 @@ class ThingsRepository {
     );
   }
 
-  put(String uid) {}
+  put(String uid) async {
+    await http.put(
+        "https://us-central1-zwappr.cloudfunctions.net/api/things/$uid",
+        headers: <String, String>{
+          "Content-Type": "application/json; charset=UTF-8",
+          "idToken": await _firebaseAuth.currentUser.getIdToken()
+        },
+        body: jsonEncode(<String, String>{
+          "title": "123TEST",
+          "description": "123TEST"
+        }),
+    );
+  }
 
   delete(String uid) {}
 

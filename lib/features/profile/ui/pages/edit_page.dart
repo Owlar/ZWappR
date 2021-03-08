@@ -39,11 +39,8 @@ class EditPage extends StatelessWidget {
             )
           });
     }
-    Future uploadPic(BuildContext context) async{
 
-
-
-    }
+    Future uploadPic(BuildContext context) async {}
 
     return Scaffold(
         body: Container(
@@ -83,8 +80,7 @@ class EditPage extends StatelessWidget {
                     update(newName.text);
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => ProfilePage()),
+                      MaterialPageRoute(builder: (context) => ProfilePage()),
                     );
                   },
                 ),

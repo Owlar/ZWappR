@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:zwappr/features/authentication/models/user_model.dart';
 import 'package:zwappr/features/authentication/ui/login_page.dart';
 import 'package:zwappr/features/color/color_theme.dart';
 import 'package:zwappr/features/profile/ui/pages/settings_page.dart';
@@ -26,13 +28,14 @@ class _ProfilePageState extends State<ProfilePage> {
   final imagePicker = ImagePicker();
 
 
-
+   List<String> imageList;
 
   Future getImage() async {
     final image = await imagePicker.getImage(source: ImageSource.camera);
     setState(() {
       _image = File(image.path);
     });
+    uploadPic(_image);
   }
   Future getGallery() async {
     final image = await imagePicker.getImage(
@@ -41,14 +44,17 @@ class _ProfilePageState extends State<ProfilePage> {
     setState(() {
       _image = File(image.path);
     });
+    uploadPic(_image);
   }
   final FirebaseAuth auth = FirebaseAuth.instance;
 
 
 
-  Future<void> dis() async {
+  Future<UserModel> dis() async {
+    var resp;
+
     auth.currentUser.getIdToken(true).then((idToken) async => {
-      await http.get(
+       resp = await http.get(
         "https://us-central1-zwappr.cloudfunctions.net/api/users/me",
         headers: <String, String>{
           "Content-Type": "application/json; charset=UTF-8",
@@ -57,6 +63,37 @@ class _ProfilePageState extends State<ProfilePage> {
 
       )
     });
+
+   return UserModel.fromJson(jsonDecode(resp.body.data));
+
+
+  }
+  Future<UserModel> fetchAlbum() async {
+
+    var id = await auth.currentUser.getIdToken(true);
+
+
+
+    final response = await http.get(
+      "https://us-central1-zwappr.cloudfunctions.net/api/users/me",
+      headers: <String, String>{
+        "Content-Type": "application/json; charset=UTF-8",
+        "idToken": id
+      },
+
+    );
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      print("STATUSCODE " + response.statusCode.toString());
+      return UserModel.fromJson(jsonDecode(response.body));
+    } else {
+      print("STATUSCODE " + response.statusCode.toString());
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
+    }
   }
 
   Future<void> photoPicker() async {
@@ -99,63 +136,39 @@ class _ProfilePageState extends State<ProfilePage> {
         },
       );
     }
-  Future<void> update(String name) async {
 
-   auth.currentUser.getIdToken(true).then((idToken) async => {
-   await http.put(
-   "https://us-central1-zwappr.cloudfunctions.net/api/users/me",
-   headers: <String, String>{
-   "Content-Type": "application/json; charset=UTF-8",
-   "idToken": idToken
-   },
-   body: jsonEncode(<String, String>{
-   "displayName": name
-   }),
-   )
-  });
-   Future<void> dis() async {
-     auth.currentUser.getIdToken(true).then((idToken) async => {
-       await http.get(
-         "https://us-central1-zwappr.cloudfunctions.net/api/users/me",
-         headers: <String, String>{
-           "Content-Type": "application/json; charset=UTF-8",
-           "idToken": idToken
-         },
-
-       )
-     });
-   }
-
-
-    /*await http.put(
-      "https://us-central1-zwappr.cloudfunctions.net/api/users/me",
-      headers: <String, String>{
-        "Content-Type": "application/json; charset=UTF-8" + idToken
-      },
-      body: jsonEncode(<String, String>{
-        "displayName": name
-      }),
-    );*/
-
-  }
   uploadPic(File _image1) async {
     FirebaseStorage storage = FirebaseStorage.instance;
     String url;
     Reference ref = storage.ref().child("users/image1" + DateTime.now().toString());
     UploadTask uploadTask = ref.putFile(_image1);
     uploadTask.whenComplete(() {
-      url = ref.getDownloadURL() as String;
+      url = ref.getDownloadURL().toString();
     }).catchError((onError) {
-      print(onError);
+      print("OKOKOKOKO" + onError);
     });
+    imageList.add(url);
     return url;
   }
-
+  Future<void> updateImage(String url) async {
+    auth.currentUser.getIdToken(true).then((idToken) async => {
+      await http.put(
+        "https://us-central1-zwappr.cloudfunctions.net/api/users/me",
+        headers: <String, String>{
+          "Content-Type": "application/json; charset=UTF-8",
+          "idToken": idToken
+        },
+        body: jsonEncode(<String, String>{"imageID": url}),
+      )
+    });
+  }
   @override
   Widget build(BuildContext context) {
-
+    Future <UserModel> futureUserModel;
+    futureUserModel = fetchAlbum();
     List providerData = auth.currentUser.providerData.toString().split(',');
     List email = providerData[1].split(':');
+    String url;
     return Scaffold(
         body:  Container(
           decoration: BoxDecoration(
@@ -172,12 +185,14 @@ class _ProfilePageState extends State<ProfilePage> {
                     uri: auth.currentUser.photoURL,
                     camera: true,
                     press: (){photoPicker();
-                    uploadPic(_image);}
+
+
+                }
 
                 ),
                 SizedBox(height: 20,),
 
-                auth.currentUser.displayName == null ? Text(email[1]) : Text(auth.currentUser.displayName.toString()),
+               auth.currentUser.displayName == null ? Text(email[1]) : Text(auth.currentUser.displayName.toString()),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -195,7 +210,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     IconButtons(
                       icon: Icons.edit,
                       press: (){
-                        Navigator.push(
+
+
+                    Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => EditPage(image: _image)),
                         );
@@ -203,7 +220,22 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ],
                 ),
-                Button(press: () {},),
+                Button(press: () {
+                 futureUserModel = fetchAlbum();
+                },),
+              FutureBuilder<UserModel>(
+              future: futureUserModel,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Text(snapshot.data.displayName == null ? "": snapshot.data.displayName);
+                } else if (snapshot.hasError) {
+                  return Text("${snapshot.error}");
+                }
+
+                // By default, show a loading spinner.
+                return CircularProgressIndicator();
+              },
+            ),
                 Menu(
                   text: "Likt",
                   icon: Icons.star,

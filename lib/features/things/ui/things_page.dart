@@ -8,8 +8,7 @@ class ThingsPage extends StatefulWidget {
 class _ThingsPageState extends State<ThingsPage> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+
   }
 
 }

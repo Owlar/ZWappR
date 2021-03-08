@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:zwappr/features/activity/models/chat_users.dart';
 
-import '../models/chat_users.dart';
 import 'conversation_list.dart';
 
 class ListViewChat extends StatelessWidget {

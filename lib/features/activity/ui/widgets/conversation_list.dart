@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:zwappr/features/chat/ui/pages/chat_detail_page.dart';
+import 'package:zwappr/features/activity/ui/pages/chat_detail_page.dart';
+
 
 class ConversationList extends StatefulWidget {
   String name;

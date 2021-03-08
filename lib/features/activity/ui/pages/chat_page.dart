@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:zwappr/features/chat/ui/widgets/list_view_chat.dart';
+import 'package:zwappr/features/activity/ui/widgets/list_view_chat.dart';
 
-import '../models/chat_users.dart';
+import '../../../activity/models/chat_users.dart';
 
 class ChatPage extends StatefulWidget {
   @override

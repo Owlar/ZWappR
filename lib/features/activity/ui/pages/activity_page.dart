@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zwappr/features/activity/ui/pages/chat_page.dart';
-
-
+import 'package:zwappr/utils/colors/color_theme.dart';
 
 class ActivityPage extends StatefulWidget {
   @override
@@ -11,26 +10,26 @@ class ActivityPage extends StatefulWidget {
 class _ActivityPageState extends State<ActivityPage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DefaultTabController(
-          length: 2,
-          child: Scaffold(
-            appBar: AppBar(
-              bottom: TabBar(
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+            backgroundColor: zwapprBlue,
+            bottom: TabBar(
                 tabs: [
                   Tab(icon: Icon(Icons.chat)),
                   Tab(icon: Icon(Icons.favorite))
                 ]
-              ),
-              title: Text("Aktivitet")
             ),
-              body: TabBarView(
-                children: [
-                  ChatPage(),
-                  Icon(Icons.favorite)
-                ],
-              ),
-          ),
+            title: Text("Aktivitet")
+        ),
+        body: TabBarView(
+          children: [
+            ChatPage(),
+            // TODO: Replace with FavoritePage
+            Icon(Icons.favorite)
+          ],
+        ),
       ),
     );
   }

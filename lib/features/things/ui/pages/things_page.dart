@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:zwappr/features/things/ui/widgets/thing_list_item.dart';
 
 import 'new_thing_page.dart';
 
@@ -19,10 +20,9 @@ class _ThingsPageState extends State<ThingsPage> {
           itemCount: 10,
           itemBuilder: (BuildContext context, int index) {
             return Observer(
-              // TODO: Create card widget
-              /*builder: (_) => ThingItem(
+              builder: (_) => ThingListItem(
 
-              )*/
+              )
             );
           }
         ),

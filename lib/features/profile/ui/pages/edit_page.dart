@@ -21,7 +21,7 @@ class EditPage extends StatelessWidget {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final TextEditingController newName = TextEditingController();
 
-  //final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+  final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
   @override
   Widget build(BuildContext context) {
     List providerData = auth.currentUser.providerData.toString().split(',');

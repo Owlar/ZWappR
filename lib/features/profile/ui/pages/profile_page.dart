@@ -55,8 +55,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
     var id = await auth.currentUser.getIdToken(true);
 
-
-
     final response = await http.get(
       "https://us-central1-zwappr.cloudfunctions.net/api/users/me",
       headers: <String, String>{

@@ -48,7 +48,11 @@ class RegisterPage extends StatelessWidget {
                 color: zwapprBlack,
                 textColor: zwapprWhite,
                 onPressed: () async {
-                  final user = (await _authenticationService.register(email: emailController.text.trim(), password: passwordController.text.trim()));
+                  final user = (await _authenticationService.register(
+                      displayName: displayNameController.text.trim(),
+                      email: emailController.text.trim(),
+                      password: passwordController.text.trim()
+                  ));
                   if (user != null) {
                     //Back to login page
                     Navigator.pop(context);

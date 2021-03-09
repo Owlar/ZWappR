@@ -9,7 +9,7 @@ class ProfilePicture extends StatelessWidget {
   final File _image;
   final String uri;
   final bool camera;
-  final  VoidCallback press;
+  final VoidCallback press;
 
   const ProfilePicture({
     Key key,
@@ -48,7 +48,8 @@ class ProfilePicture extends StatelessWidget {
                   child: FlatButton(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50),
-                        side: BorderSide(color: zwapprWhite)),
+                        side: BorderSide(color: zwapprWhite)
+                    ),
                     color: zwapprLightGray,
                     onPressed:press,//photoPicker,
                     child: SvgPicture.asset("assets/icons/photo_camera-24px.svg"),

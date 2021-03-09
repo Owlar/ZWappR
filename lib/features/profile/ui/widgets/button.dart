@@ -21,13 +21,18 @@ class Button extends StatelessWidget {
             padding: EdgeInsets.all(20),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50),
-               ),
+            ),
             color: zwapprLightGray,
             onPressed: press,
             child: Row(
-              children: [Expanded(child: Text("Inviter",
-                textAlign: TextAlign.center,))],
-            )),
+              children: [
+                Expanded(child: Text(
+                  "Inviter",
+                  textAlign: TextAlign.center
+                ))
+              ],
+            )
+        ),
       ),
     );
   }

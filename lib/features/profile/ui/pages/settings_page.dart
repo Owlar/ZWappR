@@ -11,19 +11,18 @@ import 'edit_page.dart';
 
 class SettingsPage extends StatelessWidget {
   final File image;
-  SettingsPage(
-      {
-        Key key,
-        @required this.image
-      })
-      : super(key: key);
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  @override
+  SettingsPage({
+        Key key,
+        @required this.image
+  }) : super(key: key);
 
+  @override
   Widget build(BuildContext context) {
     List providerData = auth.currentUser.providerData.toString().split(',');
     List email = providerData[1].split(':');
+
     return Scaffold(
         body:  Container(
           decoration: BoxDecoration(
@@ -34,7 +33,6 @@ class SettingsPage extends StatelessWidget {
           ),
           child: Center(
             child: Column(
-
               children: [
                 ProfilePicture(
                     image: image,

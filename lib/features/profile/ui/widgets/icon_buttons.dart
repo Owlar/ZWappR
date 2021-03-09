@@ -4,7 +4,7 @@ import 'package:zwappr/utils/colors/color_theme.dart';
 
 class IconButtons extends StatelessWidget {
   final IconData icon;
-  final  VoidCallback press;
+  final VoidCallback press;
 
   const IconButtons({
     Key key,

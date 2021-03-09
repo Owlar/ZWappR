@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:zwappr/features/authentication/models/user_model.dart';
 import 'package:zwappr/features/authentication/ui/login_page.dart';
@@ -12,12 +14,9 @@ import 'package:zwappr/features/profile/ui/widgets/menu.dart';
 import 'package:zwappr/features/profile/ui/widgets/profile_picture.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
-import 'package:http/http.dart' as http;
 import '../widgets/button.dart';
 import '../widgets/icon_buttons.dart';
 import 'edit_page.dart';
-
-import 'package:firebase_storage/firebase_storage.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -27,9 +26,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   File _image;
   final imagePicker = ImagePicker();
-
-
-   List<String> imageList;
+  List<String> imageList;
 
   Future getImage() async {
     final image = await imagePicker.getImage(source: ImageSource.camera);
@@ -38,6 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
     });
     uploadPic(_image);
   }
+
   Future getGallery() async {
     final image = await imagePicker.getImage(
         source: ImageSource.gallery, imageQuality: 50
@@ -47,33 +45,21 @@ class _ProfilePageState extends State<ProfilePage> {
     });
     uploadPic(_image);
   }
+
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-
-
   Future<UserModel> fetchAlbum() async {
-
-    var id = await auth.currentUser.getIdToken(true);
-
     final response = await http.get(
       "https://us-central1-zwappr.cloudfunctions.net/api/users/me",
       headers: <String, String>{
         "Content-Type": "application/json; charset=UTF-8",
-        "idToken": id
+        "idToken": await auth.currentUser.getIdToken(true)
       },
-
     );
-
     if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      print("STATUSCODE " + response.statusCode.toString());
       return UserModel.fromJson(jsonDecode(response.body)["data"]);
     } else {
-      print("STATUSCODE " + response.statusCode.toString());
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to load album');
+      throw Exception('Failed to fetch data');
     }
   }
 
@@ -131,6 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
     print("LETSGO!!!" + url.toString());
     return url;
   }
+
   Future<void> updateImage(String url) async {
     auth.currentUser.getIdToken(true).then((idToken) async => {
       await http.put(
@@ -143,6 +130,7 @@ class _ProfilePageState extends State<ProfilePage> {
       )
     });
   }
+
   @override
   Widget build(BuildContext context) {
     Future <UserModel> futureUserModel;
@@ -150,8 +138,9 @@ class _ProfilePageState extends State<ProfilePage> {
     List providerData = auth.currentUser.providerData.toString().split(',');
     List email = providerData[1].split(':');
     String url;
+
     return Scaffold(
-        body:  Container(
+        body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/background_screen.png"),
@@ -165,22 +154,18 @@ class _ProfilePageState extends State<ProfilePage> {
                     image:_image,
                     uri: auth.currentUser.photoURL,
                     camera: true,
-                    press: (){photoPicker();
-
-
-                }
-
+                    press: (){
+                      photoPicker();
+                    }
                 ),
                 SizedBox(height: 20,),
-
-               auth.currentUser.displayName == null ? Text(email[1]) : Text(auth.currentUser.displayName.toString()),
+                auth.currentUser.displayName == null ? Text(email[1]) : Text(auth.currentUser.displayName.toString()),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButtons(
                       icon: Icons.settings,
                       press: (){
-
                         print(auth.currentUser.photoURL);
                         Navigator.push(
                           context,
@@ -191,9 +176,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     IconButtons(
                       icon: Icons.edit,
                       press: (){
-
-
-                    Navigator.push(
+                        Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => EditPage(image: _image)),
                         );
@@ -203,31 +186,29 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Button(press: () {
                  futureUserModel = fetchAlbum();
-                },),
-              FutureBuilder<UserModel>(
-              future: futureUserModel,
-              builder: (context, snapshot) {
-
-                print("TEST " + snapshot.toString() );
-                if (snapshot.hasData) {
-                  return Text(snapshot.data.displayName == null ? "GET": snapshot.data.displayName);
-                } else if (snapshot.hasError) {
-                  return Text("${snapshot.error}");
-                }
-
-                // By default, show a loading spinner.
-                return CircularProgressIndicator();
-              },
-            ),
+                }),
+                FutureBuilder<UserModel>(
+                  future: futureUserModel,
+                  builder: (context, snapshot) {
+                    print("TEST " + snapshot.toString());
+                    if (snapshot.hasData) {
+                      return Text(snapshot.data.displayName == null ? "GET": snapshot.data.displayName);
+                    } else if (snapshot.hasError) {
+                      return Text("${snapshot.error}");
+                    }
+                    // By default, show a loading spinner.
+                    return CircularProgressIndicator();
+                  },
+                ),
                 Menu(
                   text: "Likt",
                   icon: Icons.star,
-                  press: () {},
+                  press: (){},
                 ),
                 Menu(
                   text: "Favoritter",
                   icon: Icons.favorite,
-                  press: () {},
+                  press: (){},
                 ),
                 Container(
                   decoration: BoxDecoration(

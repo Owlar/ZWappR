@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:zwappr/features/things/models/thing_model.dart';
 
 class ThingsRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -33,7 +33,7 @@ class ThingsRepository {
     return List<ThingModel>.from(parsed["data"].map((x) => ThingModel.fromJson(x)));
   }
 
-  put(String uid) async {
+  Future<void> put(String uid) async {
     await http.put(
       "https://us-central1-zwappr.cloudfunctions.net/api/things/$uid",
       headers: <String, String>{

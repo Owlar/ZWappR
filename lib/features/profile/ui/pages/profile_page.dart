@@ -50,24 +50,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
 
 
-  Future<UserModel> dis() async {
-    var resp;
-
-    auth.currentUser.getIdToken(true).then((idToken) async => {
-       resp = await http.get(
-        "https://us-central1-zwappr.cloudfunctions.net/api/users/me",
-        headers: <String, String>{
-          "Content-Type": "application/json; charset=UTF-8",
-          "idToken": idToken
-        },
-
-      )
-    });
-
-   return UserModel.fromJson(jsonDecode(resp.body.data));
-
-
-  }
   Future<UserModel> fetchAlbum() async {
 
     var id = await auth.currentUser.getIdToken(true);
@@ -87,7 +69,7 @@ class _ProfilePageState extends State<ProfilePage> {
       // If the server did return a 200 OK response,
       // then parse the JSON.
       print("STATUSCODE " + response.statusCode.toString());
-      return UserModel.fromJson(jsonDecode(response.body));
+      return UserModel.fromJson(jsonDecode(response.body)["data"]);
     } else {
       print("STATUSCODE " + response.statusCode.toString());
       // If the server did not return a 200 OK response,
@@ -147,7 +129,7 @@ class _ProfilePageState extends State<ProfilePage> {
     }).catchError((onError) {
       print("OKOKOKOKO" + onError);
     });
-    imageList.add(url);
+    print("LETSGO!!!" + url.toString());
     return url;
   }
   Future<void> updateImage(String url) async {
@@ -226,8 +208,10 @@ class _ProfilePageState extends State<ProfilePage> {
               FutureBuilder<UserModel>(
               future: futureUserModel,
               builder: (context, snapshot) {
+
+                print("TEST " + snapshot.toString() );
                 if (snapshot.hasData) {
-                  return Text(snapshot.data.displayName == null ? "": snapshot.data.displayName);
+                  return Text(snapshot.data.displayName == null ? "GET": snapshot.data.displayName);
                 } else if (snapshot.hasError) {
                   return Text("${snapshot.error}");
                 }

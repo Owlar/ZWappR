@@ -1,12 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:zwappr/features/authentication/models/user_model.dart';
 import 'package:zwappr/features/authentication/repository/authentication_repository.dart';
-import 'package:zwappr/features/authentication/services/i_authentication_service.dart';
+import 'package:zwappr/features/authentication/serv'
+    'ices/i_authentication_service.dart';
 
 class AuthenticationService implements IAuthenticationService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final AuthenticationRepository _repository = AuthenticationRepository();
+  final FirebaseMessaging _fcm = FirebaseMessaging();
 
   @override
   Future<void> signOut() async {
@@ -17,6 +20,17 @@ class AuthenticationService implements IAuthenticationService {
   Future<UserModel> signIn({String email, String password}) async {
     try {
       final user = (await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password)).user;
+
+      _firebaseAuth.currentUser.getIdToken(true).then((idToken) => {
+        print("ID Token: " + idToken)
+      });
+
+      _fcm.getToken().then((value) => {
+        print("FCM Token: " + value)
+      });
+
+      _repository.updateToken();
+
       return UserModel(user.uid, user.displayName);
     } on FirebaseAuthException catch (e) {
       print(e.message);

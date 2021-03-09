@@ -6,6 +6,9 @@ import 'package:zwappr/features/feed/ui/feed_page.dart';
 import 'package:zwappr/features/map/ui/map_page.dart';
 import 'package:zwappr/features/profile/ui/pages/profile_page.dart';
 import 'package:zwappr/features/things/ui/pages/things_page.dart';
+import 'package:zwappr/features/home/service/notification_service.dart';
+import 'package:zwappr/features/home/service/i_notification_service.dart';
+
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -17,11 +20,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   PageController _pageController;
+  INoticationService _notificationService = NotificationService();
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: _selectedIndex);
+    _notificationService.setupNotification();
   }
 
   @override

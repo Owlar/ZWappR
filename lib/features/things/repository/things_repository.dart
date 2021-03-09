@@ -29,8 +29,13 @@ class ThingsRepository {
         "idToken": await _firebaseAuth.currentUser.getIdToken()
       }
     );
-    final Map<String, dynamic> parsed = jsonDecode(response.body);
-    return List<ThingModel>.from(parsed["data"].map((x) => ThingModel.fromJson(x)));
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> parsed = jsonDecode(response.body);
+      return List<ThingModel>.from(parsed["data"].map((x) => ThingModel.fromJson(x)));
+    } else {
+      print("Statuscode is " + response.statusCode.toString());
+      throw Exception("Failed to fetch data");
+    }
   }
 
   Future<void> put(String uid) async {
@@ -65,7 +70,13 @@ class ThingsRepository {
         "idToken": await _firebaseAuth.currentUser.getIdToken()
       },
     );
-    return ThingModel.fromJson(jsonDecode(response.body)["data"]);
+    if (response.statusCode == 200) {
+      return ThingModel.fromJson(jsonDecode(response.body)["data"]);
+    } else {
+      print("Statuscode is " + response.statusCode.toString());
+      throw Exception("Failed to fetch data");
+    }
+
   }
 
 }

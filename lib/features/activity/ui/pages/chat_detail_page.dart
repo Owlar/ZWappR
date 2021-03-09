@@ -28,10 +28,11 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
       ChatMessage(messageContent: "kult hahah?", messageType: "receiver"),
       ChatMessage(messageContent: "Hei, paa", messageType: "receiver"),
       ChatMessage(messageContent: "kult hahah?", messageType: "receiver"),
-      ChatMessage(messageContent: "AspectRatio, a widget that attempts to fit within the parent's constraints ", messageType: "sender"),
+
       ChatMessage(messageContent: "Hei, paa", messageType: "receiver"),
       ChatMessage(messageContent: "kult hahah?", messageType: "receiver"),
       ChatMessage(messageContent: "Hei, paa", messageType: "sender"),
+      ChatMessage(messageContent: "AspectRatio, a widget that attempts to fit within the parent's constraints ", messageType: "sender"),
       ChatMessage(messageContent: "kult hahah?", messageType: "receiver"),
       ChatMessage(messageContent: "Hei, paa", messageType: "receiver"),
       ChatMessage(messageContent: "kult hahah?", messageType: "receiver"),

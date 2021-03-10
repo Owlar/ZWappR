@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:zwappr/features/feed/data/things.dart';
+import 'package:zwappr/features/feed/models/thing.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/features/things/services/i_things_service.dart';
 import 'package:zwappr/features/things/services/things_service.dart';
@@ -15,6 +17,8 @@ class ThingsPage extends StatefulWidget {
 
 class _ThingsPageState extends State<ThingsPage> {
   static final IThingsService _thingsService = ThingsService();
+  // Thing objects in list are borrowed from feed models directory
+  final List<Thing> things = mockThings;
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +27,11 @@ class _ThingsPageState extends State<ThingsPage> {
         builder: (_) => ListView.builder(
           padding: const EdgeInsets.all(14.0),
           // TODO: Set to length of items list
-          itemCount: 10,
+          itemCount: things.length,
           itemBuilder: (BuildContext context, int index) {
+            final thing = things[index];
             return Observer(
-              builder: (_) => ThingListItem()
+              builder: (_) => ThingListItem(thing: thing)
             );
           }
         ),

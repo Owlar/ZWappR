@@ -1,8 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:zwappr/features/feed/models/thing.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
 class ThingListItem extends StatelessWidget {
+  final Thing thing;
+
+  const ThingListItem({
+    Key key,
+    @required this.thing
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -16,7 +24,7 @@ class ThingListItem extends StatelessWidget {
                   children: <Widget> [
                     Expanded(
                       flex: 2,
-                      child: Image.asset("assets/images/loading_item_list.jpg"),
+                      child: Image.network(thing.imageUrl),
                     ),
                     Expanded(
                       flex: 4,
@@ -24,12 +32,12 @@ class ThingListItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(
-                              "Tittel",
+                              thing.title,
                               overflow: TextOverflow.ellipsis
                           ),
                           SizedBox(height: 10),
                           Text(
-                              "Beskrivelse",
+                              thing.description,
                               overflow: TextOverflow.ellipsis
                           ),
                         ]

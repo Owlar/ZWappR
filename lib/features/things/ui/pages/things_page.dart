@@ -26,7 +26,6 @@ class _ThingsPageState extends State<ThingsPage> {
       body: Observer(
         builder: (_) => ListView.builder(
           padding: const EdgeInsets.all(14.0),
-          // TODO: Set to length of items list
           itemCount: things.length,
           itemBuilder: (BuildContext context, int index) {
             final thing = things[index];

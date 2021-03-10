@@ -1,6 +1,6 @@
 import 'package:zwappr/features/feed/models/thing.dart';
 
-final mockThings = [
+final List<Thing> mockThings = [
   Thing(
     title: "Klokke Rolex",
     description: "Pent brukt Rolex Submariner",

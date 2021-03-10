@@ -166,7 +166,10 @@ class _FeedPageState extends State<FeedPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.network(thing.imageUrl),
+            Center(
+              child: Image.network(thing.imageUrl, height: 300),
+            ),
+            SizedBox(height: 10),
             Text(
               "${thing.title}",
               style: TextStyle(color: zwapprBlack, fontSize: 30),

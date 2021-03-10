@@ -26,6 +26,7 @@ class ThingListItem extends StatelessWidget {
                       flex: 2,
                       child: Image.network(thing.imageUrl),
                     ),
+                    SizedBox(width: 10),
                     Expanded(
                       flex: 4,
                       child: Column(

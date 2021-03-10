@@ -3,11 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:zwappr/features/activity/ui/pages/activity_page.dart';
 import 'package:zwappr/features/feed/providers/feedback_position_provider.dart';
 import 'package:zwappr/features/feed/ui/feed_page.dart';
+import 'package:zwappr/features/home/service/i_notification_service.dart';
+import 'package:zwappr/features/home/service/notification_service.dart';
 import 'package:zwappr/features/map/ui/map_page.dart';
 import 'package:zwappr/features/profile/ui/pages/profile_page.dart';
 import 'package:zwappr/features/things/ui/pages/things_page.dart';
-import 'package:zwappr/features/home/service/notification_service.dart';
-import 'package:zwappr/features/home/service/i_notification_service.dart';
 
 
 class HomePage extends StatefulWidget {

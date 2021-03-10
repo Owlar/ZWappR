@@ -5,6 +5,7 @@ class Thing {
   final String title;
   final String description;
   final int numberOfLikes;
+  String imageUrl;
   bool isSwipedOff;
   bool isLiked;
 
@@ -13,6 +14,7 @@ class Thing {
     @required this.title,
     @required this.description,
     @required this.numberOfLikes,
+    this.imageUrl,
     this.isSwipedOff,
     this.isLiked
   });

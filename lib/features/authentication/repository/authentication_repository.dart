@@ -20,7 +20,7 @@ class AuthenticationRepository {
         "email": user.email,
         "uid": user.uid
       }),
-    );
+    ); 
   }
 
   Future<void> updateToken() async {

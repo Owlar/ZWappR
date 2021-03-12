@@ -1,12 +1,62 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:zwappr/features/activity/models/chat_message.dart';
 import 'package:zwappr/features/activity/ui/widgets/list_view_chat.dart';
-
+import 'package:http/http.dart' as http;
 import '../../../activity/models/chat_users.dart';
+
+import 'package:flutter/cupertino.dart';
 
 class ChatPage extends StatefulWidget {
   @override
   _ChatPageState createState() => _ChatPageState();
+}
+
+final FirebaseAuth auth = FirebaseAuth.instance;
+
+Future<ChatUsers> fetchChatUser() async {
+  final response = await http.get(
+    "https://us-central1-zwappr.cloudfunctions.net/api/convo/X6BTw56tqsgZLRbgD8vQ?p=0",
+    headers: <String, String>{
+      "Content-Type": "application/json; charset=UTF-8",
+      "idToken": await auth.currentUser.getIdToken(true)
+    },
+  );
+  if (response.statusCode == 200) {
+    print("statusCode" + response.statusCode.toString());
+    return ChatUsers.fromJson(jsonDecode(response.body)["data"]);
+  } else {
+    print("statusCode" + response.statusCode.toString());
+    throw Exception('Failed to fetch data');
+  }
+}
+
+Future<Map> fetchChatMessage() async {
+  final response = await http.get(
+    "https://us-central1-zwappr.cloudfunctions.net/api/convo",
+    headers: <String, String>{
+      "Content-Type": "application/json; charset=UTF-8",
+      "idToken": await auth.currentUser.getIdToken(true)
+    },
+  );
+  return (jsonDecode(response.body));
+}
+
+Future<ChatUsers> addChatUser() async {
+  await http.post(
+    "https://us-central1-zwappr.cloudfunctions.net/api/convo",
+    headers: <String, String>{
+      "Content-Type": "application/json; charset=UTF-8",
+      "idToken": await auth.currentUser.getIdToken(true)
+    },
+    body: jsonEncode(<String, String>{
+      "toUser": "NPDjGHiQFSYyrPCmGS5r9V5j70C2",
+
+    }),
+  );
+
 }
 
 class _ChatPageState extends State<ChatPage> {
@@ -15,7 +65,8 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     List<ChatUsers> chatUsers = [
-      ChatUsers(
+      ChatUsers("name", "message", "https://randomuser.me/api/portraits/men/1.jpg", "date"),
+     /* ChatUsers(
           name: "Ina",
           message: "Husk å skrive om arkitektur, løst koblet kode, repository, services, MVC...",
           image: "https://randomuser.me/api/portraits/women/1.jpg",
@@ -54,10 +105,54 @@ class _ChatPageState extends State<ChatPage> {
           name: "Line",
           message: "Samtidig påpeker hun at denne diagnosen ikke vil gjøre noe særlig forskjell i livet hennes. ",
           image: "https://randomuser.me/api/portraits/women/4.jpg",
-          date: "Now"),
+          date: "Now"),*/
     ];
+  // Future <ChatUsers> futureChatUser;
+    //futureChatUser = fetchChatUser();
+    Future <Map> test;
+    test = fetchChatMessage();
 
+
+
+    /*print("TESTING THIS OUT!!");
+    FutureBuilder<ChatUsers>(
+      future: futureChatUser,
+      builder: (context, snapshot) {
+        print("TEST " + snapshot.toString());
+        if (snapshot.hasData) {
+         // ChatUsers c = new ChatUsers(snapshot.data.name, snapshot.data.name, snapshot.data.name, snapshot.data.name);
+         // chatUsers.add(c);
+
+          //return Text(snapshot.data.displayName == null ? "GET": snapshot.data.displayName);
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}");
+        }
+        // By default, show a loading spinner.
+        return CircularProgressIndicator();
+      },
+    );
+*/
+
+
+    FutureBuilder<Map>(
+      future: test,
+      builder: (context, snapshot) {
+        print("TEST HALLO " + snapshot.toString());
+        if (snapshot.hasData) {
+          // ChatUsers c = new ChatUsers(snapshot.data.name, snapshot.data.name, snapshot.data.name, snapshot.data.name);
+          // chatUsers.add(c);
+
+          return Text(snapshot.data.toString() == null ? "GET": snapshot.data.toString());
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}");
+        }
+        // By default, show a loading spinner.
+        return CircularProgressIndicator();
+      },
+    );
+    //addChatUser();
     return Scaffold(
+
       body: Center(
         child: Container(
           decoration: BoxDecoration(
@@ -109,6 +204,22 @@ class _ChatPageState extends State<ChatPage> {
                     ),
                   ),
                 ),
+              FutureBuilder<Map>(
+                future: test,
+                builder: (context, snapshot) {
+                  //print("TEST HALLO " + snapshot.toString());
+                  if (snapshot.hasData) {
+                    // ChatUsers c = new ChatUsers(snapshot.data.name, snapshot.data.name, snapshot.data.name, snapshot.data.name);
+                    // chatUsers.add(c);
+
+                    return Text(snapshot.data["data"][0]["participants"].toString() == null ? "GET": snapshot.data["data"][0]["participants"].toString());
+                  } else if (snapshot.hasError) {
+                    return Text("${snapshot.error}");
+                  }
+                  // By default, show a loading spinner.
+                  return CircularProgressIndicator();
+                },
+              ),
                 ListViewChat(chatUsers: chatUsers),
               ],
             ),

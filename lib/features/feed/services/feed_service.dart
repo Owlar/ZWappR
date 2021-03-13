@@ -1,4 +1,3 @@
-import 'package:zwappr/features/feed/models/thing.dart';
 import 'package:zwappr/features/feed/repository/feed_repository.dart';
 import 'package:zwappr/features/feed/services/i_feed_service.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';

@@ -1,10 +1,8 @@
 import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:zwappr/features/feed/models/thing.dart';
-import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:zwappr/features/things/models/thing_model.dart';
 
 class FeedRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;

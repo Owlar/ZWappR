@@ -2,8 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:zwappr/features/feed/data/things.dart';
-import 'package:zwappr/features/feed/models/thing.dart';
 import 'package:zwappr/features/feed/providers/feedback_position_provider.dart';
 import 'package:zwappr/features/feed/services/feed_service.dart';
 import 'package:zwappr/features/feed/services/i_feed_service.dart';
@@ -185,6 +183,7 @@ class _FeedPageState extends State<FeedPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
+            // TODO: Reimplement
             /*Center(
               child: Image.network(thing.imageUrl, height: 300),
             ),*/

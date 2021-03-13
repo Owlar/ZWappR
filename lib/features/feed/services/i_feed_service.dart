@@ -1,9 +1,9 @@
 import 'package:zwappr/features/feed/models/thing.dart';
+import 'package:zwappr/features/things/models/thing_model.dart';
 
 abstract class IFeedService {
 
   // Getting all things in feed for user with:
-  /// [userUid]
-  Future<List<Thing>> getAll(String userUid) async => getAll(userUid);
+  Future<List<ThingModel>> getAll() async => getAll();
 
 }

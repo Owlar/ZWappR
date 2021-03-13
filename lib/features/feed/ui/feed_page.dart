@@ -7,6 +7,7 @@ import 'package:zwappr/features/feed/models/thing.dart';
 import 'package:zwappr/features/feed/providers/feedback_position_provider.dart';
 import 'package:zwappr/features/feed/services/feed_service.dart';
 import 'package:zwappr/features/feed/services/i_feed_service.dart';
+import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
 class FeedPage extends StatefulWidget {
@@ -17,7 +18,19 @@ class FeedPage extends StatefulWidget {
 class _FeedPageState extends State<FeedPage> {
   final IFeedService _feedService = FeedService();
   final FirebaseAuth auth = FirebaseAuth.instance;
-  final List<Thing> things = mockThings;
+
+  List<ThingModel> things = List();
+
+  Future<void> _getThingsFromService() async {
+    final List<ThingModel> thingsFromService = (await _feedService.getAll());
+    things = thingsFromService;
+  }
+
+  @override
+  void initState() {
+    _getThingsFromService();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +49,13 @@ class _FeedPageState extends State<FeedPage> {
                   SvgPicture.asset("assets/icons/zwappr_logo.svg", height: 100),
                   SizedBox(height: 22),
                   Expanded(
-                    child: Stack(children: things.map(_buildThing).toList()),
+                    child: FutureBuilder(
+                      future: _getThingsFromService(),
+                      builder: (context, snapshot) {
+                        return Stack(children: things.map(_buildThing).toList());
+                      }
+
+                    ),
                   ),
                   SizedBox(child: _swipeBottomButtons()),
                   SizedBox(height: 22),
@@ -46,7 +65,7 @@ class _FeedPageState extends State<FeedPage> {
         );
   }
 
-  Widget _buildThing(Thing thing) {
+  Widget _buildThing(ThingModel thing) {
     final thingIndex = things.indexOf(thing);
     final isThingInFocus = thingIndex == things.length -1;
 
@@ -75,7 +94,7 @@ class _FeedPageState extends State<FeedPage> {
     );
   }
 
-  Widget _thingSwipingCard({Thing thing, bool isThingInFocus}) {
+  Widget _thingSwipingCard({ThingModel thing, bool isThingInFocus}) {
     final provider = Provider.of<FeedbackPositionProvider>(context);
     final swipingDirection = provider.swipingDirection;
     final size = MediaQuery.of(context).size;
@@ -159,16 +178,16 @@ class _FeedPageState extends State<FeedPage> {
     }
   }
 
-  Widget _buildThingInformation({@required Thing thing}) {
+  Widget _buildThingInformation({@required ThingModel thing}) {
     return Padding(
         padding: const EdgeInsets.all(8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Center(
+            /*Center(
               child: Image.network(thing.imageUrl, height: 300),
-            ),
+            ),*/
             SizedBox(height: 10),
             Text(
               "${thing.title}",
@@ -221,7 +240,7 @@ class _FeedPageState extends State<FeedPage> {
     );
   }
 
-  _onDragEnd(DraggableDetails details, Thing thing) {
+  _onDragEnd(DraggableDetails details, ThingModel thing) {
     final minimumDrag = 100;
     if (details.offset.dx > minimumDrag) {
       thing.isSwipedOff = true;

@@ -1,4 +1,5 @@
 import 'package:zwappr/features/feed/models/thing.dart';
+import 'package:zwappr/features/things/models/thing_model.dart';
 
 final List<Thing> mockThings = [
   Thing(
@@ -30,3 +31,5 @@ final List<Thing> mockThings = [
     imageUrl: "https://images.unsplash.com/photo-1495121605193-b116b5b9c5fe?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=634&q=80"
   )
 ];
+
+

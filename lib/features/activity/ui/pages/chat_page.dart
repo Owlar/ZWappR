@@ -40,7 +40,8 @@ class _ChatPageState extends State<ChatPage> {
     //_chatService.create("NPDjGHiQFSYyrPCmGS5r9V5j70C2");
 
     return Scaffold(
-      body: Center(
+      body: Container(
+        height: double.infinity,
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(

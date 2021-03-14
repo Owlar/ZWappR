@@ -24,14 +24,17 @@ class _ChatPageState extends State<ChatPage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   static final IChatService _chatService = ChatService();
 
+  Future<Map> test = _chatService.get();
+
+
   @override
   Widget build(BuildContext context) {
     List<ChatUsers> chatUsers = [];
     List<String> conversationList = [];
     // Future <ChatUsers> futureChatUser;
     //futureChatUser = fetchChatUser();
-    Future<Map> test;
-    test = _chatService.get();
+
+    //Future<Map> test = _chatService.get();
 
     //_chatService.createMsg("9qQ5yKyMKKpXNYMivraM", "YO! wazzzup");
     //_chatService.create("NPDjGHiQFSYyrPCmGS5r9V5j70C2");
@@ -90,7 +93,7 @@ class _ChatPageState extends State<ChatPage> {
                 ),
                 FutureBuilder<Map>(
                   future: test,
-                  builder: (context, snapshot) {
+                  builder: (context, AsyncSnapshot snapshot) {
                     //print("TEST HALLO " + snapshot.toString());
                     if (snapshot.hasData) {
 
@@ -120,7 +123,7 @@ class _ChatPageState extends State<ChatPage> {
                             formatted);
                         chatUsers.add(c);
                       }
-                      return Text(snapshot.data["data"][0]["convoID"].toString());
+                      return ListViewChat(chatUsers: chatUsers, conversationList: conversationList);
                     } else if (snapshot.hasError) {
                       return Text("${snapshot.error}");
                     }
@@ -128,7 +131,6 @@ class _ChatPageState extends State<ChatPage> {
                     return CircularProgressIndicator();
                   },
                 ),
-                ListViewChat(chatUsers: chatUsers, conversationList: conversationList),
               ],
             ),
           ),

@@ -49,35 +49,30 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
         ),
         child: Stack(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(100.40),
-              child: FutureBuilder<Map>(
-                future: test,
-                builder: (context, snapshot) {
-                  //print("TEST HALLO " + snapshot.toString());
-                  if (snapshot.hasData) {
-                      String id = _firebaseAuth.currentUser.uid;
-                      String from;
-                    //ChatMessage(messageContent: snapshot.data["data"][0]["content"].toString(), messageType: "receiver");
-                   for(int i = 0; i < snapshot.data["size"]; i++) {
-                      if(snapshot.data["data"][i]["from"].toString() == id){
-                          from = "sender";
-                      }else{
-                        from = "receiver";
-                      }
-                      messages.add(ChatMessage(messageContent: snapshot.data["data"][i]["content"].toString(), messageType: from));
+            FutureBuilder<Map>(
+              future: test,
+              builder: (context, snapshot) {
+                //print("TEST HALLO " + snapshot.toString());
+                if (snapshot.hasData) {
+                    String id = _firebaseAuth.currentUser.uid;
+                    String from;
+                  //ChatMessage(messageContent: snapshot.data["data"][0]["content"].toString(), messageType: "receiver");
+                 for(int i = 0; i < snapshot.data["size"]; i++) {
+                    if(snapshot.data["data"][i]["from"].toString() == id){
+                        from = "sender";
+                    }else{
+                      from = "receiver";
                     }
-                    return Text("");
-                  } else if (snapshot.hasError) {
-                    return Text("${snapshot.error}");
+                    messages.add(ChatMessage(messageContent: snapshot.data["data"][i]["content"].toString(), messageType: from));
                   }
-                  // By default, show a loading spinner.
-                  return CircularProgressIndicator();
-                },
-              ),
+                  return ListViewMsg(messages: messages);
+                } else if (snapshot.hasError) {
+                  return Text("${snapshot.error}");
+                }
+                // By default, show a loading spinner.
+                return CircularProgressIndicator();
+              },
             ),
-            ListViewMsg(messages: messages),
-
             Align(
               alignment: Alignment.bottomLeft,
               child: Container(
@@ -149,12 +144,11 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                     ),
                     FloatingActionButton(
                       onPressed: () {
-
-                         _chatService.createMsg(widget.msgId, newMessage.text);
-                       print(messages.length);
-
-
-                       print(messages.length);
+                        _chatService.createMsg(widget.msgId, newMessage.text);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ChatDetailPage(name: widget.name, image: widget.image, msgId: widget.msgId )),
+                        );
                       },
                       child: Icon(
                         Icons.send,

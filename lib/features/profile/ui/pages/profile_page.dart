@@ -9,6 +9,8 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:zwappr/features/authentication/models/user_model.dart';
 import 'package:zwappr/features/authentication/ui/login_page.dart';
+import 'package:zwappr/features/profile/services/i_proflie_service.dart';
+import 'package:zwappr/features/profile/services/proflie_service.dart';
 import 'package:zwappr/features/profile/ui/pages/settings_page.dart';
 import 'package:zwappr/features/profile/ui/widgets/menu.dart';
 import 'package:zwappr/features/profile/ui/widgets/profile_picture.dart';
@@ -48,20 +50,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  Future<UserModel> fetchUser() async {
-    final response = await http.get(
-      "https://us-central1-zwappr.cloudfunctions.net/api/users/me",
-      headers: <String, String>{
-        "Content-Type": "application/json; charset=UTF-8",
-        "idToken": await auth.currentUser.getIdToken(true)
-      },
-    );
-    if (response.statusCode == 200) {
-      return UserModel.fromJson(jsonDecode(response.body)["data"]);
-    } else {
-      throw Exception('Failed to fetch data');
-    }
-  }
 
   Future<void> photoPicker() async {
       return showDialog<void>(
@@ -117,7 +105,7 @@ class _ProfilePageState extends State<ProfilePage> {
     print("LETSGO!!!" + url.toString());
     return url;
   }
-
+  static final IProfileService _ProfileService = ProfileService();
   Future<void> updateImage(String url) async {
     auth.currentUser.getIdToken(true).then((idToken) async => {
       await http.put(
@@ -134,7 +122,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     Future <UserModel> futureUserModel;
-    futureUserModel = fetchUser();
+    futureUserModel = _ProfileService.get();
     List providerData = auth.currentUser.providerData.toString().split(',');
     List email = providerData[1].split(':');
     //String url;
@@ -199,7 +187,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
                 Button(press: () {
-                 futureUserModel = fetchUser();
                 }),
                 Menu(
                   text: "Likt",

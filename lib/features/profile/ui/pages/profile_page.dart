@@ -105,7 +105,7 @@ class _ProfilePageState extends State<ProfilePage> {
     print("LETSGO!!!" + url.toString());
     return url;
   }
-  static final IProfileService _ProfileService = ProfileService();
+  static final IProfileService _profileService = ProfileService();
   Future<void> updateImage(String url) async {
     auth.currentUser.getIdToken(true).then((idToken) async => {
       await http.put(
@@ -122,7 +122,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     Future <UserModel> futureUserModel;
-    futureUserModel = _ProfileService.get();
+    futureUserModel = _profileService.get();
     List providerData = auth.currentUser.providerData.toString().split(',');
     List email = providerData[1].split(':');
     //String url;

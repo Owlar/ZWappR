@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:uuid/uuid.dart';
 import 'package:zwappr/features/feed/data/things.dart';
 import 'package:zwappr/features/feed/models/thing.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
@@ -43,8 +44,9 @@ class _ThingsPageState extends State<ThingsPage> {
               MaterialPageRoute(builder: (context) => NewThingPage())
           );
           // TESTING
-          final ThingModel thing = ThingModel(title: "test", description: "testesen");
-          final ThingModel shoes = ThingModel(title: "Selskapsko", description: "Blanke og nye sko i stor størrelse");
+          var uid = Uuid();
+          final ThingModel thing = ThingModel(title: "test", description: "testesen", uid: uid.v4());
+          final ThingModel shoes = ThingModel(title: "Selskapsko", description: "Blanke og nye sko i stor størrelse", uid: uid.v4());
 
           // 1. Creating
           _thingsService.create(thing);
@@ -55,15 +57,6 @@ class _ThingsPageState extends State<ThingsPage> {
           things = await _thingsService.getAll();
           print(things);
 
-          // 3. Putting
-          _thingsService.put("Gzb685FYsTS9OmFekp4j");
-
-          // 4. Deleting
-          _thingsService.delete("Gzb685FYsTS9OmFekp4j");
-
-          // 5. Getting
-          final ThingModel shouldBeShoes = await _thingsService.get("dvdGzMSdTu6UtRbJ4Amy");
-          print(shouldBeShoes.title);
 
         },
         label: Text("Ny ting"),

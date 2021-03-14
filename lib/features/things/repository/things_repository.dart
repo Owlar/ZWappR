@@ -16,7 +16,8 @@ class ThingsRepository {
       },
       body: jsonEncode(<String, String>{
         "title": thing.title,
-        "description": thing.description
+        "description": thing.description,
+        "uid": thing.uid
       }),
     );
   }

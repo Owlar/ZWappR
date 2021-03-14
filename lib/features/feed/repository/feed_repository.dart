@@ -25,4 +25,14 @@ class FeedRepository {
     }
   }
 
+  Future<void> delete(String uid) async {
+    await http.delete(
+      "https://us-central1-zwappr.cloudfunctions.net/api/things/$uid",
+      headers: <String, String>{
+        "Content-Type": "application/json; charset=UTF-8",
+        "idToken": await _firebaseAuth.currentUser.getIdToken()
+      },
+    );
+  }
+
 }

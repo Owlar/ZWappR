@@ -7,4 +7,7 @@ class FeedService implements IFeedService {
 
   @override
   Future<List<ThingModel>> getAll() async => _feedRepository.getAll();
+
+  @override
+  Future<void> delete(String uid) async => _feedRepository.delete(uid);
 }

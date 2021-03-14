@@ -5,4 +5,8 @@ abstract class IFeedService {
   // Getting all things in feed for user with:
   Future<List<ThingModel>> getAll() async => getAll();
 
+  // Deleting a thing with:
+  /// [uid]
+  Future<void> delete(String uid);
+
 }

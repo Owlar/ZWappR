@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class ThingModel {
+  final String uid;
   final String title;
   final String description;
   int numberOfLikes;
@@ -9,6 +10,7 @@ class ThingModel {
   bool isLiked;
 
   ThingModel({
+    @required this.uid,
     @required this.title,
     @required this.description,
     this.numberOfLikes,
@@ -19,6 +21,7 @@ class ThingModel {
 
   factory ThingModel.fromJson(Map<String, dynamic> json) {
     return ThingModel(
+        uid: json["uid"] as String,
         title: json["title"] as String,
         description: json["description"] as String,
     );

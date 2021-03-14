@@ -25,12 +25,6 @@ class _FeedPageState extends State<FeedPage> {
   }
 
   @override
-  void initState() {
-    _getThingsFromService();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
@@ -212,7 +206,6 @@ class _FeedPageState extends State<FeedPage> {
           child: Icon(Icons.close, color: zwapprRed, size: 70),
           color: zwapprBlack,
           onPressed: () {
-
           },
         ),
         SizedBox(width: 10),
@@ -246,9 +239,12 @@ class _FeedPageState extends State<FeedPage> {
     } else if (details.offset.dx < -minimumDrag) {
       thing.isLiked = true;
     }
-    setState(() => things.remove(thing));
+    setState(() {
+      things.remove(thing);
+      print(thing.uid);
+      _feedService.delete(thing.uid);
+    });
   }
-
-// Source: https://github.com/Owlar/tinder_ui_clone_example/blob/master/lib/widget/user_card_widget.dart
+  // Source: https://github.com/Owlar/tinder_ui_clone_example/blob/master/lib/widget/user_card_widget.dart
 
 }

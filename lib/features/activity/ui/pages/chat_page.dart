@@ -95,15 +95,24 @@ class _ChatPageState extends State<ChatPage> {
                 FutureBuilder<Map>(
                   future: test,
                   builder: (context, AsyncSnapshot snapshot) {
-                    //print("TEST HALLO " + snapshot.toString());
+
                     if (snapshot.hasData) {
 
 
-                      for (int i = 0; i < snapshot.data["size"]; i++) {
 
+
+                      for (int i = 0; i < snapshot.data["size"]; i++) {
+                        String id = auth.currentUser.uid;
                         String formatted = "";
                         String msg = "";
+                        String userId;
                         conversationList.add(snapshot.data["data"][i]["convoID"].toString());
+                        if(snapshot.data["data"][0]["participants"]["user1"]["id"].toString() == id){
+                          userId = "user1";
+                        }else{
+                          userId = "user2";
+                        }
+
                         if (snapshot.data["data"][i]["previewMsg"] != null) {
 
                           int sec = snapshot.data["data"][i]["previewMsg"]["time"]["_seconds"];
@@ -118,9 +127,9 @@ class _ChatPageState extends State<ChatPage> {
                         }
 
                         ChatUsers c = new ChatUsers(
-                            snapshot.data["data"][i]["participants"]["user1"]["displayName"].toString(),
+                            snapshot.data["data"][i]["participants"][userId]["displayName"].toString(),
                             msg,
-                            snapshot.data["data"][i]["participants"]["user1"]["imageID"].toString(),
+                            snapshot.data["data"][i]["participants"][userId]["imageID"].toString(),
                             formatted);
                         chatUsers.add(c);
                       }

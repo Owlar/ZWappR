@@ -1,64 +1,47 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:zwappr/features/activity/models/chat_message.dart';
+import 'package:zwappr/features/activity/services/chat_service.dart';
+import 'package:zwappr/features/activity/services/i_chat_service.dart';
 import 'package:zwappr/features/activity/ui/widgets/list_view_chat.dart';
-
+import 'package:http/http.dart' as http;
 import '../../../activity/models/chat_users.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter/cupertino.dart';
 
 class ChatPage extends StatefulWidget {
   @override
   _ChatPageState createState() => _ChatPageState();
 }
 
+final FirebaseAuth auth = FirebaseAuth.instance;
+
+
 class _ChatPageState extends State<ChatPage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
+  static final IChatService _chatService = ChatService();
+
+  Future<Map> test = _chatService.get();
+
 
   @override
   Widget build(BuildContext context) {
-    List<ChatUsers> chatUsers = [
-      ChatUsers(
-          name: "Ina",
-          message: "Husk å skrive om arkitektur, løst koblet kode, repository, services, MVC...",
-          image: "https://randomuser.me/api/portraits/women/1.jpg",
-          date: "Now"),
-      ChatUsers(
-          name: "Oscar",
-          message: "I dette kapittel ble det snakket om hvordan prosjektgruppen har implementer ZWappR systemet",
-          image: "https://randomuser.me/api/portraits/men/1.jpg",
-          date: "Yesterday"),
-      ChatUsers(
-          name: "Magnus",
-          message: "Før implementeringen av autentisering så var REST API'et fullstendig åpent.",
-          image: "https://randomuser.me/api/portraits/men/3.jpg",
-          date: "Now"),
-      ChatUsers(
-          name: "Emilio",
-          message: "Hei alle sammen",
-          image: "https://randomuser.me/api/portraits/men/2.jpg",
-          date: "Yesterday"),
-      ChatUsers(
-          name: "Vilde",
-          message: "Harket er datteren til A-ha-stjernen Morten Harket, ",
-          image: "https://randomuser.me/api/portraits/women/2.jpg",
-          date: "Now"),
-      ChatUsers(
-          name: "Nora",
-          message: "Harket mener det har påvirket henne på en måte som gjør at hun ikke klarer å fullføre ting hun har startet på.",
-          image: "https://randomuser.me/api/portraits/women/3.jpg",
-          date: "Yesterday"),
-      ChatUsers(
-          name: "Ole",
-          message: "Hun forklarer at ADHD (Attention deficit hyperactivity disorder) og ADD (attention deficit disorder) er litt det samme ",
-          image: "https://randomuser.me/api/portraits/men/4.jpg",
-          date: "Now"),
-      ChatUsers(
-          name: "Line",
-          message: "Samtidig påpeker hun at denne diagnosen ikke vil gjøre noe særlig forskjell i livet hennes. ",
-          image: "https://randomuser.me/api/portraits/women/4.jpg",
-          date: "Now"),
-    ];
+    List<ChatUsers> chatUsers = [];
+    List<String> conversationList = [];
+    // Future <ChatUsers> futureChatUser;
+    //futureChatUser = fetchChatUser();
+
+    //Future<Map> test = _chatService.get();
+
+    //_chatService.createMsg("9qQ5yKyMKKpXNYMivraM", "YO! wazzzup");
+    //_chatService.create("NPDjGHiQFSYyrPCmGS5r9V5j70C2");
 
     return Scaffold(
-      body: Center(
+      body: Container(
+        height: double.infinity,
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -109,7 +92,55 @@ class _ChatPageState extends State<ChatPage> {
                     ),
                   ),
                 ),
-                ListViewChat(chatUsers: chatUsers),
+                FutureBuilder<Map>(
+                  future: test,
+                  builder: (context, AsyncSnapshot snapshot) {
+
+                    if (snapshot.hasData) {
+
+
+
+
+                      for (int i = 0; i < snapshot.data["size"]; i++) {
+                        String id = auth.currentUser.uid;
+                        String formatted = "";
+                        String msg = "";
+                        String userId;
+                        conversationList.add(snapshot.data["data"][i]["convoID"].toString());
+                        if(snapshot.data["data"][0]["participants"]["user1"]["id"].toString() == id){
+                          userId = "user1";
+                        }else{
+                          userId = "user2";
+                        }
+
+                        if (snapshot.data["data"][i]["previewMsg"] != null) {
+
+                          int sec = snapshot.data["data"][i]["previewMsg"]["time"]["_seconds"];
+                          int nanoSec = snapshot.data["data"][i]["previewMsg"]["time"]["_nanoseconds"];
+
+                          Timestamp time = new Timestamp(sec, nanoSec);
+                          DateTime date = time.toDate();
+                          final DateFormat formatter = DateFormat('dd.MM.yy H:m');
+                          formatted = formatter.format(date);
+
+                          msg = snapshot.data["data"][i]["previewMsg"]["content"].toString();
+                        }
+
+                        ChatUsers c = new ChatUsers(
+                            snapshot.data["data"][i]["participants"][userId]["displayName"].toString(),
+                            msg,
+                            snapshot.data["data"][i]["participants"][userId]["imageID"].toString(),
+                            formatted);
+                        chatUsers.add(c);
+                      }
+                      return ListViewChat(chatUsers: chatUsers, conversationList: conversationList);
+                    } else if (snapshot.hasError) {
+                      return Text("${snapshot.error}");
+                    }
+                    // By default, show a loading spinner.
+                    return CircularProgressIndicator();
+                  },
+                ),
               ],
             ),
           ),

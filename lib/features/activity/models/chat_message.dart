@@ -5,4 +5,6 @@ class ChatMessage {
   String messageType;
 
   ChatMessage({@required this.messageContent, @required this.messageType});
+
+
 }

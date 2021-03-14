@@ -8,10 +8,11 @@ class ListViewChat extends StatelessWidget {
   const ListViewChat({
     Key key,
     @required this.chatUsers,
+    @required this.conversationList,
   }) : super(key: key);
 
   final List<ChatUsers> chatUsers;
-
+  final List<String> conversationList;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -27,6 +28,7 @@ class ListViewChat extends StatelessWidget {
             message: chatUsers[index].message,
             image: chatUsers[index].image,
             date: chatUsers[index].date,
+            msgId: conversationList[index],
             isMessageRead: (index == 0 || index == 3) ? true : false,
           ),
         );

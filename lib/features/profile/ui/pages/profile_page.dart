@@ -9,6 +9,8 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:zwappr/features/authentication/models/user_model.dart';
 import 'package:zwappr/features/authentication/ui/login_page.dart';
+import 'package:zwappr/features/profile/services/i_proflie_service.dart';
+import 'package:zwappr/features/profile/services/proflie_service.dart';
 import 'package:zwappr/features/profile/ui/pages/settings_page.dart';
 import 'package:zwappr/features/profile/ui/widgets/menu.dart';
 import 'package:zwappr/features/profile/ui/widgets/profile_picture.dart';
@@ -48,20 +50,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  Future<UserModel> fetchAlbum() async {
-    final response = await http.get(
-      "https://us-central1-zwappr.cloudfunctions.net/api/users/me",
-      headers: <String, String>{
-        "Content-Type": "application/json; charset=UTF-8",
-        "idToken": await auth.currentUser.getIdToken(true)
-      },
-    );
-    if (response.statusCode == 200) {
-      return UserModel.fromJson(jsonDecode(response.body)["data"]);
-    } else {
-      throw Exception('Failed to fetch data');
-    }
-  }
 
   Future<void> photoPicker() async {
       return showDialog<void>(
@@ -117,7 +105,7 @@ class _ProfilePageState extends State<ProfilePage> {
     print("LETSGO!!!" + url.toString());
     return url;
   }
-
+  static final IProfileService _profileService = ProfileService();
   Future<void> updateImage(String url) async {
     auth.currentUser.getIdToken(true).then((idToken) async => {
       await http.put(
@@ -134,10 +122,10 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     Future <UserModel> futureUserModel;
-    futureUserModel = fetchAlbum();
+    futureUserModel = _profileService.get();
     List providerData = auth.currentUser.providerData.toString().split(',');
     List email = providerData[1].split(':');
-    String url;
+    //String url;
 
     return Scaffold(
         body: Container(
@@ -159,7 +147,21 @@ class _ProfilePageState extends State<ProfilePage> {
                     }
                 ),
                 SizedBox(height: 20,),
-                auth.currentUser.displayName == null ? Text(email[1]) : Text(auth.currentUser.displayName.toString()),
+                auth.currentUser.displayName == null ? FutureBuilder<UserModel>(
+                  future: futureUserModel,
+                  builder: (context, snapshot) {
+                    print("TEST " + snapshot.toString());
+                    if (snapshot.hasData) {
+                      return Text(snapshot.data.displayName);
+                      //return Text(snapshot.data.displayName == null ? "GET": snapshot.data.displayName);
+                    } else if (snapshot.hasError) {
+                      return Text("${snapshot.error}");
+                    }
+                    // By default, show a loading spinner.
+                    return CircularProgressIndicator();
+                  },
+                ):Text(auth.currentUser.displayName.toString()),
+                //auth.currentUser.displayName == null ? Text(email[1]) : Text(auth.currentUser.displayName.toString()),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -185,21 +187,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
                 Button(press: () {
-                 futureUserModel = fetchAlbum();
                 }),
-                FutureBuilder<UserModel>(
-                  future: futureUserModel,
-                  builder: (context, snapshot) {
-                    print("TEST " + snapshot.toString());
-                    if (snapshot.hasData) {
-                      return Text(snapshot.data.displayName == null ? "GET": snapshot.data.displayName);
-                    } else if (snapshot.hasError) {
-                      return Text("${snapshot.error}");
-                    }
-                    // By default, show a loading spinner.
-                    return CircularProgressIndicator();
-                  },
-                ),
                 Menu(
                   text: "Likt",
                   icon: Icons.star,

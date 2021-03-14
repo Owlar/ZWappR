@@ -19,35 +19,6 @@ class ChatPage extends StatefulWidget {
 
 final FirebaseAuth auth = FirebaseAuth.instance;
 
-Future<ChatUsers> fetchChatUser() async {
-  final response = await http.get(
-    "https://us-central1-zwappr.cloudfunctions.net/api/convo/X6BTw56tqsgZLRbgD8vQ?p=0",
-    headers: <String, String>{
-      "Content-Type": "application/json; charset=UTF-8",
-      "idToken": await auth.currentUser.getIdToken(true)
-    },
-  );
-  if (response.statusCode == 200) {
-    print("statusCode" + response.statusCode.toString());
-    return ChatUsers.fromJson(jsonDecode(response.body)["data"]);
-  } else {
-    print("statusCode" + response.statusCode.toString());
-    throw Exception('Failed to fetch data');
-  }
-}
-
-Future<void> addChatUser(String userId) async {
-  await http.post(
-    "https://us-central1-zwappr.cloudfunctions.net/api/convo",
-    headers: <String, String>{
-      "Content-Type": "application/json; charset=UTF-8",
-      "idToken": await auth.currentUser.getIdToken(true)
-    },
-    body: jsonEncode(<String, String>{
-      "toUser": userId,
-    }),
-  );
-}
 
 class _ChatPageState extends State<ChatPage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -56,6 +27,7 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     List<ChatUsers> chatUsers = [];
+    List<String> conversationList = [];
     // Future <ChatUsers> futureChatUser;
     //futureChatUser = fetchChatUser();
     Future<Map> test;
@@ -63,6 +35,7 @@ class _ChatPageState extends State<ChatPage> {
 
     //_chatService.createMsg("9qQ5yKyMKKpXNYMivraM", "YO! wazzzup");
     //_chatService.create("NPDjGHiQFSYyrPCmGS5r9V5j70C2");
+
     return Scaffold(
       body: Center(
         child: Container(
@@ -123,9 +96,10 @@ class _ChatPageState extends State<ChatPage> {
 
 
                       for (int i = 0; i < snapshot.data["size"]; i++) {
+
                         String formatted = "";
                         String msg = "";
-
+                        conversationList.add(snapshot.data["data"][i]["convoID"].toString());
                         if (snapshot.data["data"][i]["previewMsg"] != null) {
 
                           int sec = snapshot.data["data"][i]["previewMsg"]["time"]["_seconds"];
@@ -146,7 +120,7 @@ class _ChatPageState extends State<ChatPage> {
                             formatted);
                         chatUsers.add(c);
                       }
-                      return Text("");
+                      return Text(snapshot.data["data"][0]["convoID"].toString());
                     } else if (snapshot.hasError) {
                       return Text("${snapshot.error}");
                     }
@@ -154,7 +128,7 @@ class _ChatPageState extends State<ChatPage> {
                     return CircularProgressIndicator();
                   },
                 ),
-                ListViewChat(chatUsers: chatUsers),
+                ListViewChat(chatUsers: chatUsers, conversationList: conversationList),
               ],
             ),
           ),

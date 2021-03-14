@@ -1,16 +1,22 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zwappr/features/activity/models/chat_message.dart';
+import 'package:zwappr/features/activity/services/chat_service.dart';
+import 'package:zwappr/features/activity/services/i_chat_service.dart';
 import 'package:zwappr/features/activity/ui/widgets/chat_info_person.dart';
+import 'package:zwappr/features/activity/ui/widgets/list_view_msg.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
 class ChatDetailPage extends StatefulWidget {
   String name;
   String image;
+  String msgId;
 
   ChatDetailPage({
     @required this.name,
     @required this.image,
+    @required this.msgId,
   });
 
   @override
@@ -19,28 +25,19 @@ class ChatDetailPage extends StatefulWidget {
 
 class _ChatDetailPageState extends State<ChatDetailPage> {
   final TextEditingController newMessage = TextEditingController();
+  static final IChatService _chatService = ChatService();
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  Future<String> getId() async {
+    return await _firebaseAuth.currentUser.getIdToken(true);
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    List<ChatMessage> messagesReverse = [
+    Future<Map> test;
+    test = _chatService.getMsg(widget.msgId);
+    List<ChatMessage> messages = [];
 
-      ChatMessage(messageContent: "FIRST!", messageType: "receiver"),
-      ChatMessage(messageContent: "kult hahah?", messageType: "receiver"),
-      ChatMessage(messageContent: "Hei, paa", messageType: "sender"),
-      ChatMessage(messageContent: "kult hahah?", messageType: "receiver"),
-      ChatMessage(messageContent: "Hei, paa", messageType: "receiver"),
-      ChatMessage(messageContent: "kult hahah?", messageType: "receiver"),
-
-      ChatMessage(messageContent: "Hei, paa", messageType: "receiver"),
-      ChatMessage(messageContent: "kult hahah?", messageType: "receiver"),
-      ChatMessage(messageContent: "Hei, paa", messageType: "sender"),
-      ChatMessage(messageContent: "AspectRatio, a widget that attempts to fit within the parent's constraints ", messageType: "sender"),
-      ChatMessage(messageContent: "kult hahah?", messageType: "receiver"),
-      ChatMessage(messageContent: "Hei, paa", messageType: "receiver"),
-      ChatMessage(messageContent: "kult hahah?", messageType: "receiver"),
-      ChatMessage(messageContent: "LAST! ", messageType: "sender"),
-
-    ];
-    List<ChatMessage> messages = messagesReverse.reversed.toList();
 
     return Scaffold(
       body: Container(
@@ -52,46 +49,35 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
         ),
         child: Stack(
           children: <Widget>[
-            ListView.builder(
-              itemCount: messages.length,
-              shrinkWrap: true,
-              reverse: true,
-              padding: EdgeInsets.only(top: 85, bottom: 60),
-              physics: BouncingScrollPhysics(),
-              itemBuilder: (context, index) {
-                return Container(
-                  padding:
-                      EdgeInsets.only(left: 14, right: 14, top: 10, bottom: 10),
-                  child: Align(
-                    alignment: (messages[index].messageType == "receiver"
-                        ? Alignment.topLeft
-                        : Alignment.topRight),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                          bottomLeft: (messages[index].messageType == "receiver"
-                              ? Radius.circular(0)
-                              : Radius.circular(20)),
-                          bottomRight: (messages[index].messageType == "receiver"
-                              ? Radius.circular(20)
-                              : Radius.circular(0)),
-                        ),
-                        color: (messages[index].messageType == "receiver"
-                            ? zwapprLightGray
-                            : zwapprWhite),
-                      ),
-                      padding: EdgeInsets.all(16),
-                      child: Text(
-                        messages[index].messageContent,
-                        style: TextStyle(fontSize: 15),
-                      ),
-                    ),
-                  ),
-                );
-              },
+            Padding(
+              padding: const EdgeInsets.all(100.40),
+              child: FutureBuilder<Map>(
+                future: test,
+                builder: (context, snapshot) {
+                  //print("TEST HALLO " + snapshot.toString());
+                  if (snapshot.hasData) {
+                      String id = _firebaseAuth.currentUser.uid;
+                      String from;
+                    //ChatMessage(messageContent: snapshot.data["data"][0]["content"].toString(), messageType: "receiver");
+                   for(int i = 0; i < snapshot.data["size"]; i++) {
+                      if(snapshot.data["data"][i]["from"].toString() == id){
+                          from = "sender";
+                      }else{
+                        from = "receiver";
+                      }
+                      messages.add(ChatMessage(messageContent: snapshot.data["data"][i]["content"].toString(), messageType: from));
+                    }
+                    return Text("");
+                  } else if (snapshot.hasError) {
+                    return Text("${snapshot.error}");
+                  }
+                  // By default, show a loading spinner.
+                  return CircularProgressIndicator();
+                },
+              ),
             ),
+            ListViewMsg(messages: messages),
+
             Align(
               alignment: Alignment.bottomLeft,
               child: Container(
@@ -163,13 +149,10 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                     ),
                     FloatingActionButton(
                       onPressed: () {
-                        ChatMessage chatMessage = new ChatMessage(messageContent: newMessage.toString(), messageType: "receiver");
 
-                       setState(() {
-                         ChatMessage chatMessage = new ChatMessage(messageContent: newMessage.toString(), messageType: "receiver");
-                         messages.add(chatMessage);
+                         _chatService.createMsg(widget.msgId, newMessage.text);
                        print(messages.length);
-                       });
+
 
                        print(messages.length);
                       },
@@ -201,3 +184,4 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
     );
   }
 }
+

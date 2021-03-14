@@ -8,6 +8,7 @@ class ConversationList extends StatefulWidget {
   String message;
   String image;
   String date;
+  String msgId;
   bool isMessageRead;
 
   ConversationList({
@@ -15,7 +16,8 @@ class ConversationList extends StatefulWidget {
     @required this.message,
     @required this.image,
     @required this.date,
-    @required this.isMessageRead
+    @required this.isMessageRead,
+    @required this.msgId,
   });
 
   @override
@@ -29,7 +31,7 @@ class _ConversationListState extends State<ConversationList> {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ChatDetailPage(name: widget.name, image: widget.image )),
+          MaterialPageRoute(builder: (context) => ChatDetailPage(name: widget.name, image: widget.image, msgId: widget.msgId )),
         );
       },
       child: Container(

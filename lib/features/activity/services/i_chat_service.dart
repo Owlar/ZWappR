@@ -20,5 +20,7 @@ abstract class IChatService {
   // Getting a thing with:
   /// [uid]
   Future<Map> get();
+  Future<Map> getMe();
+  Future<Map> getMsg(String uid);
 
 }

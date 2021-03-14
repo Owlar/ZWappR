@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:zwappr/features/authentication/models/user_model.dart';
+import 'package:zwappr/features/authentication/services/authentication_service.dart';
+import 'package:zwappr/features/authentication/services/i_authentication_service.dart';
 import 'package:zwappr/features/authentication/ui/login_page.dart';
 import 'package:zwappr/features/profile/services/i_proflie_service.dart';
 import 'package:zwappr/features/profile/services/proflie_service.dart';
@@ -29,6 +31,7 @@ class _ProfilePageState extends State<ProfilePage> {
   File _image;
   final imagePicker = ImagePicker();
   List<String> imageList;
+  final IAuthenticationService _authenticationService = AuthenticationService();
 
   Future getImage() async {
     final image = await imagePicker.getImage(source: ImageSource.camera);
@@ -212,6 +215,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         context,
                         MaterialPageRoute(builder: (context) => LoginPage()),
                       );
+                      _authenticationService.signOut();
                     },
                   ),
                 ),

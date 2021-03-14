@@ -55,6 +55,7 @@ class _ThingsPageState extends State<ThingsPage> {
           // 2. Listing
           List<ThingModel> things = List();
           things = await _thingsService.getAll();
+          print("Should print all things below:");
           print(things);
 
 

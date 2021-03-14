@@ -1,16 +1,13 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:zwappr/features/activity/models/chat_message.dart';
+import 'package:intl/intl.dart';
 import 'package:zwappr/features/activity/services/chat_service.dart';
 import 'package:zwappr/features/activity/services/i_chat_service.dart';
 import 'package:zwappr/features/activity/ui/widgets/list_view_chat.dart';
-import 'package:http/http.dart' as http;
+
 import '../../../activity/models/chat_users.dart';
-import 'package:intl/intl.dart';
-import 'package:flutter/cupertino.dart';
 
 class ChatPage extends StatefulWidget {
   @override
@@ -18,7 +15,6 @@ class ChatPage extends StatefulWidget {
 }
 
 final FirebaseAuth auth = FirebaseAuth.instance;
-
 
 class _ChatPageState extends State<ChatPage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -97,9 +93,6 @@ class _ChatPageState extends State<ChatPage> {
                   builder: (context, AsyncSnapshot snapshot) {
 
                     if (snapshot.hasData) {
-
-
-
 
                       for (int i = 0; i < snapshot.data["size"]; i++) {
                         String id = auth.currentUser.uid;

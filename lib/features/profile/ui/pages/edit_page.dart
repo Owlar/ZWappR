@@ -1,12 +1,10 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:zwappr/features/profile/services/i_proflie_service.dart';
-import 'package:zwappr/features/profile/services/proflie_service.dart';
+import 'package:zwappr/features/profile/services/i_profile_service.dart';
+import 'package:zwappr/features/profile/services/profile_service.dart';
 import 'package:zwappr/features/profile/ui/pages/profile_page.dart';
 import 'package:zwappr/features/profile/ui/pages/settings_page.dart';
 import 'package:zwappr/features/profile/ui/widgets/menu.dart';

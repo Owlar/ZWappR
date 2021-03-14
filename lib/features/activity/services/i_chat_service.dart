@@ -1,26 +1,27 @@
-import 'package:zwappr/features/activity/models/chat_users.dart';
-
 abstract class IChatService {
 
-  // Creating a thing with:
-  /// [Create conversation]
+  // Creating a conversation with:
+  /// [userId]
   Future<void> create(String userId);
+
+  // Creating a message with:
+  /// [convoId]
+  /// [msg]
   Future<void> createMsg(String convoId, String msg);
-  // Listing all things
 
-
-  // Updating a thing with:
+  // Updating me as a user with:
   /// [uid]
   Future<void> put(String uid);
 
-  // Deleting a thing with:
-  /// [uid]
-
-
-  // Getting a thing with:
-  /// [uid]
+  // Getting a conversation
   Future<Map> get();
-  Future<Map> getMe();
+
+  // Getting a message with:
+  /// [uid]
   Future<Map> getMsg(String uid);
+
+  // Getting me as a user
+  Future<Map> getMe();
+
 
 }

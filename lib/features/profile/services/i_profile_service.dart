@@ -2,21 +2,11 @@ import 'package:zwappr/features/authentication/models/user_model.dart';
 
 abstract class IProfileService {
 
-  // Creating a thing with:
-  /// [thing]
-
-  // Listing all things
-
-
-  // Updating a thing with:
+  // Updating me as a user with:
   /// [uid]
   Future<void> put(String uid);
 
-  // Deleting a thing with:
-  /// [uid]
-
-
-  // Getting a thing with:
+  // Getting me as a user with:
   /// [uid]
   Future<UserModel> get();
 

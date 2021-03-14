@@ -18,6 +18,7 @@ class ChatDetailPage extends StatefulWidget {
 }
 
 class _ChatDetailPageState extends State<ChatDetailPage> {
+  final TextEditingController newMessage = TextEditingController();
   @override
   Widget build(BuildContext context) {
     List<ChatMessage> messagesReverse = [
@@ -40,6 +41,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
 
     ];
     List<ChatMessage> messages = messagesReverse.reversed.toList();
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -149,6 +151,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                     ),
                     Expanded(
                       child: TextField(
+                        controller: newMessage,
                         decoration: InputDecoration(
                             hintText: "Write message...",
                             hintStyle: TextStyle(color: Colors.black54),
@@ -159,7 +162,17 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                       width: 15,
                     ),
                     FloatingActionButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        ChatMessage chatMessage = new ChatMessage(messageContent: newMessage.toString(), messageType: "receiver");
+
+                       setState(() {
+                         ChatMessage chatMessage = new ChatMessage(messageContent: newMessage.toString(), messageType: "receiver");
+                         messages.add(chatMessage);
+                       print(messages.length);
+                       });
+
+                       print(messages.length);
+                      },
                       child: Icon(
                         Icons.send,
                         color: zwapprBlue,

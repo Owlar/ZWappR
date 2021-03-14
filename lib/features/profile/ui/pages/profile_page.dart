@@ -48,7 +48,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  Future<UserModel> fetchAlbum() async {
+  Future<UserModel> fetchUser() async {
     final response = await http.get(
       "https://us-central1-zwappr.cloudfunctions.net/api/users/me",
       headers: <String, String>{
@@ -134,10 +134,10 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     Future <UserModel> futureUserModel;
-    futureUserModel = fetchAlbum();
+    futureUserModel = fetchUser();
     List providerData = auth.currentUser.providerData.toString().split(',');
     List email = providerData[1].split(':');
-    String url;
+    //String url;
 
     return Scaffold(
         body: Container(
@@ -159,7 +159,21 @@ class _ProfilePageState extends State<ProfilePage> {
                     }
                 ),
                 SizedBox(height: 20,),
-                auth.currentUser.displayName == null ? Text(email[1]) : Text(auth.currentUser.displayName.toString()),
+                auth.currentUser.displayName == null ? FutureBuilder<UserModel>(
+                  future: futureUserModel,
+                  builder: (context, snapshot) {
+                    print("TEST " + snapshot.toString());
+                    if (snapshot.hasData) {
+                      return Text(snapshot.data.displayName);
+                      //return Text(snapshot.data.displayName == null ? "GET": snapshot.data.displayName);
+                    } else if (snapshot.hasError) {
+                      return Text("${snapshot.error}");
+                    }
+                    // By default, show a loading spinner.
+                    return CircularProgressIndicator();
+                  },
+                ):Text(auth.currentUser.displayName.toString()),
+                //auth.currentUser.displayName == null ? Text(email[1]) : Text(auth.currentUser.displayName.toString()),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -185,21 +199,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
                 Button(press: () {
-                 futureUserModel = fetchAlbum();
+                 futureUserModel = fetchUser();
                 }),
-                FutureBuilder<UserModel>(
-                  future: futureUserModel,
-                  builder: (context, snapshot) {
-                    print("TEST " + snapshot.toString());
-                    if (snapshot.hasData) {
-                      return Text(snapshot.data.displayName == null ? "GET": snapshot.data.displayName);
-                    } else if (snapshot.hasError) {
-                      return Text("${snapshot.error}");
-                    }
-                    // By default, show a loading spinner.
-                    return CircularProgressIndicator();
-                  },
-                ),
                 Menu(
                   text: "Likt",
                   icon: Icons.star,

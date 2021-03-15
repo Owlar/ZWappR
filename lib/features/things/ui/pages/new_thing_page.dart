@@ -161,7 +161,7 @@ class _NewThingPageState extends State<NewThingPage> {
                             Navigator.pop(context);
                           }
                         },
-                        child: Text("Lag Gjenstand"),
+                        child: Text("Legg ut"),
                       ),
                     ],
                   )),

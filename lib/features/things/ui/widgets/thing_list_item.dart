@@ -14,9 +14,9 @@ class ThingListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.fromLTRB(14.0, 14.0, 14.0, 0),
+      margin: EdgeInsets.fromLTRB(2.0, 14.0, 2.0, 0),
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.fromLTRB(2.0, 12.0, 12.0, 12.0),
         child: Column(
           children: <Widget> [
             Container(
@@ -33,14 +33,16 @@ class ThingListItem extends StatelessWidget {
                       flex: 4,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
+                        children: <Widget> [
                           Text(
                               thing.title,
+                              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                               overflow: TextOverflow.ellipsis
                           ),
                           SizedBox(height: 10),
                           Text(
                               thing.description,
+                              style: TextStyle(fontSize: 16),
                               overflow: TextOverflow.ellipsis
                           ),
                         ]
@@ -60,7 +62,7 @@ class ThingListItem extends StatelessWidget {
                                   );
                                 }).toList();
                               },
-                              child: Icon(Icons.more_vert),
+                              child: Icon(Icons.more_vert, size: 30),
                               onSelected: choiceAction,
                             )
                           ),
@@ -68,7 +70,7 @@ class ThingListItem extends StatelessWidget {
                           // TODO: Ternary: If thing is active, green color and "Aktiv", else red color and "Inaktiv"
                           Text(
                               "Aktiv",
-                              style: TextStyle(backgroundColor: zwapprGreen),
+                              style: TextStyle(fontSize: 18, backgroundColor: zwapprGreen),
                           )
                         ]
                       )

@@ -3,13 +3,18 @@ class UserModel {
   // Unique identifier
   final String uid;
   final String displayName;
+  String imageId;
 
-  UserModel(this.uid, this.displayName);
+  UserModel({
+    this.uid,
+    this.displayName,
+    this.imageId
+  });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-        json['uid'],
-        json['displayName']
+        uid: json['uid'],
+        displayName: json['displayName']
     );
   }
 }

@@ -31,7 +31,7 @@ class AuthenticationService implements IAuthenticationService {
 
       _repository.updateToken();
 
-      return UserModel(user.uid, user.displayName);
+      return UserModel(uid: user.uid, displayName: user.displayName);
     } on FirebaseAuthException catch (e) {
       print(e.message);
       return null;
@@ -43,7 +43,7 @@ class AuthenticationService implements IAuthenticationService {
     try {
       final user = (await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password)).user;
       await createUser(user, displayName);
-      return UserModel(user.uid, user.displayName);
+      return UserModel(uid: user.uid, displayName: user.displayName);
     } on FirebaseAuthException catch (e) {
       print(e.message);
       return null;
@@ -74,7 +74,7 @@ class AuthenticationService implements IAuthenticationService {
 
   @override
   Future<UserModel> getLoggedInUser(User user) async {
-    return user != null ? UserModel(user.uid, user.displayName) : null;
+    return user != null ? UserModel(uid: user.uid, displayName: user.displayName) : null;
   }
 
 

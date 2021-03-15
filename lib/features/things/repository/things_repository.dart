@@ -9,7 +9,7 @@ class ThingsRepository {
 
   Future<void> create(ThingModel thing) async {
     await http.post(
-      "https://us-central1-zwappr.cloudfunctions.net/api/things/me",
+      "https://us-central1-zwappr.cloudfunctions.net/api/things",
       headers: <String, String>{
         "Content-Type": "application/json; charset=UTF-8",
         "idToken": await _firebaseAuth.currentUser.getIdToken()

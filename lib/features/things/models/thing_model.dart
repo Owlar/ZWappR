@@ -24,7 +24,7 @@ class ThingModel {
         uid: json["uid"] as String,
         title: json["title"] as String,
         description: json["description"] as String,
-        imageUrl: json["imageUrl"]
+        imageUrl: json["imageUrl"] as String
     );
   }
 }

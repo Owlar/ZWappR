@@ -148,7 +148,6 @@ class _NewThingPageState extends State<NewThingPage> {
                         color: zwapprBlack,
                         textColor: zwapprWhite,
                         onPressed: () async {
-                          await downloadURL();
                           if (_formKey.currentState.validate() &&
                               _downloadURL != null) {
                             final newThing = ThingModel(
@@ -172,6 +171,7 @@ class _NewThingPageState extends State<NewThingPage> {
                 child: FlatButton(
                   onPressed: () async {
                     photoPicker();
+                    await downloadURL();
                   },
                   child:  (_image == null
                       ? Image.network(

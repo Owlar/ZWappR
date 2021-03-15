@@ -28,6 +28,7 @@ class ProfilePicture extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String pic;
+    String imageID;
     Future <UserModel> futureUserModel;
     futureUserModel = _profileService.get();
     if(uri != null) {
@@ -46,19 +47,25 @@ class ProfilePicture extends StatelessWidget {
             future: futureUserModel,
             builder: (context, snapshot) {
               print("TEST " + snapshot.toString());
-              if (snapshot.hasData) {
-                return Text(snapshot.data.toString());
+              if (snapshot.hasData && snapshot.data.imageID != "") {
+                imageID = snapshot.data.imageID;
+                print("Has data " + snapshot.data.imageID);
+                  return CircleAvatar(
+                  backgroundImage:  NetworkImage(snapshot.data.imageID)//_image == null ? (uri == null ? AssetImage("assets/images/profile_test.png") : NetworkImage(pic)) : FileImage(_image),
+                );
                 //return Text(snapshot.data.displayName == null ? "GET": snapshot.data.displayName);
               } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
+                print('No data');
+                  return CircleAvatar(
+                      backgroundImage: _image == null ? (uri == null ? AssetImage("assets/images/profile_test.png") : NetworkImage(pic)) : FileImage(_image),
+                  );
               }
               // By default, show a loading spinner.
               return CircularProgressIndicator();
             },
           ),
-            CircleAvatar(
-              backgroundImage: _image == null ? (uri == null ? AssetImage("assets/images/profile_test.png") : NetworkImage(pic)) : FileImage(_image),
-            ),
+
+
             camera == true ? Positioned(
               right: -12,
               bottom: 0,

@@ -91,6 +91,15 @@ class LoginPage extends StatelessWidget {
                 }
               },
             ),
+            SignInButton(
+              Buttons.Google,
+              onPressed: () async {
+                final userCredential = (await _authenticationService.signInWithGoogle());
+                if (userCredential != null) {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
+                }
+              },
+            ),
           ],
         )
       ),

@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:zwappr/features/authentication/models/user_model.dart';
 import 'package:zwappr/features/authentication/repository/authentication_repository.dart';
-import 'package:zwappr/features/authentication/serv'
-    'ices/i_authentication_service.dart';
+import 'package:zwappr/features/authentication/services/i_authentication_service.dart';
 
 class AuthenticationService implements IAuthenticationService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -58,6 +58,17 @@ class AuthenticationService implements IAuthenticationService {
   Future<UserCredential> signInWithFacebook() async {
     final AccessToken result = await FacebookAuth.instance.login();
     final FacebookAuthCredential credential = FacebookAuthProvider.credential(result.token);
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+  @override
+  Future<UserCredential> signInWithGoogle() async {
+    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    final GoogleAuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 

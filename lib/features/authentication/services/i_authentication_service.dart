@@ -25,6 +25,9 @@ abstract class IAuthenticationService {
   // Signing in through Facebook auth provider
   Future<UserCredential> signInWithFacebook();
 
+  // Signing in through Googlee auth provider
+  Future<UserCredential> signInWithGoogle();
+
   // Getting the currently logged in user with:
   /// [user]
   Future<UserModel> getLoggedInUser(User user);

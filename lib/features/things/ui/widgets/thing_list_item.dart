@@ -29,7 +29,7 @@ class ThingListItem extends StatelessWidget {
                     Expanded(
                       flex: 2,
                       child: thing.imageUrl == null
-                          ? Image.network("https://images.unsplash.com/photo-1488109811119-98431feb6929?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80")
+                          ? Image.asset("assets/images/thing_image_placeholder.png")
                           : Image.network(thing.imageUrl),
                     ),
                     SizedBox(width: 10),

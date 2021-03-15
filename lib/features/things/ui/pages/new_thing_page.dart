@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/features/things/services/i_things_service.dart';
@@ -173,8 +174,8 @@ class _NewThingPageState extends State<NewThingPage> {
                   },
                   child: (
                       _image == null
-                      ? Image.network(
-                          "https://images.unsplash.com/photo-1488109811119-98431feb6929?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80")
+                      ? SvgPicture.asset(
+                          "assets/images/thing_image_placeholder.svg")
                       : Image.file(_image)
                   ),
                 ),

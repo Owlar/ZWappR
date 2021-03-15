@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/features/things/services/i_things_service.dart';
 import 'package:zwappr/features/things/services/things_service.dart';
+import 'package:zwappr/features/things/ui/pages/edit_thing_page.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
 class ThingListItem extends StatelessWidget {
@@ -66,7 +67,7 @@ class ThingListItem extends StatelessWidget {
                                 }).toList();
                               },
                               child: Icon(Icons.more_vert, size: 30),
-                              onSelected: choiceAction,
+                              onSelected: (choice) => choiceAction(choice, context),
                             )
                           ),
                           SizedBox(height: 10),
@@ -87,11 +88,13 @@ class ThingListItem extends StatelessWidget {
     );
   }
 
-  void choiceAction(String value) {
+  void choiceAction(String value, BuildContext context) {
     switch (value) {
       case Choices.Edit:
-        // TODO: Edit item
-        print(value);
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => EditThingPage())
+        );
         break;
       case Choices.Delete:
         _thingsService.delete(thing.uid);

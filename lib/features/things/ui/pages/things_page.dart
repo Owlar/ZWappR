@@ -5,6 +5,7 @@ import 'package:zwappr/features/things/services/i_things_service.dart';
 import 'package:zwappr/features/things/services/things_service.dart';
 import 'package:zwappr/features/things/ui/widgets/thing_list_item.dart';
 
+import 'edit_thing_page.dart';
 import 'new_thing_page.dart';
 
 class ThingsPage extends StatefulWidget {
@@ -18,6 +19,13 @@ class _ThingsPageState extends State<ThingsPage> {
   Future<List<ThingModel>> _getThingsFromService() async {
     final List<ThingModel> _thingsFromService = (await _thingsService.getAll());
     return _thingsFromService;
+  }
+
+  void goToEditingForSelectedThing() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => EditThingPage())
+    );
   }
 
   @override

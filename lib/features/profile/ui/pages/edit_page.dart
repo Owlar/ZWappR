@@ -92,7 +92,7 @@ class EditPage extends StatelessWidget {
                   ),
                 ),
                 child: Menu(
-                  text: "tekst",
+                  text: "Tekst",
                   icon: Icons.text_fields,
                   press: () {
                     print(auth.currentUser.providerData.toString());

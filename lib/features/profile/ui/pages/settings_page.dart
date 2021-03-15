@@ -70,7 +70,7 @@ class SettingsPage extends StatelessWidget {
                   press: () {},
                 ),
                 Menu(
-                  text: "Kontoinnstillingerr",
+                  text: "Kontoinnstillinger",
                   icon: Icons.account_box,
                   press: () {},
                 ),

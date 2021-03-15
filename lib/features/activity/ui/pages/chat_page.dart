@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:zwappr/features/activity/services/chat_service.dart';
 import 'package:zwappr/features/activity/services/i_chat_service.dart';
 import 'package:zwappr/features/activity/ui/widgets/list_view_chat.dart';
+import 'package:zwappr/utils/colors/color_theme.dart';
 
 import '../../../activity/models/chat_users.dart';
 
@@ -73,10 +74,10 @@ class _ChatPageState extends State<ChatPage> {
                   child: TextField(
                     decoration: InputDecoration(
                       hintText: "Search...",
-                      hintStyle: TextStyle(color: Colors.grey.shade600),
+                      hintStyle: TextStyle(color: zwapprBlack),
                       prefixIcon: Icon(
                         Icons.search,
-                        color: Colors.grey.shade600,
+                        color: zwapprBlack,
                         size: 20,
                       ),
                       filled: true,

@@ -46,7 +46,6 @@ class _FeedPageState extends State<FeedPage> {
                       builder: (context, snapshot) {
                         return Stack(children: things.map(_buildThing).toList());
                       }
-
                     ),
                   ),
                   SizedBox(child: _swipeBottomButtons()),

@@ -1,20 +1,20 @@
 import 'package:flutter/foundation.dart';
 
 class ThingModel {
-  final String uid;
+  String uid;
   final String title;
   final String description;
+  final String imageUrl;
   int numberOfLikes;
-  String imageUrl;
   bool isSwipedOff;
   bool isLiked;
 
   ThingModel({
-    @required this.uid,
+    this.uid,
     @required this.title,
     @required this.description,
+    @required this.imageUrl,
     this.numberOfLikes,
-    this.imageUrl,
     this.isSwipedOff,
     this.isLiked
   });
@@ -24,6 +24,7 @@ class ThingModel {
         uid: json["uid"] as String,
         title: json["title"] as String,
         description: json["description"] as String,
+        imageUrl: json["imageUrl"]
     );
   }
 }

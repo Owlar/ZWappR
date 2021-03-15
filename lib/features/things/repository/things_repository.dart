@@ -9,7 +9,7 @@ class ThingsRepository {
 
   Future<void> create(ThingModel thing) async {
     await http.post(
-      "https://us-central1-zwappr.cloudfunctions.net/api/things",
+      "https://us-central1-zwappr.cloudfunctions.net/api/things/me",
       headers: <String, String>{
         "Content-Type": "application/json; charset=UTF-8",
         "idToken": await _firebaseAuth.currentUser.getIdToken()
@@ -17,7 +17,7 @@ class ThingsRepository {
       body: jsonEncode(<String, String>{
         "title": thing.title,
         "description": thing.description,
-        "uid": thing.uid
+        "imageUrl": thing.imageUrl
       }),
     );
   }

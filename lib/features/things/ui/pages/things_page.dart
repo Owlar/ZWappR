@@ -15,27 +15,41 @@ class ThingsPage extends StatefulWidget {
   _ThingsPageState createState() => _ThingsPageState();
 }
 
-
 class _ThingsPageState extends State<ThingsPage> {
   static final IThingsService _thingsService = ThingsService();
-  // Thing objects in list are borrowed from feed models directory
-  final List<Thing> things = mockThings;
+
+  Future<List<ThingModel>> _getThingsFromService() async {
+    final List<ThingModel> _thingsFromService = (await _thingsService.getAll());
+    return _thingsFromService;
+  }
+
+  @override
+  void initState() {
+    _getThingsFromService();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Observer(
-        builder: (_) => ListView.builder(
-          padding: const EdgeInsets.all(14.0),
-          itemCount: things.length,
-          itemBuilder: (BuildContext context, int index) {
-            final thing = things[index];
-            return Observer(
-              builder: (_) => ThingListItem(thing: thing)
+      body: FutureBuilder(
+        future: _getThingsFromService(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return CircularProgressIndicator();
+          } else {
+            return ListView.builder(
+                padding: const EdgeInsets.all(14.0),
+                itemCount: snapshot.data.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final thing = snapshot.data[index];
+                  return Observer(
+                      builder: (_) => ThingListItem(thing: thing)
+                  );
+                }
             );
           }
-        ),
-
+        }
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
@@ -43,14 +57,23 @@ class _ThingsPageState extends State<ThingsPage> {
               context,
               MaterialPageRoute(builder: (context) => NewThingPage())
           );
-          // TESTING
-          var uid = Uuid();
-          final ThingModel thing = ThingModel(title: "test", description: "testesen", uid: uid.v4());
-          final ThingModel shoes = ThingModel(title: "Selskapsko", description: "Blanke og nye sko i stor størrelse", uid: uid.v4());
+          // Test objects
+          final ThingModel watch = ThingModel(
+              title: "Klokke Rolex",
+              description: "Pent brukt Rolex Submariner",
+              numberOfLikes: 8,
+              imageUrl: "https://images.unsplash.com/photo-1611243705491-71487c2ed137?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+          );
+          final ThingModel clothes = ThingModel(
+              title: "Diverse klær",
+              description: "Diverse klær selges pga. oppgradering av garderoben. Kom med bud!",
+              numberOfLikes: 32,
+              imageUrl: "https://images.unsplash.com/photo-1495121605193-b116b5b9c5fe?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=634&q=80"
+          );
 
           // 1. Creating
-          _thingsService.create(thing);
-          _thingsService.create(shoes);
+          _thingsService.create(watch);
+          _thingsService.create(clothes);
 
           // 2. Listing
           List<ThingModel> things = List();

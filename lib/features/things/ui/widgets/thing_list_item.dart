@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zwappr/features/feed/models/thing.dart';
+import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
 class ThingListItem extends StatelessWidget {
-  final Thing thing;
+  final ThingModel thing;
 
   const ThingListItem({
     Key key,
@@ -24,7 +25,7 @@ class ThingListItem extends StatelessWidget {
                   children: <Widget> [
                     Expanded(
                       flex: 2,
-                      child: Image.network(thing.imageUrl),
+                      child: thing.imageUrl == null ? Image.asset("assets/images/loading_item_list.jpg") : Image.network(thing.imageUrl),
                     ),
                     SizedBox(width: 10),
                     Expanded(

@@ -10,8 +10,8 @@ abstract class IThingsService {
   Future<List<ThingModel>> getAll();
 
   // Updating a thing with:
-  /// [uid]
-  Future<void> put(String uid);
+  /// [thing]
+  Future<void> put(ThingModel thing);
 
   // Deleting a thing with:
   /// [uid]

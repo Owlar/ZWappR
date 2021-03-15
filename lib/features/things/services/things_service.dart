@@ -13,7 +13,7 @@ class ThingsService implements IThingsService {
   Future<List<ThingModel>> getAll() async => _repository.getAll();
 
   @override
-  Future<void> put(String uid) async => _repository.put(uid);
+  Future<void> put(ThingModel thing) async => _repository.put(thing);
 
   @override
   Future<void> delete(String uid) async => _repository.delete(uid);

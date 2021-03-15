@@ -162,15 +162,16 @@ class _EditThingPageState extends State<EditThingPage> {
                               await downloadURL();
                             }
                             final newThing = ThingModel(
+                              uid: thingToBeEdited.uid,
                               title: titleController.text.trim(),
                               description: descriptionController.text.trim(),
-                              imageUrl: _downloadURL,
+                              imageUrl: _downloadURL == null ? thingToBeEdited.imageUrl : _downloadURL,
                             );
-                            _thingsService.create(newThing);
+                            _thingsService.put(newThing);
                             Navigator.pop(context);
                           }
                         },
-                        child: Text("Legg ut"),
+                        child: Text("Rediger"),
                       ),
                     ],
                   )),

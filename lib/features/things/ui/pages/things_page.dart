@@ -65,8 +65,6 @@ class _ThingsPageState extends State<ThingsPage> {
           _thingsService.create(watch);
           _thingsService.create(clothes);
           */
-          
-
         },
         label: Text("Ny ting"),
         icon: Icon(Icons.add),

@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
+import 'package:zwappr/features/things/services/i_things_service.dart';
+import 'package:zwappr/features/things/services/things_service.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
 class ThingListItem extends StatelessWidget {
+  static final IThingsService _thingsService = ThingsService();
   final ThingModel thing;
 
   const ThingListItem({
@@ -87,15 +90,14 @@ class ThingListItem extends StatelessWidget {
   void choiceAction(String value) {
     switch (value) {
       case Choices.Edit:
-        print(value);
-        return null;
         // TODO: Edit item
+        print(value);
+        break;
       case Choices.Delete:
-        print(value);
-        return null;
-      // TODO: Delete item
+        _thingsService.delete(thing.uid);
+        break;
       default:
-        print(value);
+        print("Couldn't find case for value $value");
     }
   }
 }

@@ -33,6 +33,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   static final IProfileService _profileService = ProfileService();
   String _nameOfImage;
+  String _downloadURL;
   final imagePicker = ImagePicker();
   List<String> imageList;
   final IAuthenticationService _authenticationService = AuthenticationService();
@@ -43,6 +44,8 @@ class _ProfilePageState extends State<ProfilePage> {
       _image = File(image.path);
     });
     uploadImage(_image);
+    await downloadURL();
+    await _profileService.updateImage(_downloadURL);
   }
 
   Future getGallery() async {
@@ -53,9 +56,30 @@ class _ProfilePageState extends State<ProfilePage> {
       _image = File(image.path);
     });
     uploadImage(_image);
+    await downloadURL();
+    await _profileService.updateImage(_downloadURL);
   }
 
+  Future<void> downloadURL() async {
+    FirebaseStorage storage =  FirebaseStorage.instance;
+    String downloadURL = await storage.ref(_nameOfImage).getDownloadURL();
 
+    setState(() {
+      _downloadURL = downloadURL;
+    });
+  }
+
+  Future<void> uploadImage(File _image1) async {
+    FirebaseStorage storage =   FirebaseStorage.instance;
+    String nameOfImage = "users/image" + DateTime.now().toString();
+    Reference ref = storage.ref().child(nameOfImage);
+    UploadTask uploadTask = ref.putFile(_image1);
+    await uploadTask;
+
+    setState(() {
+      _nameOfImage = nameOfImage;
+    });
+  }
 
   Future<void> photoPicker() async {
       return showDialog<void>(
@@ -98,31 +122,13 @@ class _ProfilePageState extends State<ProfilePage> {
       );
     }
 
-  Future<String> downloadURL() async {
-    FirebaseStorage storage =  FirebaseStorage.instance;
-    String downloadURL = await storage.ref(_nameOfImage).getDownloadURL();
 
-    return downloadURL;
-
-  }
-
-  Future<void> uploadImage(File _image1) async {
-    FirebaseStorage storage =   FirebaseStorage.instance;
-    String nameOfImage = "users/image" + DateTime.now().toString();
-    Reference ref = storage.ref().child(nameOfImage);
-    UploadTask uploadTask = ref.putFile(_image1);
-    await uploadTask;
-    setState(() {
-      _nameOfImage = nameOfImage;
-    });
-
-  }
   @override
   Widget build(BuildContext context) {
     Future <UserModel> futureUserModel;
 
-    Future <String> download;
-    download = downloadURL();
+   // Future <String> download;
+   // download = downloadURL();
     futureUserModel = _profileService.get();
     List providerData = auth.currentUser.providerData.toString().split(',');
     List email = providerData[1].split(':');
@@ -142,16 +148,17 @@ class _ProfilePageState extends State<ProfilePage> {
                 ProfilePicture(
                     image:_image,
                     uri: auth.currentUser.photoURL,
-                    camera: true,
-                    press: (){
+                    camera: false,
+                    press: () async {
                       photoPicker();
-                    }
+
+                      print("####################" + _downloadURL);
+                }
                 ),
                 SizedBox(height: 20,),
                 auth.currentUser.displayName == null ? FutureBuilder<UserModel>(
                   future: futureUserModel,
                   builder: (context, snapshot) {
-                    print("TEST " + snapshot.toString());
                     if (snapshot.hasData) {
                       return Text(snapshot.data.displayName);
                       //return Text(snapshot.data.displayName == null ? "GET": snapshot.data.displayName);
@@ -162,14 +169,13 @@ class _ProfilePageState extends State<ProfilePage> {
                     return CircularProgressIndicator();
                   },
                 ):Text(auth.currentUser.displayName.toString()),
-                 //auth.currentUser.displayName == null ? Text(email[1]) : Text(auth.currentUser.displayName.toString()),
-                FutureBuilder<String>(
+                /*FutureBuilder<String>(
                   future: download,
                   builder: (context, snapshot) {
 
                     if (snapshot.hasData) {
                       _profileService.updateImage(snapshot.data.toString());
-                      return Text("");
+                      return Text("HH");
                       //return Text(snapshot.data.displayName == null ? "GET": snapshot.data.displayName);
                     } else if (snapshot.hasError) {
                       return Text("");
@@ -177,7 +183,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     // By default, show a loading spinner.
                     return CircularProgressIndicator();
                   },
-                ),
+                ),*/
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

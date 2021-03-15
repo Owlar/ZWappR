@@ -148,8 +148,10 @@ class _NewThingPageState extends State<NewThingPage> {
                         color: zwapprBlack,
                         textColor: zwapprWhite,
                         onPressed: () async {
-                          await downloadURL();
-                          if (_formKey.currentState.validate() && _downloadURL != null) {
+                          if (_formKey.currentState.validate()) {
+                            if ( _downloadURL != null) {
+                              await downloadURL();
+                            }
                             final newThing = ThingModel(
                               title: titleController.text.trim(),
                               description: descriptionController.text.trim(),

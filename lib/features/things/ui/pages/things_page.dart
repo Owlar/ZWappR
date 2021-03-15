@@ -21,13 +21,6 @@ class _ThingsPageState extends State<ThingsPage> {
     return _thingsFromService;
   }
 
-  void goToEditingForSelectedThing() {
-    Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => EditThingPage())
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

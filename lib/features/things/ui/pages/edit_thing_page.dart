@@ -3,15 +3,20 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/features/things/services/i_things_service.dart';
 import 'package:zwappr/features/things/services/things_service.dart';
+import 'package:zwappr/features/things/ui/widgets/thing_list_item.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
 class EditThingPage extends StatefulWidget {
+  final ThingModel thingToBeEdited;
+  const EditThingPage({Key key, @required this.thingToBeEdited}) : super(key: key);
+
   @override
-  _EditThingPageState createState() => _EditThingPageState();
+  _EditThingPageState createState() => _EditThingPageState(thingToBeEdited);
 }
 
 class _EditThingPageState extends State<EditThingPage> {
@@ -29,6 +34,7 @@ class _EditThingPageState extends State<EditThingPage> {
 
   ThingModel thingToBeEdited;
 
+  _EditThingPageState(this.thingToBeEdited);
 
   Future getImage() async {
     final image = await imagePicker.getImage(source: ImageSource.camera);
@@ -176,8 +182,7 @@ class _EditThingPageState extends State<EditThingPage> {
                   },
                   child: (
                       _image == null
-                          ? Image.network(
-                          "https://images.unsplash.com/photo-1488109811119-98431feb6929?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80")
+                          ? Image.network(thingToBeEdited.imageUrl)
                           : Image.file(_image)
                   ),
                 ),

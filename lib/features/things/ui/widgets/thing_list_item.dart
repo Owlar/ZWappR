@@ -39,13 +39,15 @@ class ThingListItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget> [
                           Text(
-                              thing.title,
+                              thing.title == null
+                                ? "" : thing.title,
                               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                               overflow: TextOverflow.ellipsis
                           ),
                           SizedBox(height: 10),
                           Text(
-                              thing.description,
+                              thing.description == null
+                              ? "" : thing.description,
                               style: TextStyle(fontSize: 16),
                               overflow: TextOverflow.ellipsis
                           ),
@@ -93,7 +95,7 @@ class ThingListItem extends StatelessWidget {
       case Choices.Edit:
         Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => EditThingPage())
+            MaterialPageRoute(builder: (context) => EditThingPage(thingToBeEdited: thing))
         );
         break;
       case Choices.Delete:

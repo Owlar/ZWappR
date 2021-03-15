@@ -153,10 +153,12 @@ class _NewThingPageState extends State<NewThingPage> {
                             if ( _downloadURL != null) {
                               await downloadURL();
                             }
-                            final newThing = ThingModel(
+                            var newThing = ThingModel(
                               title: titleController.text.trim(),
                               description: descriptionController.text.trim(),
-                              imageUrl: _downloadURL,
+                              imageUrl: _downloadURL == null
+                                  ? "https://media.discordapp.net/attachments/786267164550103133/821110641083285544/unknown.png"
+                                  : _downloadURL,
                             );
                             _thingsService.create(newThing);
                             Navigator.pop(context);
@@ -174,9 +176,9 @@ class _NewThingPageState extends State<NewThingPage> {
                   },
                   child: (
                       _image == null
-                      ? SvgPicture.asset(
-                          "assets/images/thing_image_placeholder.svg")
-                      : Image.file(_image)
+                          ? SvgPicture.asset(
+                            "assets/images/thing_image_placeholder.svg")
+                          : Image.file(_image)
                   ),
                 ),
               ),

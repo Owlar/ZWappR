@@ -98,12 +98,15 @@ class _ChatPageState extends State<ChatPage> {
                         String id = auth.currentUser.uid;
                         String formatted = "";
                         String msg = "";
-                        String userId;
+                        String userId = "";
                         conversationList.add(snapshot.data["data"][i]["convoID"].toString());
-                        if(snapshot.data["data"][0]["participants"]["user1"]["id"].toString() == id){
-                          userId = "user1";
-                        }else{
+
+                        print( " ID form data: " + snapshot.data["data"][0]["participants"]["user1"]["id"].toString()+ "  ID for user: " + id);
+                        print(snapshot.data["data"][i]["participants"]["user1"]["id"].toString());
+                        if(snapshot.data["data"][i]["participants"]["user1"]["id"].toString() == id){
                           userId = "user2";
+                        }else{
+                          userId = "user1";
                         }
 
                         if (snapshot.data["data"][i]["previewMsg"] != null) {

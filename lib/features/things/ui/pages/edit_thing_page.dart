@@ -3,12 +3,10 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/features/things/services/i_things_service.dart';
 import 'package:zwappr/features/things/services/things_service.dart';
-import 'package:zwappr/features/things/ui/widgets/thing_list_item.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
 class EditThingPage extends StatefulWidget {

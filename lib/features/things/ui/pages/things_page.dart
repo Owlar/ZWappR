@@ -5,7 +5,6 @@ import 'package:zwappr/features/things/services/i_things_service.dart';
 import 'package:zwappr/features/things/services/things_service.dart';
 import 'package:zwappr/features/things/ui/widgets/thing_list_item.dart';
 
-import 'edit_thing_page.dart';
 import 'new_thing_page.dart';
 
 class ThingsPage extends StatefulWidget {

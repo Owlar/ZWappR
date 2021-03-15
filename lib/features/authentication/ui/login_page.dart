@@ -12,12 +12,15 @@ class LoginPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
   static final IAuthenticationService _authenticationService = AuthenticationService();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/background_screen.png"),
@@ -26,32 +29,49 @@ class LoginPage extends StatelessWidget {
         ),
         child: Column(
           children: <Widget> [
-            SizedBox(height: 22),
+            SizedBox(height: 42),
             SvgPicture.asset("assets/icons/zwappr_logo.svg", height: 100),
-            SizedBox(height: 100),
-            TextField(
-              controller: emailController,
-              decoration: InputDecoration(
-                labelText: "E-post",
-              ),
-            ),
-            TextField(
-              controller: passwordController,
-              decoration: InputDecoration(
-                labelText: "Passord",
-              ),
-            ),
-            SizedBox(height: 10),
-            RaisedButton(
-              color: zwapprBlack,
-              textColor: zwapprWhite,
-              onPressed: () async {
-                final user = (await _authenticationService.signIn(email: emailController.text.trim(), password: passwordController.text.trim()));
-                if (user != null) {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
-                }
-              },
-              child: Text("Logg inn"),
+            SizedBox(height: 42),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  TextFormField(
+                    decoration: InputDecoration(
+                        labelText: "E-post"
+                    ),
+                    controller: emailController,
+                    validator: (value) {
+                      if (value.isEmpty) return "Vennligst skriv inn e-post";
+                      else return null;
+                    },
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                        labelText: "Passord"
+                    ),
+                    controller: passwordController,
+                    validator: (value) {
+                      if (value.isEmpty) return "Vennligst skriv inn passord";
+                      else return null;
+                    },
+                  ),
+                  SizedBox(height: 42),
+                  RaisedButton(
+                    color: zwapprBlack,
+                    textColor: zwapprWhite,
+                    onPressed: () async {
+                      if (_formKey.currentState.validate()) {
+                        final user = (await _authenticationService.signIn(email: emailController.text.trim(), password: passwordController.text.trim()));
+                        if (user != null) {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
+                        }
+                      }
+                    },
+                    child: Text("Logg inn"),
+                  ),
+                ],
+              )
             ),
             RaisedButton(
               color: zwapprBlack,

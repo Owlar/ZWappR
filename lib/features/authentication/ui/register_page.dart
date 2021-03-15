@@ -8,12 +8,15 @@ class RegisterPage extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController displayNameController = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
   final AuthenticationService _authenticationService = AuthenticationService();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
+          padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/background_screen.png"),
@@ -22,43 +25,64 @@ class RegisterPage extends StatelessWidget {
           ),
           child: Column(
             children: <Widget> [
-              SizedBox(height: 22),
+              SizedBox(height: 42),
               SvgPicture.asset("assets/icons/zwappr_logo.svg", height: 100),
-              SizedBox(height: 70),
-              TextField(
-                controller: displayNameController,
-                decoration: InputDecoration(
-                  labelText: "Brukernavn",
-                ),
-              ),
-              TextField(
-                controller: emailController,
-                decoration: InputDecoration(
-                  labelText: "E-post",
-                ),
-              ),
-              TextField(
-                controller: passwordController,
-                decoration: InputDecoration(
-                  labelText: "Passord",
-                ),
-              ),
-              SizedBox(height: 10),
-              RaisedButton(
-                color: zwapprBlack,
-                textColor: zwapprWhite,
-                onPressed: () async {
-                  final user = (await _authenticationService.register(
-                      displayName: displayNameController.text.trim(),
-                      email: emailController.text.trim(),
-                      password: passwordController.text.trim()
-                  ));
-                  if (user != null) {
-                    //Back to login page
-                    Navigator.pop(context);
-                  }
-                },
-                child: Text("Lag bruker"),
+              SizedBox(height: 42),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: displayNameController,
+                      decoration: InputDecoration(
+                        labelText: "Brukernavn",
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) return "Vennligst lag brukernavn";
+                        else return null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: emailController,
+                      decoration: InputDecoration(
+                        labelText: "E-post",
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) return "Vennligst skriv inn e-post";
+                        else return null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: passwordController,
+                      decoration: InputDecoration(
+                        labelText: "Passord",
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) return "Vennligst lag passord";
+                        else return null;
+                      },
+                    ),
+                    SizedBox(height: 42),
+                    RaisedButton(
+                      color: zwapprBlack,
+                      textColor: zwapprWhite,
+                      onPressed: () async {
+                        if (_formKey.currentState.validate()) {
+                          final user = (await _authenticationService.register(
+                              displayName: displayNameController.text.trim(),
+                              email: emailController.text.trim(),
+                              password: passwordController.text.trim()
+                          ));
+                          if (user != null) {
+                            //Back to login page
+                            Navigator.pop(context);
+                          }
+                        }
+                      },
+                      child: Text("Lag bruker"),
+                    ),
+                  ],
+                )
               ),
             ],
           )

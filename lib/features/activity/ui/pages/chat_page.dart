@@ -101,8 +101,6 @@ class _ChatPageState extends State<ChatPage> {
                         String userId = "";
                         conversationList.add(snapshot.data["data"][i]["convoID"].toString());
 
-                        print( " ID form data: " + snapshot.data["data"][0]["participants"]["user1"]["id"].toString()+ "  ID for user: " + id);
-                        print(snapshot.data["data"][i]["participants"]["user1"]["id"].toString());
                         if(snapshot.data["data"][i]["participants"]["user1"]["id"].toString() == id){
                           userId = "user2";
                         }else{

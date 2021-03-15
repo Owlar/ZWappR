@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:zwappr/features/feed/models/thing.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 

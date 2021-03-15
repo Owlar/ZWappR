@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:uuid/uuid.dart';
-import 'package:zwappr/features/feed/data/things.dart';
-import 'package:zwappr/features/feed/models/thing.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/features/things/services/i_things_service.dart';
 import 'package:zwappr/features/things/services/things_service.dart';
@@ -21,12 +18,6 @@ class _ThingsPageState extends State<ThingsPage> {
   Future<List<ThingModel>> _getThingsFromService() async {
     final List<ThingModel> _thingsFromService = (await _thingsService.getAll());
     return _thingsFromService;
-  }
-
-  @override
-  void initState() {
-    _getThingsFromService();
-    super.initState();
   }
 
   @override

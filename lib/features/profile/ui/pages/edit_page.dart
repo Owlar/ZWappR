@@ -13,19 +13,23 @@ import 'package:zwappr/features/profile/ui/widgets/profile_picture.dart';
 import '../widgets/icon_buttons.dart';
 
 class EditPage extends StatelessWidget {
-  final File image;
-
-  EditPage({Key key, @required this.image}) : super(key: key);
   final FirebaseAuth auth = FirebaseAuth.instance;
   final TextEditingController newName = TextEditingController();
 
   final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
   static final IProfileService _profileService = ProfileService();
+
+  final File image;
+
+  EditPage({
+    Key key,
+    @required this.image
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     List providerData = auth.currentUser.providerData.toString().split(',');
     List email = providerData[1].split(':');
-
 
     return Scaffold(
         body: Container(

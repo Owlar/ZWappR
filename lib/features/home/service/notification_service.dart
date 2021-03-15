@@ -7,17 +7,13 @@ class NotificationService implements INoticationService {
 
   @override
   Future<void> setupNotification() {
-
     print("Configuring messaging");
-
     messaging.configure(
       onMessage: (Map<String, dynamic> response) async {
         print("onMessage: $response");
 
       },
     );
-
     print("Configuration complete!");
-
   }
 }

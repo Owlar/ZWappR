@@ -31,7 +31,10 @@ class _ProfilePageState extends State<ProfilePage> {
   File _image;
   final imagePicker = ImagePicker();
   List<String> imageList;
+
   final IAuthenticationService _authenticationService = AuthenticationService();
+  static final IProfileService _profileService = ProfileService();
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   Future getImage() async {
     final image = await imagePicker.getImage(source: ImageSource.camera);
@@ -50,9 +53,6 @@ class _ProfilePageState extends State<ProfilePage> {
     });
     uploadPic(_image);
   }
-
-  final FirebaseAuth auth = FirebaseAuth.instance;
-
 
   Future<void> photoPicker() async {
       return showDialog<void>(
@@ -108,7 +108,7 @@ class _ProfilePageState extends State<ProfilePage> {
     print("LETSGO!!!" + url.toString());
     return url;
   }
-  static final IProfileService _profileService = ProfileService();
+
   Future<void> updateImage(String url) async {
     auth.currentUser.getIdToken(true).then((idToken) async => {
       await http.put(

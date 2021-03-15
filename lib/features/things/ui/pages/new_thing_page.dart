@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
+import 'package:zwappr/features/things/services/i_things_service.dart';
+import 'package:zwappr/features/things/services/things_service.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
 class NewThingPage extends StatefulWidget {
@@ -11,6 +13,8 @@ class NewThingPage extends StatefulWidget {
 }
 
 class _NewThingPageState extends State<NewThingPage> {
+  static final IThingsService _thingsService = ThingsService();
+
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
 
@@ -65,6 +69,7 @@ class _NewThingPageState extends State<NewThingPage> {
                               description: descriptionController.text.trim(),
                               imageUrl: "https://images.unsplash.com/photo-1488109811119-98431feb6929?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
                           );
+                          _thingsService.create(newThing);
                           Navigator.pop(context);
                         }
                       },

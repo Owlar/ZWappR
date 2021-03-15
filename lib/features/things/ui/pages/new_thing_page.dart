@@ -163,21 +163,19 @@ class _NewThingPageState extends State<NewThingPage> {
                       ),
                     ],
                   )),
-              SizedBox(height: 42),
-              Container(
-                padding: EdgeInsets.all(5),
-                height: 400,
-                width: double.infinity,
+              SizedBox(height: 10),
+              Expanded(
                 child: FlatButton(
                   onPressed: () async {
                     photoPicker();
                     await downloadURL();
                   },
-                  child:  (_image == null
+                  child: (
+                      _image == null
                       ? Image.network(
                           "https://images.unsplash.com/photo-1488109811119-98431feb6929?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80")
                       : Image.file(_image)
-                ),
+                  ),
                 ),
               ),
             ],

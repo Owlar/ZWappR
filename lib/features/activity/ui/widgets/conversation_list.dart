@@ -65,11 +65,9 @@ class _ConversationListState extends State<ConversationList> {
                           Text(
                             widget.message,
                             style: TextStyle(
-                                fontSize: 13,
+                                fontSize: 14,
                                 color: zwapprBlack,
-                                fontWeight: widget.isMessageRead
-                                    ? FontWeight.bold
-                                    : FontWeight.normal),
+                                fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -82,9 +80,8 @@ class _ConversationListState extends State<ConversationList> {
               widget.date,
               style: TextStyle(
                   fontSize: 12,
-                  fontWeight: widget.isMessageRead
-                      ? FontWeight.bold
-                      : FontWeight.normal
+                  fontWeight: FontWeight.bold
+
               ),
             ),
           ],

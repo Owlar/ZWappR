@@ -135,7 +135,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                         controller: newMessage,
                         decoration: InputDecoration(
                             hintText: "Write message...",
-                            hintStyle: TextStyle(color: Colors.black54),
+                            hintStyle: TextStyle(color: zwapprBlack),
                             border: InputBorder.none),
                       ),
                     ),

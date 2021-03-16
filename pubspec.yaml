@@ -66,6 +66,9 @@ dependencies:
   # Http
   http: ^0.12.2
 
+  # Notifikasjoner
+  flutter_local_notifications: ^4.0.1+2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

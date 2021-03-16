@@ -176,10 +176,9 @@ class _FeedPageState extends State<FeedPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            // TODO: Reimplement
-            /*Center(
-              child: Image.network(thing.imageUrl, height: 300),
-            ),*/
+            Center(
+              child: Image.network(thing.imageUrl),
+            ),
             SizedBox(height: 10),
             Text(
               "${thing.title}",

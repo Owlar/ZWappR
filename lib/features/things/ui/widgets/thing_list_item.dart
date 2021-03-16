@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
+import 'package:zwappr/features/things/services/i_things_service.dart';
+import 'package:zwappr/features/things/services/things_service.dart';
+import 'package:zwappr/features/things/ui/pages/edit_thing_page.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
 class ThingListItem extends StatelessWidget {
+  static final IThingsService _thingsService = ThingsService();
   final ThingModel thing;
 
   const ThingListItem({
@@ -14,9 +18,9 @@ class ThingListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.fromLTRB(14.0, 14.0, 14.0, 0),
+      margin: EdgeInsets.fromLTRB(2.0, 14.0, 2.0, 0),
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.fromLTRB(2.0, 12.0, 12.0, 12.0),
         child: Column(
           children: <Widget> [
             Container(
@@ -24,21 +28,27 @@ class ThingListItem extends StatelessWidget {
                   children: <Widget> [
                     Expanded(
                       flex: 2,
-                      child: thing.imageUrl == null ? Image.asset("assets/images/loading_item_list.jpg") : Image.network(thing.imageUrl),
+                      child: thing.imageUrl == null
+                          ? Image.asset("assets/images/thing_image_placeholder.png")
+                          : Image.network(thing.imageUrl),
                     ),
                     SizedBox(width: 10),
                     Expanded(
                       flex: 4,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
+                        children: <Widget> [
                           Text(
-                              thing.title,
+                              thing.title == null
+                                ? "" : thing.title,
+                              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                               overflow: TextOverflow.ellipsis
                           ),
                           SizedBox(height: 10),
                           Text(
-                              thing.description,
+                              thing.description == null
+                              ? "" : thing.description,
+                              style: TextStyle(fontSize: 16),
                               overflow: TextOverflow.ellipsis
                           ),
                         ]
@@ -58,15 +68,15 @@ class ThingListItem extends StatelessWidget {
                                   );
                                 }).toList();
                               },
-                              child: Icon(Icons.more_vert),
-                              onSelected: choiceAction,
+                              child: Icon(Icons.more_vert, size: 30),
+                              onSelected: (choice) => choiceAction(choice, context),
                             )
                           ),
                           SizedBox(height: 10),
                           // TODO: Ternary: If thing is active, green color and "Aktiv", else red color and "Inaktiv"
                           Text(
                               "Aktiv",
-                              style: TextStyle(backgroundColor: zwapprGreen),
+                              style: TextStyle(fontSize: 18, backgroundColor: zwapprGreen),
                           )
                         ]
                       )
@@ -80,18 +90,19 @@ class ThingListItem extends StatelessWidget {
     );
   }
 
-  void choiceAction(String value) {
+  void choiceAction(String value, BuildContext context) {
     switch (value) {
       case Choices.Edit:
-        print(value);
-        return null;
-        // TODO: Edit item
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => EditThingPage(thingToBeEdited: thing))
+        );
+        break;
       case Choices.Delete:
-        print(value);
-        return null;
-      // TODO: Delete item
+        _thingsService.delete(thing.uid);
+        break;
       default:
-        print(value);
+        print("Couldn't find case for value $value");
     }
   }
 }

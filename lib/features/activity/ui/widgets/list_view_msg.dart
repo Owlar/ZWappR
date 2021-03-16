@@ -3,12 +3,12 @@ import 'package:zwappr/features/activity/models/chat_message.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
 class ListViewMsg extends StatelessWidget {
+  final List<ChatMessage> messages;
+
   const ListViewMsg({
     Key key,
     @required this.messages,
   }) : super(key: key);
-
-  final List<ChatMessage> messages;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class ListViewMsg extends StatelessWidget {
       itemBuilder: (context, index) {
         return Container(
           padding:
-          EdgeInsets.only(left: 14, right: 14, top: 10, bottom: 10),
+          EdgeInsets.only(left: 14, right: 14, top: 4, bottom: 4),
           child: Align(
             alignment: (messages[index].messageType == "receiver"
                 ? Alignment.topLeft

@@ -6,9 +6,6 @@ import 'package:zwappr/utils/colors/color_theme.dart';
 
 
 Future<void> main() async {
-
-
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
@@ -26,8 +23,6 @@ class MyApp extends StatelessWidget {
       home: LoginPage(),
     );
   }
-
-
 }
 
 final ThemeData _zwapprTheme = _buildShrineTheme();

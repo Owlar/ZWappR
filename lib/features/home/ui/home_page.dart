@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.post_add),
-              label: "Ting",
+              label: "Mine Ting",
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.map),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zwappr/features/activity/ui/pages/chat_detail_page.dart';
+import 'package:zwappr/utils/colors/color_theme.dart';
 
 
 class ConversationList extends StatefulWidget {
@@ -65,7 +66,7 @@ class _ConversationListState extends State<ConversationList> {
                             widget.message,
                             style: TextStyle(
                                 fontSize: 13,
-                                color: Colors.grey.shade600,
+                                color: zwapprBlack,
                                 fontWeight: widget.isMessageRead
                                     ? FontWeight.bold
                                     : FontWeight.normal),

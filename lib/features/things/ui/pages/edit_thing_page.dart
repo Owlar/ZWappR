@@ -3,19 +3,21 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/features/things/services/i_things_service.dart';
 import 'package:zwappr/features/things/services/things_service.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
-class NewThingPage extends StatefulWidget {
+class EditThingPage extends StatefulWidget {
+  final ThingModel thingToBeEdited;
+  const EditThingPage({Key key, @required this.thingToBeEdited}) : super(key: key);
+
   @override
-  _NewThingPageState createState() => _NewThingPageState();
+  _EditThingPageState createState() => _EditThingPageState(thingToBeEdited);
 }
 
-class _NewThingPageState extends State<NewThingPage> {
+class _EditThingPageState extends State<EditThingPage> {
   static final IThingsService _thingsService = ThingsService();
 
   final TextEditingController titleController = TextEditingController();
@@ -27,6 +29,10 @@ class _NewThingPageState extends State<NewThingPage> {
   List<String> imageList;
   String _nameOfImage;
   String _downloadURL;
+
+  ThingModel thingToBeEdited;
+
+  _EditThingPageState(this.thingToBeEdited);
 
   Future getImage() async {
     final image = await imagePicker.getImage(source: ImageSource.camera);
@@ -149,22 +155,21 @@ class _NewThingPageState extends State<NewThingPage> {
                         color: zwapprBlack,
                         textColor: zwapprWhite,
                         onPressed: () async {
-                          if (_formKey.currentState.validate() && _nameOfImage != null) {
-                            if ( _downloadURL == null) {
+                          if (_formKey.currentState.validate()) {
+                            if ( _downloadURL != null) {
                               await downloadURL();
                             }
-                            var newThing = ThingModel(
+                            final newThing = ThingModel(
+                              uid: thingToBeEdited.uid,
                               title: titleController.text.trim(),
                               description: descriptionController.text.trim(),
-                              imageUrl: _downloadURL == null
-                                  ? "https://media.discordapp.net/attachments/786267164550103133/821110641083285544/unknown.png"
-                                  : _downloadURL,
+                              imageUrl: _downloadURL == null ? thingToBeEdited.imageUrl : _downloadURL,
                             );
-                            _thingsService.create(newThing);
+                            _thingsService.put(newThing);
                             Navigator.pop(context);
                           }
                         },
-                        child: Text("Legg ut"),
+                        child: Text("Rediger"),
                       ),
                     ],
                   )),
@@ -176,8 +181,7 @@ class _NewThingPageState extends State<NewThingPage> {
                   },
                   child: (
                       _image == null
-                          ? SvgPicture.asset(
-                            "assets/images/thing_image_placeholder.svg")
+                          ? Image.network(thingToBeEdited.imageUrl)
                           : Image.file(_image)
                   ),
                 ),

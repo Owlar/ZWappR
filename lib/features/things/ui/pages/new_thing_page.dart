@@ -150,7 +150,7 @@ class _NewThingPageState extends State<NewThingPage> {
                         textColor: zwapprWhite,
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
-                            if ( _downloadURL != null) {
+                            if ( _downloadURL == null) {
                               await downloadURL();
                             }
                             var newThing = ThingModel(

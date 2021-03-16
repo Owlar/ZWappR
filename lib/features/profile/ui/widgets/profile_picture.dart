@@ -50,8 +50,9 @@ class ProfilePicture extends StatelessWidget {
               if (snapshot.hasData && snapshot.data.imageID != "") {
                 imageID = snapshot.data.imageID;
                 print("Has data " + snapshot.data.imageID);
+                print(_image.toString());
                   return CircleAvatar(
-                  backgroundImage:  NetworkImage(snapshot.data.imageID)//_image == null ? (uri == null ? AssetImage("assets/images/profile_test.png") : NetworkImage(pic)) : FileImage(_image),
+                  backgroundImage:  _image == null ? NetworkImage(snapshot.data.imageID) :  FileImage(_image)//_image == null ? (uri == null ? AssetImage("assets/images/profile_test.png") : NetworkImage(pic)) : FileImage(_image),
                 );
                 //return Text(snapshot.data.displayName == null ? "GET": snapshot.data.displayName);
               } else if (snapshot.hasError) {

@@ -131,7 +131,7 @@ class _EditPageState extends State<EditPage> {
         child: Column(
           children: [
             ProfilePicture(
-                image: widget.image,
+                image: _image,
                 uri: auth.currentUser.photoURL,
                 camera: true,
                 press: () async {
@@ -161,7 +161,11 @@ class _EditPageState extends State<EditPage> {
                     if(newName.text != ""){
                       _profileService.put(newName.text);
                     }
+                    if(_downloadURL == null){
+                      await downloadURL();
+                    }
                     if(_downloadURL != null ){
+
                       await _profileService.updateImage(_downloadURL);
                     }
 

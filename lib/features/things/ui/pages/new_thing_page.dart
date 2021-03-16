@@ -149,7 +149,7 @@ class _NewThingPageState extends State<NewThingPage> {
                         color: zwapprBlack,
                         textColor: zwapprWhite,
                         onPressed: () async {
-                          if (_formKey.currentState.validate()) {
+                          if (_formKey.currentState.validate() && _nameOfImage != null) {
                             if ( _downloadURL == null) {
                               await downloadURL();
                             }

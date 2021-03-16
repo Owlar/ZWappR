@@ -177,7 +177,7 @@ class _FeedPageState extends State<FeedPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Center(
-              child: Image.network(thing.imageUrl),
+              child: Image.network(thing.imageUrl, height: 248),
             ),
             SizedBox(height: 10),
             Text(

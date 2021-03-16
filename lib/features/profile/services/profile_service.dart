@@ -11,4 +11,8 @@ class ProfileService implements IProfileService {
   @override
   Future<UserModel> get() async => _repository.get();
 
+  @override
+  Future<void> updateImage(String url) async => _repository.updateImage(url);
+
+
 }

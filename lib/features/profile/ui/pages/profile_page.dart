@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:zwappr/features/authentication/models/user_model.dart';
 import 'package:zwappr/features/authentication/services/authentication_service.dart';
 import 'package:zwappr/features/authentication/services/i_authentication_service.dart';
@@ -29,19 +30,22 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   File _image;
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  static final IProfileService _profileService = ProfileService();
+  String _nameOfImage;
+  String _downloadURL;
   final imagePicker = ImagePicker();
   List<String> imageList;
-
   final IAuthenticationService _authenticationService = AuthenticationService();
-  static final IProfileService _profileService = ProfileService();
-  final FirebaseAuth auth = FirebaseAuth.instance;
 
   Future getImage() async {
     final image = await imagePicker.getImage(source: ImageSource.camera);
     setState(() {
       _image = File(image.path);
     });
-    uploadPic(_image);
+    uploadImage(_image);
+    await downloadURL();
+    await _profileService.updateImage(_downloadURL);
   }
 
   Future getGallery() async {
@@ -51,7 +55,30 @@ class _ProfilePageState extends State<ProfilePage> {
     setState(() {
       _image = File(image.path);
     });
-    uploadPic(_image);
+    uploadImage(_image);
+    await downloadURL();
+    await _profileService.updateImage(_downloadURL);
+  }
+
+  Future<void> downloadURL() async {
+    FirebaseStorage storage =  FirebaseStorage.instance;
+    String downloadURL = await storage.ref(_nameOfImage).getDownloadURL();
+
+    setState(() {
+      _downloadURL = downloadURL;
+    });
+  }
+
+  Future<void> uploadImage(File _image1) async {
+    FirebaseStorage storage =   FirebaseStorage.instance;
+    String nameOfImage = "users/image" + DateTime.now().toString();
+    Reference ref = storage.ref().child(nameOfImage);
+    UploadTask uploadTask = ref.putFile(_image1);
+    await uploadTask;
+
+    setState(() {
+      _nameOfImage = nameOfImage;
+    });
   }
 
   Future<void> photoPicker() async {
@@ -95,36 +122,13 @@ class _ProfilePageState extends State<ProfilePage> {
       );
     }
 
-  uploadPic(File _image1) async {
-    FirebaseStorage storage = FirebaseStorage.instance;
-    String url;
-    Reference ref = storage.ref().child("users/image1" + DateTime.now().toString());
-    UploadTask uploadTask = ref.putFile(_image1);
-    uploadTask.whenComplete(() {
-      url = ref.getDownloadURL().toString();
-    }).catchError((onError) {
-      print("OKOKOKOKO" + onError);
-    });
-    print("LETSGO!!!" + url.toString());
-    return url;
-  }
-
-  Future<void> updateImage(String url) async {
-    auth.currentUser.getIdToken(true).then((idToken) async => {
-      await http.put(
-        "https://us-central1-zwappr.cloudfunctions.net/api/users/me",
-        headers: <String, String>{
-          "Content-Type": "application/json; charset=UTF-8",
-          "idToken": idToken
-        },
-        body: jsonEncode(<String, String>{"imageID": url}),
-      )
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     Future <UserModel> futureUserModel;
+
+   // Future <String> download;
+   // download = downloadURL();
     futureUserModel = _profileService.get();
     List providerData = auth.currentUser.providerData.toString().split(',');
     List email = providerData[1].split(':');
@@ -144,16 +148,17 @@ class _ProfilePageState extends State<ProfilePage> {
                 ProfilePicture(
                     image:_image,
                     uri: auth.currentUser.photoURL,
-                    camera: true,
-                    press: (){
+                    camera: false,
+                    press: () async {
                       photoPicker();
-                    }
+
+                      print("####################" + _downloadURL);
+                }
                 ),
                 SizedBox(height: 20,),
                 auth.currentUser.displayName == null ? FutureBuilder<UserModel>(
                   future: futureUserModel,
                   builder: (context, snapshot) {
-                    print("TEST " + snapshot.toString());
                     if (snapshot.hasData) {
                       return Text(snapshot.data.displayName);
                       //return Text(snapshot.data.displayName == null ? "GET": snapshot.data.displayName);
@@ -164,7 +169,21 @@ class _ProfilePageState extends State<ProfilePage> {
                     return CircularProgressIndicator();
                   },
                 ):Text(auth.currentUser.displayName.toString()),
-                //auth.currentUser.displayName == null ? Text(email[1]) : Text(auth.currentUser.displayName.toString()),
+                /*FutureBuilder<String>(
+                  future: download,
+                  builder: (context, snapshot) {
+
+                    if (snapshot.hasData) {
+                      _profileService.updateImage(snapshot.data.toString());
+                      return Text("HH");
+                      //return Text(snapshot.data.displayName == null ? "GET": snapshot.data.displayName);
+                    } else if (snapshot.hasError) {
+                      return Text("");
+                    }
+                    // By default, show a loading spinner.
+                    return CircularProgressIndicator();
+                  },
+                ),*/
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

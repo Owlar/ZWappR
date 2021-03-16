@@ -241,7 +241,7 @@ class _FeedPageState extends State<FeedPage> {
     setState(() {
       things.remove(thing);
       print(thing.uid);
-      _feedService.delete(thing.uid);
+      //_feedService.delete(thing.uid);
     });
   }
   // Source: https://github.com/Owlar/tinder_ui_clone_example/blob/master/lib/widget/user_card_widget.dart

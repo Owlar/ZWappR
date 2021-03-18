@@ -157,6 +157,7 @@ class _NewThingPageState extends State<NewThingPage> {
                             return null;
                         },
                       ),
+                      SizedBox(height: 4),
                       TextFormField(
                         decoration: InputDecoration(
                             fillColor: zwapprWhite,
@@ -173,6 +174,7 @@ class _NewThingPageState extends State<NewThingPage> {
                             return null;
                         },
                       ),
+                      SizedBox(height: 4),
                       TextFormField(
                         decoration: InputDecoration(
                             fillColor: zwapprWhite,
@@ -187,6 +189,7 @@ class _NewThingPageState extends State<NewThingPage> {
                             return null;
                         },
                       ),
+                      SizedBox(height: 10),
                       DropdownButtonFormField(
                         decoration: InputDecoration(fillColor: zwapprWhite, filled: true, labelText: "Kategori"),
                         validator: (value) => value == null ? "Må legge til en kategori" : null,
@@ -203,6 +206,7 @@ class _NewThingPageState extends State<NewThingPage> {
                           });
                         },
                       ),
+                      SizedBox(height: 4),
                       DropdownButtonFormField(
                         decoration: InputDecoration(fillColor: zwapprWhite, filled: true, labelText: "Brukstilstand"),
                         validator: (value) => value == null ? "Må legge til een brukstilstand" : null,
@@ -234,6 +238,9 @@ class _NewThingPageState extends State<NewThingPage> {
                               imageUrl: _downloadURL == null
                                   ? "https://media.discordapp.net/attachments/786267164550103133/821110641083285544/unknown.png"
                                   : _downloadURL,
+                              exchangeValue: double.tryParse(exchangeValueController.text.trim()),
+                              condition: _condition == null ? "Ukjent" : _condition,
+                              category: _category == null ? "Annet" : _category
                             );
                             _thingsService.create(newThing);
                             Navigator.pop(context);

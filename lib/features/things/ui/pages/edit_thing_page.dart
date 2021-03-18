@@ -22,6 +22,7 @@ class _EditThingPageState extends State<EditThingPage> {
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController exchangeValueController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   File _image;
@@ -110,6 +111,14 @@ class _EditThingPageState extends State<EditThingPage> {
         );
       },
     );
+  }
+
+  @override
+  void initState() {
+    titleController.text = thingToBeEdited.title;
+    descriptionController.text = thingToBeEdited.description;
+    exchangeValueController.text = thingToBeEdited.exchangeValue;
+    super.initState();
   }
 
   @override

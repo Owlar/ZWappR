@@ -169,12 +169,9 @@ class _EditPageState extends State<EditPage> {
                       await _profileService.updateImage(_downloadURL);
                     }
 
+                   // Navigator.push( context, MaterialPageRoute( builder: (context) => ProfilePage()), ).then((value) => setState(() {}));
 
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ProfilePage()),
-                    );
+                     Navigator.pop(context);
                   },
                 ),
               ],

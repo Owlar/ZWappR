@@ -23,7 +23,7 @@ class ChatDetailPage extends StatefulWidget {
   _ChatDetailPageState createState() => _ChatDetailPageState();
 }
 
-class _ChatDetailPageState extends State<ChatDetailPage> {
+class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObserver{
   final TextEditingController newMessage = TextEditingController();
   static final IChatService _chatService = ChatService();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -31,6 +31,34 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
     return await _firebaseAuth.currentUser.getIdToken(true);
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // TODO: implement didChangeAppLifecycleState
+    super.didChangeAppLifecycleState(state);
+    switch(state){
+      case AppLifecycleState.paused:
+        print('paused');
+        break;
+      case AppLifecycleState.resumed:
+        print('resume');
+        break;
+      case AppLifecycleState.inactive:
+        print('inactive');
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -145,10 +173,14 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                     FloatingActionButton(
                       onPressed: () {
                         _chatService.createMsg(widget.msgId, newMessage.text);
-                        Navigator.push(
+                        messages.add(ChatMessage(messageContent: "pls", messageType: "receiver"));
+                        setState(() {
+                         // messages.add(ChatMessage(messageContent: "pls", messageType: "receiver"));
+                        });
+                       /* Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => ChatDetailPage(name: widget.name, image: widget.image, msgId: widget.msgId )),
-                        );
+                        );*/
                       },
                       child: Icon(
                         Icons.send,

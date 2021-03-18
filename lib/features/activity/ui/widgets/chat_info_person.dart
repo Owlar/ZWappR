@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:zwappr/features/activity/ui/pages/chat_page.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
 class ChatInfoPerson extends StatelessWidget {
@@ -22,6 +23,8 @@ class ChatInfoPerson extends StatelessWidget {
             IconButton(
               onPressed: () {
                 Navigator.pop(context);
+
+               // Navigator.push( context, MaterialPageRoute( builder: (context) => ChatPage()), ).then((value) => Navigator.pop(context)));
               },
               icon: Icon(
                 Icons.keyboard_arrow_left,

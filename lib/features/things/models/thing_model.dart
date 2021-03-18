@@ -8,7 +8,7 @@ class ThingModel {
   final String title;
   final String description;
   final String imageUrl;
-  final double exchangeValue;
+  final String exchangeValue;
   final String condition;
   final String category;
   int numberOfLikes;
@@ -34,7 +34,7 @@ class ThingModel {
         title: json["title"] as String,
         description: json["description"] as String,
         imageUrl: json["imageUrl"] as String,
-        exchangeValue: json["exchangeValue"] as double,
+        exchangeValue: json["exchangeValue"] as String,
         condition: json["condition"] as String,
         category: json["category"] as String
     );

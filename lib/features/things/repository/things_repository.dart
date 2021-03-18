@@ -17,7 +17,10 @@ class ThingsRepository {
       body: jsonEncode(<String, String>{
         "title": thing.title,
         "description": thing.description,
-        "imageUrl": thing.imageUrl
+        "imageUrl": thing.imageUrl,
+        "exchangeValue": thing.exchangeValue.toString(),
+        "condition": thing.condition.toString(),
+        "categories": thing.categories.toString()
       }),
     );
   }
@@ -49,7 +52,10 @@ class ThingsRepository {
       body: jsonEncode(<String, String>{
         "title": "${thing.title}",
         "description": "${thing.description}",
-        "imageUrl": "${thing.imageUrl}"
+        "imageUrl": "${thing.imageUrl}",
+        "exchangeValue": "${thing.exchangeValue.toString()}",
+        "condition": "${thing.condition.toString()}",
+        "categories": "${thing.categories.toString()}"
       }),
     );
   }

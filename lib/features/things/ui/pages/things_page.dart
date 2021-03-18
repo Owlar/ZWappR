@@ -34,9 +34,7 @@ class _ThingsPageState extends State<ThingsPage> {
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
                   final thing = snapshot.data[index];
-                  return Observer(
-                      builder: (_) => ThingListItem(thing: thing)
-                  );
+                  return ThingListItem(thing: thing);
                 }
             );
           }

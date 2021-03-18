@@ -1,10 +1,17 @@
 import 'package:flutter/foundation.dart';
+import 'package:zwappr/features/things/models/condition_of_thing.dart';
+
+import 'tag_model.dart';
 
 class ThingModel {
   String uid;
   final String title;
   final String description;
   final String imageUrl;
+  final double exchangeValue;
+  final Condition condition;
+  final List<Category> categories;
+  final List<Tag> tags;
   int numberOfLikes;
   bool isSwipedOff;
   bool isLiked;
@@ -14,6 +21,10 @@ class ThingModel {
     @required this.title,
     @required this.description,
     @required this.imageUrl,
+    @required this.exchangeValue,
+    @required this.condition,
+    @required this.categories,
+    @required this.tags,
     this.numberOfLikes,
     this.isSwipedOff,
     this.isLiked

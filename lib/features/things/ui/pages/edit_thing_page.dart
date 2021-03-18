@@ -28,9 +28,10 @@ class _EditThingPageState extends State<EditThingPage> {
   final TextEditingController exchangeValueController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  File _image;
   final imagePicker = ImagePicker();
+
   List<String> imageList;
+  File _image;
   String _nameOfImage;
   String _downloadURL;
 
@@ -255,13 +256,13 @@ class _EditThingPageState extends State<EditThingPage> {
                               imageUrl: _downloadURL == null
                                   ? thingToBeEdited.imageUrl
                                   : _downloadURL,
-                                exchangeValue: exchangeValueController.text.trim(),
-                                condition: _condition == null
-                                    ? "Ukjent"
-                                    : _condition,
-                                category: _category == null 
-                                    ? "Annet"
-                                    : _category
+                              exchangeValue: exchangeValueController.text.trim(),
+                              condition: _condition == null
+                                  ? "Ukjent"
+                                  : _condition,
+                              category: _category == null
+                                  ? "Annet"
+                                  : _category
                             );
                             _thingsService.put(newThing);
                             Navigator.pop(context);

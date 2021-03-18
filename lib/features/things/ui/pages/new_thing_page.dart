@@ -26,9 +26,10 @@ class _NewThingPageState extends State<NewThingPage> {
   final TextEditingController exchangeValueController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  File _image;
   final imagePicker = ImagePicker();
+
   List<String> imageList;
+  File _image;
   String _nameOfImage;
   String _downloadURL;
 

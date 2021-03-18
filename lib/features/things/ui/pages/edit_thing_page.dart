@@ -245,7 +245,7 @@ class _EditThingPageState extends State<EditThingPage> {
                         color: zwapprBlack,
                         textColor: zwapprWhite,
                         onPressed: () async {
-                          if (_formKey.currentState.validate() && _nameOfImage != null) {
+                          if (_formKey.currentState.validate()) {
                             if ( _downloadURL != null) {
                               await downloadURL();
                             }

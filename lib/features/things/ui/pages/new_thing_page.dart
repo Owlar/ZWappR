@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:zwappr/features/things/utils/list_categories.dart';
-import 'package:zwappr/features/things/utils/list_conditions.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/features/things/services/i_things_service.dart';
 import 'package:zwappr/features/things/services/things_service.dart';
+import 'package:zwappr/features/things/utils/list_categories.dart';
+import 'package:zwappr/features/things/utils/list_conditions.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
 class NewThingPage extends StatefulWidget {
@@ -240,8 +240,12 @@ class _NewThingPageState extends State<NewThingPage> {
                                   ? "https://media.discordapp.net/attachments/786267164550103133/821110641083285544/unknown.png"
                                   : _downloadURL,
                               exchangeValue: exchangeValueController.text.trim(),
-                              condition: _condition == null ? "Ukjent" : _condition,
-                              category: _category == null ? "Annet" : _category
+                              condition: _condition == null
+                                  ? "Ukjent"
+                                  : _condition,
+                              category: _category == null
+                                  ? "Annet"
+                                  : _category
                             );
                             _thingsService.create(newThing);
                             Navigator.pop(context);

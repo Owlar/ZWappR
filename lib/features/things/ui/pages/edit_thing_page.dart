@@ -244,7 +244,7 @@ class _EditThingPageState extends State<EditThingPage> {
                         color: zwapprBlack,
                         textColor: zwapprWhite,
                         onPressed: () async {
-                          if (_formKey.currentState.validate()) {
+                          if (_formKey.currentState.validate() && _nameOfImage != null) {
                             if ( _downloadURL != null) {
                               await downloadURL();
                             }
@@ -252,7 +252,16 @@ class _EditThingPageState extends State<EditThingPage> {
                               uid: thingToBeEdited.uid,
                               title: titleController.text.trim(),
                               description: descriptionController.text.trim(),
-                              imageUrl: _downloadURL == null ? thingToBeEdited.imageUrl : _downloadURL,
+                              imageUrl: _downloadURL == null
+                                  ? thingToBeEdited.imageUrl
+                                  : _downloadURL,
+                                exchangeValue: exchangeValueController.text.trim(),
+                                condition: _condition == null
+                                    ? "Ukjent"
+                                    : _condition,
+                                category: _category == null 
+                                    ? "Annet"
+                                    : _category
                             );
                             _thingsService.put(newThing);
                             Navigator.pop(context);

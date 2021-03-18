@@ -1,7 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:zwappr/features/things/utils/list_conditions.dart';
-
-import 'tag_model.dart';
 
 class ThingModel {
   String uid;

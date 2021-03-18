@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/features/things/services/i_things_service.dart';
 import 'package:zwappr/features/things/services/things_service.dart';

@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:zwappr/features/things/utils/list_conditions.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/features/things/services/i_things_service.dart';
 import 'package:zwappr/features/things/services/things_service.dart';
@@ -20,6 +22,7 @@ class _NewThingPageState extends State<NewThingPage> {
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController exchangeValueController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   File _image;
@@ -27,6 +30,8 @@ class _NewThingPageState extends State<NewThingPage> {
   List<String> imageList;
   String _nameOfImage;
   String _downloadURL;
+
+  String _condition;
 
   Future getImage() async {
     final image = await imagePicker.getImage(source: ImageSource.camera);
@@ -119,13 +124,29 @@ class _NewThingPageState extends State<NewThingPage> {
           ),
           child: Column(
             children: <Widget>[
-              SizedBox(height: 42),
+              Expanded(
+                child: FlatButton(
+                  onPressed: () async {
+                    photoPicker();
+                  },
+                  child: (
+                      _image == null
+                          ? SvgPicture.asset(
+                          "assets/images/thing_image_placeholder.svg")
+                          : Image.file(_image)
+                  ),
+                ),
+              ),
               Form(
                   key: _formKey,
                   child: Column(
                     children: <Widget>[
                       TextFormField(
-                        decoration: InputDecoration(labelText: "Tittel"),
+                        decoration: InputDecoration(
+                            fillColor: zwapprWhite,
+                            filled: true,
+                            labelText: "Tittel"
+                        ),
                         controller: titleController,
                         validator: (value) {
                           if (value.isEmpty)
@@ -135,13 +156,49 @@ class _NewThingPageState extends State<NewThingPage> {
                         },
                       ),
                       TextFormField(
-                        decoration: InputDecoration(labelText: "Beskrivelse"),
+                        decoration: InputDecoration(
+                            fillColor: zwapprWhite,
+                            filled: true,
+                            labelText: "Bytteverdi"
+                        ),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        controller: exchangeValueController,
+                        validator: (value) {
+                          if (value.isEmpty)
+                            return "Vennligst legg til bytteverdi";
+                          else
+                            return null;
+                        },
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                            fillColor: zwapprWhite,
+                            filled: true,
+                            labelText: "Beskrivelse"
+                        ),
                         controller: descriptionController,
                         validator: (value) {
                           if (value.isEmpty)
                             return "Vennligst skriv inn beskrivelse";
                           else
                             return null;
+                        },
+                      ),
+                      DropdownButtonFormField(
+                        decoration: InputDecoration(fillColor: zwapprWhite, filled: true, labelText: "Brukstilstand"),
+                        validator: (value) => value == null ? "Må legge til brukstilstand" : null,
+                        items: conditions.map((String condition) {
+                          return DropdownMenuItem<String>(
+                              value: condition,
+                              child: Text(condition));
+                          }).toList(),
+                        value: _condition,
+                        onChanged: (String value) {
+                          setState(() {
+                             _condition = value;
+                             print(_condition);
+                          });
                         },
                       ),
                       SizedBox(height: 10),
@@ -168,20 +225,6 @@ class _NewThingPageState extends State<NewThingPage> {
                       ),
                     ],
                   )),
-              SizedBox(height: 10),
-              Expanded(
-                child: FlatButton(
-                  onPressed: () async {
-                    photoPicker();
-                  },
-                  child: (
-                      _image == null
-                          ? SvgPicture.asset(
-                            "assets/images/thing_image_placeholder.svg")
-                          : Image.file(_image)
-                  ),
-                ),
-              ),
             ],
           )),
       resizeToAvoidBottomInset: false,

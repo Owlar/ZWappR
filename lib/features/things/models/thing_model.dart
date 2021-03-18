@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:zwappr/features/things/models/condition_of_thing.dart';
+import 'package:zwappr/features/things/utils/list_conditions.dart';
 
 import 'tag_model.dart';
 
@@ -9,7 +9,7 @@ class ThingModel {
   final String description;
   final String imageUrl;
   final double exchangeValue;
-  final Condition condition;
+  final String condition;
   final List<Category> categories;
   int numberOfLikes;
   bool isSwipedOff;
@@ -35,7 +35,7 @@ class ThingModel {
         description: json["description"] as String,
         imageUrl: json["imageUrl"] as String,
         exchangeValue: json["exchangeValue"] as double,
-        condition: json["condition"] as Condition,
+        condition: json["condition"] as String,
         categories: json["categories"] as List<Category>
     );
   }

@@ -51,22 +51,23 @@ class ThingListItem extends StatelessWidget {
                               style: TextStyle(fontSize: 16),
                               overflow: TextOverflow.ellipsis
                           ),
+                          SizedBox(height: 10),
                           Text(
                               thing.exchangeValue == null
-                                  ? "" : thing.exchangeValue,
+                                  ? "" : thing.exchangeValue + " kr",
                               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                               overflow: TextOverflow.ellipsis
                           ),
                           SizedBox(height: 4),
                           Text(
                               thing.condition == null
-                                  ? "" : thing.condition,
+                                  ? "" : "Brukstilstand: " + thing.condition,
                               style: TextStyle(fontSize: 14),
                               overflow: TextOverflow.ellipsis
                           ),
                           Text(
                               thing.category == null
-                                  ? "" : thing.category,
+                                  ? "" : "Kategori: " + thing.category,
                               style: TextStyle(fontSize: 14),
                               overflow: TextOverflow.ellipsis
                           ),

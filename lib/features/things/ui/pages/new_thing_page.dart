@@ -139,6 +139,7 @@ class _NewThingPageState extends State<NewThingPage> {
                   ),
                 ),
               ),
+              SizedBox(height: 10),
               Form(
                   key: _formKey,
                   child: Column(

@@ -20,7 +20,7 @@ class ThingsRepository {
         "imageUrl": thing.imageUrl,
         "exchangeValue": thing.exchangeValue.toString(),
         "condition": thing.condition,
-        "categories": thing.categories.toString()
+        "category": thing.category
       }),
     );
   }
@@ -54,8 +54,8 @@ class ThingsRepository {
         "description": "${thing.description}",
         "imageUrl": "${thing.imageUrl}",
         "exchangeValue": "${thing.exchangeValue.toString()}",
-        "condition": "${thing.condition.toString()}",
-        "categories": "${thing.categories.toString()}"
+        "condition": "${thing.condition}",
+        "category": "${thing.category}"
       }),
     );
   }

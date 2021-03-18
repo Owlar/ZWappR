@@ -10,7 +10,7 @@ class ThingModel {
   final String imageUrl;
   final double exchangeValue;
   final String condition;
-  final List<Category> categories;
+  final String category;
   int numberOfLikes;
   bool isSwipedOff;
   bool isLiked;
@@ -22,7 +22,7 @@ class ThingModel {
     @required this.imageUrl,
     @required this.exchangeValue,
     @required this.condition,
-    @required this.categories,
+    @required this.category,
     this.numberOfLikes,
     this.isSwipedOff,
     this.isLiked
@@ -36,7 +36,7 @@ class ThingModel {
         imageUrl: json["imageUrl"] as String,
         exchangeValue: json["exchangeValue"] as double,
         condition: json["condition"] as String,
-        categories: json["categories"] as List<Category>
+        category: json["category"] as String
     );
   }
 }

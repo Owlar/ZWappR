@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:zwappr/features/things/utils/list_categories.dart';
 import 'package:zwappr/features/things/utils/list_conditions.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/features/things/services/i_things_service.dart';
@@ -32,6 +33,7 @@ class _NewThingPageState extends State<NewThingPage> {
   String _downloadURL;
 
   String _condition;
+  String _category;
 
   Future getImage() async {
     final image = await imagePicker.getImage(source: ImageSource.camera);
@@ -186,8 +188,24 @@ class _NewThingPageState extends State<NewThingPage> {
                         },
                       ),
                       DropdownButtonFormField(
+                        decoration: InputDecoration(fillColor: zwapprWhite, filled: true, labelText: "Kategori"),
+                        validator: (value) => value == null ? "Må legge til en kategori" : null,
+                        items: categories.map((String category) {
+                          return DropdownMenuItem<String>(
+                              value: category,
+                              child: Text(category));
+                        }).toList(),
+                        value: _category,
+                        onChanged: (String value) {
+                          setState(() {
+                            _category = value;
+                            print(_category);
+                          });
+                        },
+                      ),
+                      DropdownButtonFormField(
                         decoration: InputDecoration(fillColor: zwapprWhite, filled: true, labelText: "Brukstilstand"),
-                        validator: (value) => value == null ? "Må legge til brukstilstand" : null,
+                        validator: (value) => value == null ? "Må legge til een brukstilstand" : null,
                         items: conditions.map((String condition) {
                           return DropdownMenuItem<String>(
                               value: condition,

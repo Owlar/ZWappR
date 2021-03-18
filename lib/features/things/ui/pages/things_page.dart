@@ -26,7 +26,9 @@ class _ThingsPageState extends State<ThingsPage> {
         future: _getThingsFromService(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return CircularProgressIndicator();
+            return Center(
+                child: CircularProgressIndicator()
+            );
           } else {
             return ListView.builder(
                 padding: const EdgeInsets.all(14.0),

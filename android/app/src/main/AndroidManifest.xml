@@ -41,6 +41,9 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </activity>
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB6P98QwH_wfXEOnEvFEjqyPQn4VMb40G0"/>
+
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
 

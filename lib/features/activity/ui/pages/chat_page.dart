@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,11 +19,81 @@ class ChatPage extends StatefulWidget {
 
 final FirebaseAuth auth = FirebaseAuth.instance;
 
-class _ChatPageState extends State<ChatPage> {
+class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver{
   final FirebaseAuth auth = FirebaseAuth.instance;
   static final IChatService _chatService = ChatService();
 
   Future<Map> test = _chatService.get();
+  String _now;
+  Timer _everySecond;
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+
+    // sets first value
+    _now = DateTime
+        .now()
+        .second
+        .toString();
+    print(
+        '########################################## TESTING ################################################');
+    setState(() {
+      print(
+          '########################################## WORKING ################################################');
+    });
+    // defines a timer
+    /* _everySecond = Timer.periodic(Duration(seconds: 3), (Timer t)
+    {
+      print(
+          '########################################## TESTING ################################################');
+      if (_now == DateTime.now().second.toString()){
+        setState(() {
+        _now = DateTime.now().second.toString();
+        //test = _chatService.get();
+
+      });
+        print('########################################## WORKING ################################################');
+    }
+WidgetsBinding.instance.addObserver(this);
+    });*/
+  }
+    @override
+    void dispose() {
+      // TODO: implement dispose
+      WidgetsBinding.instance.removeObserver(this);
+      super.dispose();
+    }
+    @override
+    void didChangeAppLifecycleState(AppLifecycleState state) {
+      // TODO: implement didChangeAppLifecycleState
+      super.didChangeAppLifecycleState(state);
+      switch(state){
+        case AppLifecycleState.paused:
+          print('paused');
+          break;
+        case AppLifecycleState.resumed:
+          print('resume');
+          break;
+        case AppLifecycleState.inactive:
+          print('inactive');
+          break;
+        case AppLifecycleState.detached:
+          print('detached');
+          break;
+      }
+    }
+  @override
+  void didPopNext(Route<dynamic> nextRoute) {
+    print('didpopnext');
+  }
+  @override
+  Future<bool> didPopRoute() async {
+    setState(() {
+      print('didpopnext');
+    });
+    print('didpopnext');
+  }
 
 
   @override
@@ -30,13 +102,14 @@ class _ChatPageState extends State<ChatPage> {
     List<String> conversationList = [];
     // Future <ChatUsers> futureChatUser;
     //futureChatUser = fetchChatUser();
-
+    print('########################################## WORKING ################################################');
     //Future<Map> test = _chatService.get();
 
     //_chatService.createMsg("9qQ5yKyMKKpXNYMivraM", "YO! wazzzup");
-    //_chatService.create("NPDjGHiQFSYyrPCmGS5r9V5j70C2");
+
 
     return Scaffold(
+
       body: Container(
         height: double.infinity,
         child: Container(
@@ -93,8 +166,16 @@ class _ChatPageState extends State<ChatPage> {
                   future: test,
                   builder: (context, AsyncSnapshot snapshot) {
 
-                    if (snapshot.hasData) {
+                    if (snapshot.hasError) {
 
+
+                      return Text("${snapshot.error}");
+
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+
+                    }else{
                       for (int i = 0; i < snapshot.data["size"]; i++) {
                         String id = auth.currentUser.uid;
                         String formatted = "";
@@ -128,12 +209,11 @@ class _ChatPageState extends State<ChatPage> {
                             formatted);
                         chatUsers.add(c);
                       }
-                      return ListViewChat(chatUsers: chatUsers, conversationList: conversationList);
-                    } else if (snapshot.hasError) {
-                      return Text("${snapshot.error}");
                     }
+
+                    return ListViewChat(chatUsers: chatUsers, conversationList: conversationList);
                     // By default, show a loading spinner.
-                    return CircularProgressIndicator();
+
                   },
                 ),
               ],

@@ -40,6 +40,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: PageView.builder(
         itemCount: 5,
+        physics: _selectedIndex == 3 ? NeverScrollableScrollPhysics() : AlwaysScrollableScrollPhysics(),
         controller: _pageController,
         onPageChanged: (index) => setState(() => _selectedIndex = index),
         itemBuilder: (BuildContext context, int index) {
@@ -95,7 +96,6 @@ class _HomePageState extends State<HomePage> {
   void _onItemTapped(int index) {
     setState(() => _selectedIndex = index);
     _pageController.jumpToPage(index);
-    print(index);
   }
 
 }

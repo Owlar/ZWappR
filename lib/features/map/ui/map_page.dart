@@ -14,7 +14,7 @@ class _MapPageState extends State<MapPage> {
 
   String _currentPositionLatitude;
   String _currentPositionLongitude;
-  // Set to HiØ as default
+  // Set to HiØ's position as default
   LatLng _currentPosition = LatLng(59.1292475, 11.3506146);
 
   @override
@@ -29,7 +29,7 @@ class _MapPageState extends State<MapPage> {
         body: GoogleMap(
           initialCameraPosition: CameraPosition(
             target: _currentPosition,
-            zoom: 10
+            zoom: 12
           ),
           onMapCreated: (GoogleMapController controller) {
             _controller.complete(controller);

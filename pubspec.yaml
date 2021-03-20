@@ -68,7 +68,7 @@ dependencies:
 
   # Google Maps
   google_maps_flutter: ^1.2.0
-  permission: ^0.1.7
+  geolocator: ^6.2.1
 
 dev_dependencies:
   flutter_test:

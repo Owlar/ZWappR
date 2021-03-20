@@ -14,18 +14,8 @@ class _MapPageState extends State<MapPage> {
 
   String _currentPositionLatitude;
   String _currentPositionLongitude;
-
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
-
-  /*static final CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414
-  );*/
+  // Set to HiØ as default
+  LatLng _currentPosition = LatLng(59.1292475, 11.3506146);
 
   @override
   void initState() {
@@ -37,7 +27,10 @@ class _MapPageState extends State<MapPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: GoogleMap(
-          initialCameraPosition: _kGooglePlex,
+          initialCameraPosition: CameraPosition(
+            target: _currentPosition,
+            zoom: 10
+          ),
           onMapCreated: (GoogleMapController controller) {
             _controller.complete(controller);
           },
@@ -55,8 +48,7 @@ class _MapPageState extends State<MapPage> {
   }
 
   Future<void> _filter() async {
-    //final GoogleMapController controller = await _controller.future;
-    //controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+    // TODO: Filtering on things
     print(_currentPositionLatitude);
     print(_currentPositionLongitude);
   }
@@ -66,6 +58,7 @@ class _MapPageState extends State<MapPage> {
     setState(() {
       _currentPositionLatitude = "${geoPosition.latitude}";
       _currentPositionLongitude = "${geoPosition.longitude}";
+      _currentPosition = LatLng(geoPosition.latitude, geoPosition.longitude);
     });
   }
 

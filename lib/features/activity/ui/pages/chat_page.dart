@@ -5,12 +5,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:zwappr/features/activity/methods/conversation_list_view.dart';
 import 'package:zwappr/features/activity/services/chat_service.dart';
 import 'package:zwappr/features/activity/services/i_chat_service.dart';
+import 'package:zwappr/features/activity/ui/widgets/conversation_list.dart';
 import 'package:zwappr/features/activity/ui/widgets/list_view_chat.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
 import '../../../activity/models/chat_users.dart';
+import 'chat_detail_page.dart';
 
 class ChatPage extends StatefulWidget {
   @override
@@ -198,19 +201,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                       }
                     }
 
-                    return ListViewChat(
-                      chatUsers: chatUsers,
-                      conversationList: conversationList,
-                      /*press: () {
-                        Route route = MaterialPageRoute(
-                            builder: (context) => ChatDetailPage(
-                                name:
-                                image: snapshot.data["data"][0]["participants"]["user1"]
-                                ["imageID"],
-                                msgId: snapshot.data["data"][0]["convoID"].toString()));
-                        Navigator.push(context, route).then(onGoBack);
-                      },*/
-                    );
+                    return buildConversationListView(chatUsers, conversationList, onGoBack);
                     // By default, show a loading spinner.
                     return Center(
                         child: CircularProgressIndicator()
@@ -224,5 +215,6 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
       ),
     );
   }
+
 
 }

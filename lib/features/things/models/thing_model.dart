@@ -5,6 +5,9 @@ class ThingModel {
   final String title;
   final String description;
   final String imageUrl;
+  final String exchangeValue;
+  final String condition;
+  final String category;
   int numberOfLikes;
   bool isSwipedOff;
   bool isLiked;
@@ -14,6 +17,9 @@ class ThingModel {
     @required this.title,
     @required this.description,
     @required this.imageUrl,
+    @required this.exchangeValue,
+    @required this.condition,
+    @required this.category,
     this.numberOfLikes,
     this.isSwipedOff,
     this.isLiked
@@ -24,7 +30,10 @@ class ThingModel {
         uid: json["uid"] as String,
         title: json["title"] as String,
         description: json["description"] as String,
-        imageUrl: json["imageUrl"] as String
+        imageUrl: json["imageUrl"] as String,
+        exchangeValue: json["exchangeValue"] as String,
+        condition: json["condition"] as String,
+        category: json["category"] as String
     );
   }
 }

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -64,6 +63,9 @@ class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObse
       case AppLifecycleState.inactive:
         print('inactive');
         break;
+      case AppLifecycleState.detached:
+        print('detached');
+        break;
     }
   }
 
@@ -73,7 +75,6 @@ class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObse
     String tmpMsg;
     test = _chatService.getMsg(widget.msgId);
     List<ChatMessage> messages = [];
-
 
     return Scaffold(
       body: Container(
@@ -85,7 +86,6 @@ class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObse
         ),
         child: Stack(
           children: <Widget>[
-
             FutureBuilder<Map>(
               future: test,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -106,7 +106,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObse
                 }
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return CircularProgressIndicator();
-                }else{
+                } else {
                   String id = _firebaseAuth.currentUser.uid;
                   String from;
                   //ChatMessage(messageContent: snapshot.data["data"][0]["content"].toString(), messageType: "receiver");

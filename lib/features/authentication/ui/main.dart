@@ -32,21 +32,5 @@ ThemeData _buildShrineTheme() {
   return base.copyWith(
     accentColor: zwapprLightGray,
     primaryColor: zwapprBlue,
-    /*buttonTheme: base.buttonTheme.copyWith(
-      buttonColor: zwapprBlue,
-      colorScheme: base.colorScheme.copyWith(
-        secondary: zwapprLightGray,
-      ),
-    ),
-    buttonBarTheme: base.buttonBarTheme.copyWith(
-      buttonTextTheme: ButtonTextTheme.accent,
-    ),
-    scaffoldBackgroundColor: zwapprWhite,
-    cardColor: zwapprWhite,
-    textSelectionColor: zwapprBlue,
-    errorColor: zwapprRed,*/
-    // TODO: Add the text themes (103)
-    // TODO: Add the icon themes (103)
-    // TODO: Decorate the inputs (103)
   );
 }

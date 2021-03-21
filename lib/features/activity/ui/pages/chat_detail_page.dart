@@ -39,13 +39,11 @@ class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObse
 
   @override
   void initState() {
-    // TODO: implement initState
     WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
   @override
   void dispose() {
-    // TODO: implement dispose
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -89,19 +87,18 @@ class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObse
             FutureBuilder<Map>(
               future: test,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
-                //print("TEST HALLO " + snapshot.toString());
                 if (snapshot.hasError) {
                     String id = _firebaseAuth.currentUser.uid;
                     String from;
-                  //ChatMessage(messageContent: snapshot.data["data"][0]["content"].toString(), messageType: "receiver");
-                 for(int i = 0; i < snapshot.data["size"]; i++) {
-                    if(snapshot.data["data"][i]["from"].toString() == id){
+                    //ChatMessage(messageContent: snapshot.data["data"][0]["content"].toString(), messageType: "receiver");
+                    for (int i = 0; i < snapshot.data["size"]; i++) {
+                      if (snapshot.data["data"][i]["from"].toString() == id) {
                         from = "sender";
-                    }else{
-                      from = "receiver";
+                      } else {
+                        from = "receiver";
+                      }
+                      messages.add(ChatMessage(messageContent: snapshot.data["data"][i]["content"].toString(), messageType: from));
                     }
-                    messages.add(ChatMessage(messageContent: snapshot.data["data"][i]["content"].toString(), messageType: from));
-                  }
                     return Text("${snapshot.error}");
                 }
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -110,35 +107,18 @@ class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObse
                   String id = _firebaseAuth.currentUser.uid;
                   String from;
                   //ChatMessage(messageContent: snapshot.data["data"][0]["content"].toString(), messageType: "receiver");
-                  for(int i = 0; i < snapshot.data["size"]; i++) {
-                    if(snapshot.data["data"][i]["from"].toString() == id){
+                  for (int i = 0; i < snapshot.data["size"]; i++) {
+                    if (snapshot.data["data"][i]["from"].toString() == id) {
                       from = "sender";
-                    }else{
+                    } else {
                       from = "receiver";
                     }
                     messages.add(ChatMessage(messageContent: snapshot.data["data"][i]["content"].toString(), messageType: from));
                   }
                   return ListViewMsg(messages: messages);
                 }
-                // By default, show a loading spinner.
-                return CircularProgressIndicator();
               },
             ),
-           /* StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance.collection(widget.msgId).snapshots(),
-              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> qSnapshot){
-
-               if(qSnapshot.hasError){
-                 return Text("data");
-               }
-               if(qSnapshot.connectionState == ConnectionState.waiting){
-                 return CircularProgressIndicator();
-               }else{
-                 messages.add(ChatMessage(messageContent: snapshot.data["data"][i]["content"].toString(), messageType: from));
-                 return ListViewMsg(messages: messages);
-               }
-              },
-            ),*/
             Align(
               alignment: Alignment.bottomLeft,
               child: Container(
@@ -199,30 +179,21 @@ class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObse
                     Expanded(
                       child: TextField(
                         onChanged: (str) {
-                          tmpMsg =str;
+                          tmpMsg = str;
                         },
                         controller: newMessage,
                         decoration: InputDecoration(
-                            hintText: "Write message...",
+                            hintText: "Skriv en melding...",
                             hintStyle: TextStyle(color: zwapprBlack),
                             border: InputBorder.none),
                       ),
                     ),
-                    SizedBox(
-                      width: 15,
-                    ),
+                    SizedBox(width: 15),
                     FloatingActionButton(
                       onPressed: () async {
-
                         _chatService.createMsg(widget.msgId, newMessage.text);
                         newMessage.text = "";
-                        setState(() {
-
-                        });
-                       /* Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ChatDetailPage(name: widget.name, image: widget.image, msgId: widget.msgId )),
-                        );*/
+                        setState(() {});
                       },
                       child: Icon(
                         Icons.send,
@@ -236,7 +207,6 @@ class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObse
                 ),
               ),
             ),
-
             Align(
               alignment: Alignment.topCenter,
               child: Container(
@@ -247,7 +217,6 @@ class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObse
                 child: ChatInfoPerson(name: widget.name, image: widget.image),
               ),
             ),
-
           ],
         ),
       ),

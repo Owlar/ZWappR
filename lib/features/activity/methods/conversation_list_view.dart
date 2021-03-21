@@ -15,7 +15,6 @@ ListView buildConversationListView(List<ChatUsers> chatUsers, List<String> conve
     itemBuilder: (context, index) {
       return Container(
         child: GestureDetector(
-
           onTap: () {
             Route route = MaterialPageRoute(builder: (context) => ChatDetailPage(name: chatUsers[index].name, image: chatUsers[index].image, msgId:  conversationList[index] ));
             Navigator.push(context, route).then(onGoBack);
@@ -31,9 +30,7 @@ ListView buildConversationListView(List<ChatUsers> chatUsers, List<String> conve
                         backgroundImage: NetworkImage(chatUsers[index].image),
                         maxRadius: 30,
                       ),
-                      SizedBox(
-                        width: 16,
-                      ),
+                      SizedBox(width: 16),
                       Expanded(
                         child: Container(
                           color: Colors.transparent,
@@ -52,7 +49,8 @@ ListView buildConversationListView(List<ChatUsers> chatUsers, List<String> conve
                                 style: TextStyle(
                                     fontSize: 14,
                                     color: zwapprBlack,
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold
+                                ),
                               ),
                             ],
                           ),
@@ -66,7 +64,6 @@ ListView buildConversationListView(List<ChatUsers> chatUsers, List<String> conve
                   style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold
-
                   ),
                 ),
               ],

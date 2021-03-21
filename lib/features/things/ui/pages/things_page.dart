@@ -20,10 +20,10 @@ class _ThingsPageState extends State<ThingsPage> {
     final List<ThingModel> _thingsFromService = (await _thingsService.getAll());
     return _thingsFromService;
   }
-  FutureOr onGoBack(dynamic value) {
 
+  FutureOr onGoBack(dynamic value) {
     setState(() {
-      print('Refresh');
+      _getThingsFromService();
     });
   }
   @override

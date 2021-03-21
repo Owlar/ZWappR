@@ -36,13 +36,11 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   FutureOr onGoBack(dynamic value) {
     setState(() {
       test = _chatService.get();
-      print('asdasd');
     });
   }
 
   @override
   void dispose() {
-
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -74,18 +72,10 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     List<ChatUsers> chatUsers = [];
     List<String> conversationList = [];
-    // Future <ChatUsers> futureChatUser;
-    //futureChatUser = fetchChatUser();
-    print(
-        '########################################## WORKING ################################################');
-    //Future<Map> test = _chatService.get();
-
-    //_chatService.createMsg("9qQ5yKyMKKpXNYMivraM", "YO! wazzzup");
 
     return Scaffold(
       body: Container(
@@ -113,7 +103,8 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                           Text(
                             "Meldinger",
                             style: TextStyle(
-                                fontSize: 32, fontWeight: FontWeight.bold),
+                                fontSize: 32, fontWeight: FontWeight.bold
+                            ),
                           ),
                         ],
                       ),
@@ -146,23 +137,24 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                     if (snapshot.hasError) {
                       return Text("${snapshot.error}");
                     }
-
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return CircularProgressIndicator();
+                      return Center(
+                        child: CircularProgressIndicator()
+                      );
                     } else {
                       for (int i = 0; i < snapshot.data["size"]; i++) {
                         String id = auth.currentUser.uid;
                         String formatted = "";
                         String msg = "";
                         String userId = "";
+
                         conversationList.add(
-                            snapshot.data["data"][i]["convoID"].toString());
+                            snapshot.data["data"][i]["convoID"].toString()
+                        );
 
                         if (snapshot.data["data"][i]["participants"]["user1"]
-                                    ["id"]
-                                .toString() ==
-                            id) {
-                          userId = "user2";
+                          ["id"].toString() == id) {
+                            userId = "user2";
                         } else {
                           userId = "user1";
                         }
@@ -197,12 +189,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                         chatUsers.add(c);
                       }
                     }
-
                     return buildConversationListView(chatUsers, conversationList, onGoBack);
-                    // By default, show a loading spinner.
-                    return Center(
-                        child: CircularProgressIndicator()
-                    );
                   },
                 ),
               ],

@@ -47,7 +47,9 @@ class _ThingsPageState extends State<ThingsPage> {
                 return Text("${snapshot.error}");
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator();
+                return Center(
+                  child: CircularProgressIndicator()
+                );
               } else {
                 print('############################# REDO #############################');
                 return ListView.builder(

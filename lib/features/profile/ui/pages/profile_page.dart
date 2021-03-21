@@ -59,7 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> downloadURL() async {
-    FirebaseStorage storage =  FirebaseStorage.instance;
+    FirebaseStorage storage = FirebaseStorage.instance;
     String downloadURL = await storage.ref(_nameOfImage).getDownloadURL();
 
     setState(() {
@@ -68,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> uploadImage(File _image1) async {
-    FirebaseStorage storage =   FirebaseStorage.instance;
+    FirebaseStorage storage = FirebaseStorage.instance;
     String nameOfImage = "users/image" + DateTime.now().toString();
     Reference ref = storage.ref().child(nameOfImage);
     UploadTask uploadTask = ref.putFile(_image1);
@@ -78,8 +78,8 @@ class _ProfilePageState extends State<ProfilePage> {
       _nameOfImage = nameOfImage;
     });
   }
-  FutureOr onGoBack(dynamic value) {
 
+  FutureOr onGoBack(dynamic value) {
     setState(() {
       print('PLS');
     });
@@ -131,8 +131,8 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     Future <UserModel> futureUserModel;
 
-   // Future <String> download;
-   // download = downloadURL();
+    // Future <String> download;
+    // download = downloadURL();
     futureUserModel = _profileService.get();
     List providerData = auth.currentUser.providerData.toString().split(',');
     List email = providerData[1].split(':');
@@ -155,8 +155,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     camera: false,
                     press: () async {
                       photoPicker();
-
-                      print("####################" + _downloadURL);
                 }
                 ),
                 SizedBox(height: 20,),
@@ -165,14 +163,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return Text(snapshot.data.displayName);
-                      //return Text(snapshot.data.displayName == null ? "GET": snapshot.data.displayName);
                     } else if (snapshot.hasError) {
                       return Text("${snapshot.error}");
                     }
                     // By default, show a loading spinner.
                     return CircularProgressIndicator();
                   },
-                ):Text(auth.currentUser.displayName.toString()),
+                ) : Text(auth.currentUser.displayName.toString()),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -192,10 +189,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       press: (){
                         Route route = MaterialPageRoute(builder: (context) => EditPage(image: _image));
                         Navigator.push(context, route).then(onGoBack);
-                       /* Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => EditPage(image: _image)),
-                        );*/
                       },
                     ),
                   ],

@@ -16,39 +16,45 @@ import '../widgets/icon_buttons.dart';
 class EditPage extends StatefulWidget {
   final File image;
 
-  EditPage({Key key, @required this.image}) : super(key: key);
+  EditPage({
+    Key key,
+    @required this.image
+  }) : super(key: key);
 
   @override
   _EditPageState createState() => _EditPageState();
 }
 
 class _EditPageState extends State<EditPage> {
+  static final IProfileService _profileService = ProfileService();
+
   final FirebaseAuth auth = FirebaseAuth.instance;
   final TextEditingController newName = TextEditingController();
   final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
-  static final IProfileService _profileService = ProfileService();
+  final imagePicker = ImagePicker();
+
   String _nameOfImage;
   String _downloadURL;
   File _image;
-  final imagePicker = ImagePicker();
 
   Future getImage() async {
-    final image = await imagePicker.getImage(source: ImageSource.camera);
+    final image = await imagePicker.getImage(
+        source: ImageSource.camera
+    );
     setState(() {
       _image = File(image.path);
     });
     uploadImage(_image);
-
   }
 
   Future getGallery() async {
     final image = await imagePicker.getImage(
-        source: ImageSource.gallery, imageQuality: 50);
+        source: ImageSource.gallery, imageQuality: 50
+    );
     setState(() {
       _image = File(image.path);
     });
     uploadImage(_image);
-
   }
 
   Future<void> downloadURL() async {
@@ -87,7 +93,7 @@ class _EditPageState extends State<EditPage> {
             ),
           ),
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               child: new Icon(
                 Icons.camera_alt,
                 color: zwapprGreen,
@@ -97,7 +103,7 @@ class _EditPageState extends State<EditPage> {
                 Navigator.of(context).pop();
               },
             ),
-            FlatButton(
+            TextButton(
               child: new Icon(
                 Icons.insert_photo,
                 color: zwapprGreen,
@@ -120,88 +126,82 @@ class _EditPageState extends State<EditPage> {
 
     return Scaffold(
         body: Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/images/background_screen.png"),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Center(
-        child: Column(
-          children: [
-            ProfilePicture(
-                image: _image,
-                uri: auth.currentUser.photoURL,
-                camera: true,
-                press: () async {
-                  photoPicker();
-                  await downloadURL();
-                }),
-            SizedBox(
-              height: 20,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/background_screen.png"),
+              fit: BoxFit.cover,
             ),
-            //auth.currentUser.displayName == null ? Text(email[1]) : Text(auth.currentUser.displayName.toString()),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButtons(
-                  icon: Icons.settings,
-                  press: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => SettingsPage(image: widget.image)),
-                    );
-                  },
-                ),
-                IconButtons(
-                  icon: Icons.save,
+          ),
+        child: Center(
+          child: Column(
+            children: [
+              ProfilePicture(
+                  image: _image,
+                  uri: auth.currentUser.photoURL,
+                  camera: true,
                   press: () async {
-                    if(newName.text != ""){
-                      _profileService.put(newName.text);
-                    }
-                    if(_downloadURL == null){
-                      await downloadURL();
-                    }
-                    if(_downloadURL != null ){
-
-                      await _profileService.updateImage(_downloadURL);
-                    }
-
-                   // Navigator.push( context, MaterialPageRoute( builder: (context) => ProfilePage()), ).then((value) => setState(() {}));
-
-                     Navigator.pop(context);
+                    photoPicker();
+                    await downloadURL();
+                  }
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButtons(
+                    icon: Icons.settings,
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SettingsPage(image: widget.image)),
+                      );
+                    },
+                  ),
+                  IconButtons(
+                    icon: Icons.save,
+                    press: () async {
+                      if (newName.text != "") {
+                        _profileService.put(newName.text);
+                      }
+                      if (_downloadURL == null) {
+                        await downloadURL();
+                      }
+                      if (_downloadURL != null) {
+                        await _profileService.updateImage(_downloadURL);
+                      }
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+              TextField(
+                controller: newName,
+                decoration: InputDecoration(
+                  labelText: "Brukernavn",
+                ),
+              ),
+              Menu(
+                text: "Om deg selv",
+                icon: Icons.book,
+                press: () {},
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: Colors.black),
+                  ),
+                ),
+                child: Menu(
+                  text: "tekst",
+                  icon: Icons.text_fields,
+                  press: () {
+                    print(auth.currentUser.providerData.toString());
+                    print(email[1]);
                   },
                 ),
-              ],
-            ),
-            TextField(
-              controller: newName,
-              decoration: InputDecoration(
-                labelText: "Brukernavn",
               ),
-            ),
-            Menu(
-              text: "Om deg selv",
-              icon: Icons.book,
-              press: () {},
-            ),
-            Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Colors.black),
-                ),
-              ),
-              child: Menu(
-                text: "tekst",
-                icon: Icons.text_fields,
-                press: () {
-                  print(auth.currentUser.providerData.toString());
-                  print(email[1]);
-                },
-              ),
-            ),
-          ],
+            ],
         ),
       ),
     ));

@@ -5,10 +5,7 @@ import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/features/things/services/i_things_service.dart';
 import 'package:zwappr/features/things/services/things_service.dart';
 import 'package:zwappr/features/things/ui/widgets/card.dart';
-import 'package:zwappr/features/things/ui/widgets/thing_list_item.dart';
-import 'package:zwappr/utils/colors/color_theme.dart';
 
-import 'edit_thing_page.dart';
 import 'new_thing_page.dart';
 
 class ThingsPage extends StatefulWidget {
@@ -26,7 +23,6 @@ class _ThingsPageState extends State<ThingsPage> {
   @override
   void initState() {
     super.initState();
-
     setState(() {
       _getThingsFromService();
       print('############################# INIT REFRESH #############################');
@@ -34,7 +30,6 @@ class _ThingsPageState extends State<ThingsPage> {
   }
 
   Future<FutureOr> onGoBack(dynamic value) {
-
     setState(() {
       _getThingsFromService();
       print('############################# REFRESH #############################');
@@ -54,7 +49,6 @@ class _ThingsPageState extends State<ThingsPage> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return CircularProgressIndicator();
               } else {
-
                 print('############################# REDO #############################');
                 return ListView.builder(
                     padding: const EdgeInsets.all(14.0),
@@ -62,17 +56,19 @@ class _ThingsPageState extends State<ThingsPage> {
                     itemBuilder: (BuildContext context, int index) {
                       final thing = snapshot.data[index];
                       return buildCard(thing, context, onGoBack);
-                    });
+                    },
+                );
               }
-            }),
+            },
+        ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             Route route = MaterialPageRoute(builder: (context) => NewThingPage());
             Navigator.push(context, route).then(onGoBack);
-
           },
           label: Text("Ny ting"),
           icon: Icon(Icons.add),
-        ));
+        )
+    );
   }
 }

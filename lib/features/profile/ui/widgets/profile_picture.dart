@@ -41,32 +41,29 @@ class ProfilePicture extends StatelessWidget {
         height: 115,
         width: 115,
         child: Stack(
+          clipBehavior: Clip.none,
           fit: StackFit.expand,
-          overflow: Overflow.visible,
           children: [FutureBuilder<UserModel>(
             future: futureUserModel,
             builder: (context, snapshot) {
-              print("TEST " + snapshot.toString());
               if (snapshot.hasData && snapshot.data.imageID != "") {
-                imageID = snapshot.data.imageID;
-                print("Has data " + snapshot.data.imageID);
-                print(_image.toString());
+                  imageID = snapshot.data.imageID;
+                  print("Has data " + snapshot.data.imageID);
+                  print(_image.toString());
                   return CircleAvatar(
-                  backgroundImage:  _image == null ? NetworkImage(snapshot.data.imageID) :  FileImage(_image)//_image == null ? (uri == null ? AssetImage("assets/images/profile_test.png") : NetworkImage(pic)) : FileImage(_image),
-                );
-                //return Text(snapshot.data.displayName == null ? "GET": snapshot.data.displayName);
+                    backgroundImage: _image == null
+                        ? NetworkImage(snapshot.data.imageID)
+                        : FileImage(_image)
+                  );
               } else if (snapshot.hasError) {
-                print('No data');
+                  print('No data');
                   return CircleAvatar(
                       backgroundImage: _image == null ? (uri == null ? AssetImage("assets/images/profile_test.png") : NetworkImage(pic)) : FileImage(_image),
                   );
               }
-              // By default, show a loading spinner.
               return CircularProgressIndicator();
             },
           ),
-
-
             camera == true ? Positioned(
               right: -12,
               bottom: 0,

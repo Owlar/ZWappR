@@ -7,11 +7,13 @@ import 'conversation_list.dart';
 class ListViewChat extends StatelessWidget {
   final List<ChatUsers> chatUsers;
   final List<String> conversationList;
+  final VoidCallback press;
 
   const ListViewChat({
     Key key,
     @required this.chatUsers,
     @required this.conversationList,
+    @required this.press,
   }) : super(key: key);
 
   @override
@@ -31,6 +33,7 @@ class ListViewChat extends StatelessWidget {
             date: chatUsers[index].date,
             msgId: conversationList[index],
             isMessageRead: (index == 0 || index == 3) ? true : false,
+            press: press,
           ),
         );
       },

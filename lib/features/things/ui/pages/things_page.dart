@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
@@ -19,7 +21,12 @@ class _ThingsPageState extends State<ThingsPage> {
     final List<ThingModel> _thingsFromService = (await _thingsService.getAll());
     return _thingsFromService;
   }
+  FutureOr onGoBack(dynamic value) {
 
+    setState(() {
+      print('Refresh');
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,10 +51,8 @@ class _ThingsPageState extends State<ThingsPage> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => NewThingPage())
-          );
+          Route route = MaterialPageRoute(builder: (context) => NewThingPage());
+          Navigator.push(context, route).then(onGoBack);
           // Creating objects for testing purposes
           /*
           final ThingModel watch = ThingModel(

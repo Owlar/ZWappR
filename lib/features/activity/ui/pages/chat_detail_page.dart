@@ -213,7 +213,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObse
                     ),
                     FloatingActionButton(
                       onPressed: () async {
-                        Navigator.pop(context, "sdsd");
+
                         _chatService.createMsg(widget.msgId, newMessage.text);
                         setState(() {
 

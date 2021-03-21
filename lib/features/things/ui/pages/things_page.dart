@@ -5,6 +5,7 @@ import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/features/things/services/i_things_service.dart';
 import 'package:zwappr/features/things/services/things_service.dart';
 import 'package:zwappr/features/things/ui/widgets/card.dart';
+import 'package:zwappr/utils/colors/color_theme.dart';
 
 import 'new_thing_page.dart';
 
@@ -38,7 +39,6 @@ class _ThingsPageState extends State<ThingsPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         body: FutureBuilder<List>(
             future:_getThingsFromService(),
@@ -68,8 +68,8 @@ class _ThingsPageState extends State<ThingsPage> {
             Route route = MaterialPageRoute(builder: (context) => NewThingPage());
             Navigator.push(context, route).then(onGoBack);
           },
-          label: Text("Ny ting"),
-          icon: Icon(Icons.add),
+          label: Text("Ny ting", style: TextStyle(color: zwapprBlack, fontSize: 16)),
+          icon: Icon(Icons.add, color: zwapprBlack, size: 30),
         )
     );
   }

@@ -22,6 +22,8 @@ class ChatInfoPerson extends StatelessWidget {
             IconButton(
               onPressed: () {
                 Navigator.pop(context);
+
+               // Navigator.push( context, MaterialPageRoute( builder: (context) => ChatPage()), ).then((value) => Navigator.pop(context)));
               },
               icon: Icon(
                 Icons.keyboard_arrow_left,

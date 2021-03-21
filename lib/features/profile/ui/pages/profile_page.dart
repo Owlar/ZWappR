@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -75,6 +76,12 @@ class _ProfilePageState extends State<ProfilePage> {
 
     setState(() {
       _nameOfImage = nameOfImage;
+    });
+  }
+  FutureOr onGoBack(dynamic value) {
+
+    setState(() {
+      print('PLS');
     });
   }
 
@@ -166,21 +173,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     return CircularProgressIndicator();
                   },
                 ):Text(auth.currentUser.displayName.toString()),
-                /*FutureBuilder<String>(
-                  future: download,
-                  builder: (context, snapshot) {
 
-                    if (snapshot.hasData) {
-                      _profileService.updateImage(snapshot.data.toString());
-                      return Text("HH");
-                      //return Text(snapshot.data.displayName == null ? "GET": snapshot.data.displayName);
-                    } else if (snapshot.hasError) {
-                      return Text("");
-                    }
-                    // By default, show a loading spinner.
-                    return CircularProgressIndicator();
-                  },
-                ),*/
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -197,10 +190,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     IconButtons(
                       icon: Icons.edit,
                       press: (){
-                        Navigator.push(
+                        Route route = MaterialPageRoute(builder: (context) => EditPage(image: _image));
+                        Navigator.push(context, route).then(onGoBack);
+                       /* Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => EditPage(image: _image)),
-                        );
+                        );*/
                       },
                     ),
                   ],

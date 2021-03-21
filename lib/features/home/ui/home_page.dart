@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+
     _pageController = PageController(initialPage: _selectedIndex);
     _notificationService.setupNotification();
   }
@@ -88,12 +89,12 @@ class _HomePageState extends State<HomePage> {
               label: "Profil",
             ),
           ],
-          onTap: _onItemTapped,
+          onTap: onItemTapped,
       ),
     );
   }
 
-  void _onItemTapped(int index) {
+  void onItemTapped(int index) {
     setState(() => _selectedIndex = index);
     _pageController.jumpToPage(index);
   }

@@ -44,7 +44,8 @@ class _FeedPageState extends State<FeedPage> {
                     child: FutureBuilder(
                       future: _getThingsFromService(),
                       builder: (context, snapshot) {
-                        return Stack(children: things.map(_buildThing).toList());
+
+                    return Stack(children: things.map(_buildThing).toList());
                       }
                     ),
                   ),

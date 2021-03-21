@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zwappr/features/activity/models/chat_message.dart';
@@ -23,21 +24,57 @@ class ChatDetailPage extends StatefulWidget {
   _ChatDetailPageState createState() => _ChatDetailPageState();
 }
 
-class _ChatDetailPageState extends State<ChatDetailPage> {
+class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObserver{
+
   final TextEditingController newMessage = TextEditingController();
   static final IChatService _chatService = ChatService();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
   Future<String> getId() async {
     return await _firebaseAuth.currentUser.getIdToken(true);
   }
+  Future<void> fireBase() async {
+    FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+  }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // TODO: implement didChangeAppLifecycleState
+    super.didChangeAppLifecycleState(state);
+    switch(state){
+      case AppLifecycleState.paused:
+        print('paused');
+        break;
+      case AppLifecycleState.resumed:
+        print('resume');
+        break;
+      case AppLifecycleState.inactive:
+        print('inactive');
+        break;
+      case AppLifecycleState.detached:
+        print('detached');
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     Future<Map> test;
+    String tmpMsg;
     test = _chatService.getMsg(widget.msgId);
     List<ChatMessage> messages = [];
-
 
     return Scaffold(
       body: Container(
@@ -51,9 +88,9 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
           children: <Widget>[
             FutureBuilder<Map>(
               future: test,
-              builder: (context, snapshot) {
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
                 //print("TEST HALLO " + snapshot.toString());
-                if (snapshot.hasData) {
+                if (snapshot.hasError) {
                     String id = _firebaseAuth.currentUser.uid;
                     String from;
                   //ChatMessage(messageContent: snapshot.data["data"][0]["content"].toString(), messageType: "receiver");
@@ -65,14 +102,43 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                     }
                     messages.add(ChatMessage(messageContent: snapshot.data["data"][i]["content"].toString(), messageType: from));
                   }
+                    return Text("${snapshot.error}");
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                } else {
+                  String id = _firebaseAuth.currentUser.uid;
+                  String from;
+                  //ChatMessage(messageContent: snapshot.data["data"][0]["content"].toString(), messageType: "receiver");
+                  for(int i = 0; i < snapshot.data["size"]; i++) {
+                    if(snapshot.data["data"][i]["from"].toString() == id){
+                      from = "sender";
+                    }else{
+                      from = "receiver";
+                    }
+                    messages.add(ChatMessage(messageContent: snapshot.data["data"][i]["content"].toString(), messageType: from));
+                  }
                   return ListViewMsg(messages: messages);
-                } else if (snapshot.hasError) {
-                  return Text("${snapshot.error}");
                 }
                 // By default, show a loading spinner.
                 return CircularProgressIndicator();
               },
             ),
+           /* StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance.collection(widget.msgId).snapshots(),
+              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> qSnapshot){
+
+               if(qSnapshot.hasError){
+                 return Text("data");
+               }
+               if(qSnapshot.connectionState == ConnectionState.waiting){
+                 return CircularProgressIndicator();
+               }else{
+                 messages.add(ChatMessage(messageContent: snapshot.data["data"][i]["content"].toString(), messageType: from));
+                 return ListViewMsg(messages: messages);
+               }
+              },
+            ),*/
             Align(
               alignment: Alignment.bottomLeft,
               child: Container(
@@ -132,6 +198,9 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                     ),
                     Expanded(
                       child: TextField(
+                        onChanged: (str) {
+                          tmpMsg =str;
+                        },
                         controller: newMessage,
                         decoration: InputDecoration(
                             hintText: "Write message...",
@@ -143,12 +212,17 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                       width: 15,
                     ),
                     FloatingActionButton(
-                      onPressed: () {
+                      onPressed: () async {
+
                         _chatService.createMsg(widget.msgId, newMessage.text);
-                        Navigator.push(
+                        newMessage.text = "";
+                        setState(() {
+
+                        });
+                       /* Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => ChatDetailPage(name: widget.name, image: widget.image, msgId: widget.msgId )),
-                        );
+                        );*/
                       },
                       child: Icon(
                         Icons.send,
@@ -162,6 +236,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                 ),
               ),
             ),
+
             Align(
               alignment: Alignment.topCenter,
               child: Container(
@@ -172,6 +247,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                 child: ChatInfoPerson(name: widget.name, image: widget.image),
               ),
             ),
+
           ],
         ),
       ),

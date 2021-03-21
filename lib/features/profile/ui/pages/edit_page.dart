@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:zwappr/features/profile/services/i_profile_service.dart';
 import 'package:zwappr/features/profile/services/profile_service.dart';
-import 'package:zwappr/features/profile/ui/pages/profile_page.dart';
 import 'package:zwappr/features/profile/ui/pages/settings_page.dart';
 import 'package:zwappr/features/profile/ui/widgets/menu.dart';
 import 'package:zwappr/features/profile/ui/widgets/profile_picture.dart';
@@ -169,12 +168,9 @@ class _EditPageState extends State<EditPage> {
                       await _profileService.updateImage(_downloadURL);
                     }
 
+                   // Navigator.push( context, MaterialPageRoute( builder: (context) => ProfilePage()), ).then((value) => setState(() {}));
 
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ProfilePage()),
-                    );
+                     Navigator.pop(context);
                   },
                 ),
               ],

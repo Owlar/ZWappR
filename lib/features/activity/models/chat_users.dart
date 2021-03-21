@@ -10,5 +10,6 @@ class ChatUsers {
     return ChatUsers(
         json['name'], json['message'], json['image'], json['date']);
   }
+
 }
 

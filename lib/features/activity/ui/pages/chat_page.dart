@@ -1,14 +1,19 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:zwappr/features/activity/methods/conversation_list_view.dart';
 import 'package:zwappr/features/activity/services/chat_service.dart';
 import 'package:zwappr/features/activity/services/i_chat_service.dart';
+import 'package:zwappr/features/activity/ui/widgets/conversation_list.dart';
 import 'package:zwappr/features/activity/ui/widgets/list_view_chat.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
 import '../../../activity/models/chat_users.dart';
+import 'chat_detail_page.dart';
 
 class ChatPage extends StatefulWidget {
   @override
@@ -17,11 +22,60 @@ class ChatPage extends StatefulWidget {
 
 final FirebaseAuth auth = FirebaseAuth.instance;
 
-class _ChatPageState extends State<ChatPage> {
+class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   final FirebaseAuth auth = FirebaseAuth.instance;
   static final IChatService _chatService = ChatService();
 
   Future<Map> test = _chatService.get();
+  String _now;
+  Timer _everySecond;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+
+  FutureOr onGoBack(dynamic value) {
+    setState(() {
+      test = _chatService.get();
+      print('asdasd');
+    });
+  }
+
+  @override
+  void dispose() {
+
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+
+    super.didChangeAppLifecycleState(state);
+    switch (state) {
+      case AppLifecycleState.paused:
+        print('paused');
+        break;
+      case AppLifecycleState.resumed:
+        print('resume');
+        break;
+      case AppLifecycleState.inactive:
+        print('inactive');
+        break;
+      case AppLifecycleState.detached:
+        print('detached');
+        break;
+    }
+  }
+
+  void updatePage(){
+    setState(() {
+      test = _chatService.get();
+      print('asdasd');
+    });
+  }
 
 
   @override
@@ -30,11 +84,11 @@ class _ChatPageState extends State<ChatPage> {
     List<String> conversationList = [];
     // Future <ChatUsers> futureChatUser;
     //futureChatUser = fetchChatUser();
-
+    print(
+        '########################################## WORKING ################################################');
     //Future<Map> test = _chatService.get();
 
     //_chatService.createMsg("9qQ5yKyMKKpXNYMivraM", "YO! wazzzup");
-    //_chatService.create("NPDjGHiQFSYyrPCmGS5r9V5j70C2");
 
     return Scaffold(
       body: Container(
@@ -92,46 +146,62 @@ class _ChatPageState extends State<ChatPage> {
                 FutureBuilder<Map>(
                   future: test,
                   builder: (context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasError) {
+                      return Text("${snapshot.error}");
+                    }
 
-                    if (snapshot.hasData) {
-
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    } else {
                       for (int i = 0; i < snapshot.data["size"]; i++) {
                         String id = auth.currentUser.uid;
                         String formatted = "";
                         String msg = "";
                         String userId = "";
-                        conversationList.add(snapshot.data["data"][i]["convoID"].toString());
+                        conversationList.add(
+                            snapshot.data["data"][i]["convoID"].toString());
 
-                        if(snapshot.data["data"][i]["participants"]["user1"]["id"].toString() == id){
+                        if (snapshot.data["data"][i]["participants"]["user1"]
+                                    ["id"]
+                                .toString() ==
+                            id) {
                           userId = "user2";
-                        }else{
+                        } else {
                           userId = "user1";
                         }
 
                         if (snapshot.data["data"][i]["previewMsg"] != null) {
-
-                          int sec = snapshot.data["data"][i]["previewMsg"]["time"]["_seconds"];
-                          int nanoSec = snapshot.data["data"][i]["previewMsg"]["time"]["_nanoseconds"];
+                          int sec = snapshot.data["data"][i]["previewMsg"]
+                              ["time"]["_seconds"];
+                          int nanoSec = snapshot.data["data"][i]["previewMsg"]
+                              ["time"]["_nanoseconds"];
 
                           Timestamp time = new Timestamp(sec, nanoSec);
                           DateTime date = time.toDate();
-                          final DateFormat formatter = DateFormat('dd.MM.yy H:m');
+                          final DateFormat formatter =
+                              DateFormat('dd.MM.yy H:m');
                           formatted = formatter.format(date);
 
-                          msg = snapshot.data["data"][i]["previewMsg"]["content"].toString();
+                          msg = snapshot.data["data"][i]["previewMsg"]
+                                  ["content"]
+                              .toString();
                         }
 
                         ChatUsers c = new ChatUsers(
-                            snapshot.data["data"][i]["participants"][userId]["displayName"].toString(),
-                            msg,
-                            snapshot.data["data"][i]["participants"][userId]["imageID"].toString(),
-                            formatted);
+                          snapshot.data["data"][i]["participants"][userId]
+                                  ["displayName"]
+                              .toString(),
+                          msg,
+                          snapshot.data["data"][i]["participants"][userId]
+                                  ["imageID"]
+                              .toString(),
+                          formatted,
+                        );
                         chatUsers.add(c);
                       }
-                      return ListViewChat(chatUsers: chatUsers, conversationList: conversationList);
-                    } else if (snapshot.hasError) {
-                      return Text("${snapshot.error}");
                     }
+
+                    return buildConversationListView(chatUsers, conversationList, onGoBack);
                     // By default, show a loading spinner.
                     return Center(
                         child: CircularProgressIndicator()
@@ -145,4 +215,6 @@ class _ChatPageState extends State<ChatPage> {
       ),
     );
   }
+
+
 }

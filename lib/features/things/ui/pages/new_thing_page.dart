@@ -248,7 +248,7 @@ class _NewThingPageState extends State<NewThingPage> {
                                   ? "Annet"
                                   : _category
                             );
-                            _thingsService.create(newThing);
+                            await _thingsService.create(newThing);
                             Navigator.pop(context);
                           }
                         },

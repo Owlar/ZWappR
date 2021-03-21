@@ -3,6 +3,7 @@ import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/features/things/services/i_things_service.dart';
 import 'package:zwappr/features/things/services/things_service.dart';
 import 'package:zwappr/features/things/ui/widgets/thing_list_item.dart';
+import 'package:zwappr/utils/colors/color_theme.dart';
 
 import 'new_thing_page.dart';
 
@@ -48,8 +49,8 @@ class _ThingsPageState extends State<ThingsPage> {
               MaterialPageRoute(builder: (context) => NewThingPage())
           );
         },
-        label: Text("Ny ting"),
-        icon: Icon(Icons.add),
+        label: Text("Ny ting", style: TextStyle(color: zwapprBlack, fontSize: 16)),
+        icon: Icon(Icons.add, color: zwapprBlack, size: 30),
       )
     );
   }

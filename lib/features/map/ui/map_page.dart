@@ -75,8 +75,8 @@ class _MapPageState extends State<MapPage> {
         ),
         floatingActionButton: FloatingActionButton.extended(
             onPressed: _filter,
-            icon: Icon(Icons.filter_list),
-            label: Text("Filter")
+            icon: Icon(Icons.filter_list, color: zwapprBlack, size: 30),
+            label: Text("Filter", style: TextStyle(color: zwapprBlack, fontSize: 16))
         )
 
     );

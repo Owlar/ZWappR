@@ -264,7 +264,7 @@ class _EditThingPageState extends State<EditThingPage> {
                                   ? "Annet"
                                   : _category
                             );
-                            _thingsService.put(newThing);
+                           await _thingsService.put(newThing);
                             Navigator.pop(context);
                           }
                         },

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/features/things/services/i_things_service.dart';
 import 'package:zwappr/features/things/services/things_service.dart';
@@ -34,16 +33,16 @@ class _ThingsPageState extends State<ThingsPage> {
         future: _getThingsFromService(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return CircularProgressIndicator();
+            return Center(
+                child: CircularProgressIndicator()
+            );
           } else {
             return ListView.builder(
                 padding: const EdgeInsets.all(14.0),
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
                   final thing = snapshot.data[index];
-                  return Observer(
-                      builder: (_) => ThingListItem(thing: thing)
-                  );
+                  return ThingListItem(thing: thing);
                 }
             );
           }
@@ -74,7 +73,6 @@ class _ThingsPageState extends State<ThingsPage> {
         label: Text("Ny ting"),
         icon: Icon(Icons.add),
       )
-
     );
   }
 

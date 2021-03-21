@@ -213,6 +213,9 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                       },*/
                     );
                     // By default, show a loading spinner.
+                    return Center(
+                        child: CircularProgressIndicator()
+                    );
                   },
                 ),
               ],

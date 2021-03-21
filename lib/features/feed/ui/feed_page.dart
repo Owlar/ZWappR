@@ -177,18 +177,32 @@ class _FeedPageState extends State<FeedPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Center(
-              child: Image.network(thing.imageUrl, height: 248),
+              child: Image.network(thing.imageUrl, height: 200),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 4),
             Text(
               "${thing.title}",
               style: TextStyle(color: zwapprBlack, fontSize: 30),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 4),
             Text(
               "${thing.description}",
               style: TextStyle(color: zwapprBlack, fontSize: 18),
-            )
+            ),
+            SizedBox(height: 10),
+            Text(
+              "${thing.exchangeValue} kr",
+              style: TextStyle(color: zwapprBlack, fontSize: 14, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 4),
+            Text(
+              "Brukstilstand: ${thing.condition}",
+              style: TextStyle(color: zwapprBlack, fontSize: 14),
+            ),
+            Text(
+              "Kategori: ${thing.category}",
+              style: TextStyle(color: zwapprBlack, fontSize: 14),
+            ),
           ]
         )
     );

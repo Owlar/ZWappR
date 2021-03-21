@@ -44,11 +44,31 @@ class ThingListItem extends StatelessWidget {
                               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                               overflow: TextOverflow.ellipsis
                           ),
-                          SizedBox(height: 10),
+                          SizedBox(height: 4),
                           Text(
                               thing.description == null
                               ? "" : thing.description,
                               style: TextStyle(fontSize: 16),
+                              overflow: TextOverflow.ellipsis
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                              thing.exchangeValue == null
+                                  ? "" : thing.exchangeValue + " kr",
+                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                              overflow: TextOverflow.ellipsis
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                              thing.condition == null
+                                  ? "" : "Brukstilstand: " + thing.condition,
+                              style: TextStyle(fontSize: 14),
+                              overflow: TextOverflow.ellipsis
+                          ),
+                          Text(
+                              thing.category == null
+                                  ? "" : "Kategori: " + thing.category,
+                              style: TextStyle(fontSize: 14),
                               overflow: TextOverflow.ellipsis
                           ),
                         ]

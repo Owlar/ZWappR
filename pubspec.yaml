@@ -58,13 +58,17 @@ dependencies:
   flutter_signin_button: ^1.1.0
 
   # SVG
-  flutter_svg: ^0.19.1
+  flutter_svg: ^0.20.0-nullsafety.3
 
   # Providers
   provider: ^4.3.3
 
   # Http
   http: ^0.12.2
+
+  # Google Maps
+  google_maps_flutter: ^1.2.0
+  geolocator: ^6.2.1
 
 dev_dependencies:
   flutter_test:

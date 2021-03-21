@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_cluster_manager/google_maps_cluster_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:zwappr/features/feed/models/thing.dart';
+import 'package:zwappr/features/map/data/thing_markers.dart';
 import 'package:zwappr/features/map/models/thing_marker_model.dart';
 import 'package:zwappr/features/map/services/i_map_service.dart';
 import 'package:zwappr/features/map/services/map_service.dart';
-import 'package:zwappr/features/map/data/thing_markers.dart';
+import 'package:zwappr/utils/colors/color_theme.dart';
 
 class MapPage extends StatefulWidget {
   @override
@@ -136,8 +136,8 @@ class _MapPageState extends State<MapPage> {
 
     final PictureRecorder pictureRecorder = PictureRecorder();
     final Canvas canvas = Canvas(pictureRecorder);
-    final Paint paint1 = Paint()..color = Colors.orange;
-    final Paint paint2 = Paint()..color = Colors.white;
+    final Paint paint1 = Paint()..color = zwapprBlue;
+    final Paint paint2 = Paint()..color = zwapprGreen;
 
     canvas.drawCircle(Offset(size / 2, size / 2), size / 2.0, paint1);
     canvas.drawCircle(Offset(size / 2, size / 2), size / 2.2, paint2);
@@ -149,7 +149,7 @@ class _MapPageState extends State<MapPage> {
         text: text,
         style: TextStyle(
             fontSize: size / 3,
-            color: Colors.white,
+            color: zwapprBlack,
             fontWeight: FontWeight.normal),
       );
       painter.layout();

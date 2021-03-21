@@ -100,7 +100,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                 child: new Icon(
                   Icons.camera_alt,
                   color: zwapprGreen,
@@ -110,7 +110,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Navigator.of(context).pop();
                 },
               ),
-              FlatButton(
+              TextButton(
                 child: new Icon(
                   Icons.insert_photo,
                   color: zwapprGreen,
@@ -124,7 +124,7 @@ class _ProfilePageState extends State<ProfilePage> {
           );
         },
       );
-    }
+  }
 
 
   @override
@@ -150,14 +150,14 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Column(
               children: [
                 ProfilePicture(
-                    image:_image,
+                    image: _image,
                     uri: auth.currentUser.photoURL,
                     camera: false,
                     press: () async {
                       photoPicker();
-                }
+                    }
                 ),
-                SizedBox(height: 20,),
+                SizedBox(height: 20),
                 auth.currentUser.displayName == null ? FutureBuilder<UserModel>(
                   future: futureUserModel,
                   builder: (context, snapshot) {
@@ -193,8 +193,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ],
                 ),
-                Button(press: () {
-                }),
+                Button(press: (){}),
                 Menu(
                   text: "Likt",
                   icon: Icons.star,

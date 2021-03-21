@@ -150,7 +150,7 @@ class _MapPageState extends State<MapPage> {
         style: TextStyle(
             fontSize: size / 3,
             color: zwapprBlack,
-            fontWeight: FontWeight.normal),
+            fontWeight: FontWeight.bold),
       );
       painter.layout();
       painter.paint(

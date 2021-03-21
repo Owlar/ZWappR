@@ -215,6 +215,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObse
                       onPressed: () async {
 
                         _chatService.createMsg(widget.msgId, newMessage.text);
+                        newMessage.text = "";
                         setState(() {
 
                         });

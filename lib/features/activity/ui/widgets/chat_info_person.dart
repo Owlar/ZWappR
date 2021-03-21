@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:zwappr/features/activity/ui/pages/chat_page.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
 class ChatInfoPerson extends StatelessWidget {

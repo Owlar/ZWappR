@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:zwappr/features/activity/services/chat_service.dart';
-import 'package:zwappr/features/activity/services/i_chat_service.dart';
 import 'package:zwappr/features/activity/ui/pages/chat_detail_page.dart';
 import 'package:zwappr/features/activity/ui/pages/chat_page.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';

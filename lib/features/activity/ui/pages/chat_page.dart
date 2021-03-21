@@ -11,7 +11,6 @@ import 'package:zwappr/features/activity/ui/widgets/list_view_chat.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
 import '../../../activity/models/chat_users.dart';
-import 'chat_detail_page.dart';
 
 class ChatPage extends StatefulWidget {
   @override

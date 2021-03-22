@@ -8,6 +8,8 @@ class ThingModel {
   final String exchangeValue;
   final String condition;
   final String category;
+  final double latitude;
+  final double longitude;
   int numberOfLikes;
   bool isSwipedOff;
   bool isLiked;
@@ -20,6 +22,8 @@ class ThingModel {
     @required this.exchangeValue,
     @required this.condition,
     @required this.category,
+    @required this.latitude,
+    @required this.longitude,
     this.numberOfLikes,
     this.isSwipedOff,
     this.isLiked
@@ -33,7 +37,9 @@ class ThingModel {
         imageUrl: json["imageUrl"] as String,
         exchangeValue: json["exchangeValue"] as String,
         condition: json["condition"] as String,
-        category: json["category"] as String
+        category: json["category"] as String,
+        latitude: double.tryParse(json["latitude"]),
+        longitude: double.tryParse(json["longitude"])
     );
   }
 }

@@ -11,6 +11,7 @@ import 'package:zwappr/features/things/services/things_service.dart';
 import 'package:zwappr/features/things/utils/list_categories.dart';
 import 'package:zwappr/features/things/utils/list_conditions.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
+import 'package:zwappr/utils/location/user_geo_position.dart';
 
 class EditThingPage extends StatefulWidget {
   final ThingModel thingToBeEdited;
@@ -249,6 +250,7 @@ class _EditThingPageState extends State<EditThingPage> {
                             if ( _downloadURL != null) {
                               await downloadURL();
                             }
+                            final userPosition = await getUserGeoPosition();
                             final newThing = ThingModel(
                               uid: thingToBeEdited.uid,
                               title: titleController.text.trim(),
@@ -262,7 +264,9 @@ class _EditThingPageState extends State<EditThingPage> {
                                   : _condition,
                               category: _category == null
                                   ? "Annet"
-                                  : _category
+                                  : _category,
+                              latitude: userPosition.latitude,
+                              longitude: userPosition.longitude
                             );
                            await _thingsService.put(newThing);
                             Navigator.pop(context);

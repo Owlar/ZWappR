@@ -20,7 +20,9 @@ class ThingsRepository {
         "imageUrl": thing.imageUrl,
         "exchangeValue": thing.exchangeValue.toString(),
         "condition": thing.condition,
-        "category": thing.category
+        "category": thing.category,
+        "latitude": "${thing.latitude}",
+        "longitude": "${thing.longitude}"
       }),
     );
   }

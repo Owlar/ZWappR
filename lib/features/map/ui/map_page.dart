@@ -25,7 +25,7 @@ class _MapPageState extends State<MapPage> {
 
   ClusterManager _clusterManager;
   Set<Marker> markers = Set();
-  List<ClusterItem<ThingMarker>> items = dummyThingMarkers;
+  List<ClusterItem<ThingMarker>> items = List();
 
   String _currentPositionLatitude;
   String _currentPositionLongitude;
@@ -33,9 +33,9 @@ class _MapPageState extends State<MapPage> {
   // Set to HiØ's position as default
   LatLng _currentPosition = LatLng(59.1292475, 11.3506146);
 
-  // TODO: Do this instead of using dummy marker data
-  /*Future<void> _getThingsFromServiceAndCreateMarkers() async {
+  Future<void> _getThingsFromServiceAndCreateMarkers() async {
     final List<ThingMarker> _thingsAsMarkersFromService = (await _mapService.getAll());
+    print(_thingsAsMarkersFromService);
     _thingsAsMarkersFromService.forEach((thing) => {
       items.add(
           ClusterItem(
@@ -44,12 +44,12 @@ class _MapPageState extends State<MapPage> {
           )
       )
     });
-  }*/
+  }
 
   @override
   void initState() {
     _getCurrentPosition();
-    //_getThingsFromServiceAndCreateMarkers();
+    _getThingsFromServiceAndCreateMarkers();
     _clusterManager = _initClusterManager();
     super.initState();
   }

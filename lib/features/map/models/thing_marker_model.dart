@@ -35,8 +35,8 @@ class ThingMarker {
         exchangeValue: json["exchangeValue"] as String,
         condition: json["condition"] as String,
         category: json["category"] as String,
-        latitude: json["latitude"] as double,
-        longitude: json["longitude"] as double
+        latitude: double.tryParse(json["latitude"]),
+        longitude: double.tryParse(json["longitude"])
     );
   }
 }

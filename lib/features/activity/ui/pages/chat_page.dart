@@ -68,7 +68,6 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   void updatePage(){
     setState(() {
       test = _chatService.get();
-      print('asdasd');
     });
   }
 
@@ -101,7 +100,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            "Meldinger",
+                            "Samtaler",
                             style: TextStyle(
                                 fontSize: 32, fontWeight: FontWeight.bold
                             ),
@@ -115,7 +114,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                   padding: EdgeInsets.only(top: 16, left: 16, right: 16),
                   child: TextField(
                     decoration: InputDecoration(
-                      hintText: "Search...",
+                      hintText: "Søk...",
                       hintStyle: TextStyle(color: zwapprBlack),
                       prefixIcon: Icon(
                         Icons.search,
@@ -135,7 +134,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                   future: test,
                   builder: (context, AsyncSnapshot snapshot) {
                     if (snapshot.hasError) {
-                      return Center(child: Text("No messages"));
+                      return Center(child: Text("Ingen samtaler"));
                     }
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(

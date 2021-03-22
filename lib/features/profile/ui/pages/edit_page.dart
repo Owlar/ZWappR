@@ -178,7 +178,7 @@ class _EditPageState extends State<EditPage> {
               TextField(
                 controller: newName,
                 decoration: InputDecoration(
-                  labelText: "Brukernavn",
+                  labelText: "Nytt brukernavn",
                 ),
               ),
               Menu(
@@ -193,7 +193,7 @@ class _EditPageState extends State<EditPage> {
                   ),
                 ),
                 child: Menu(
-                  text: "tekst",
+                  text: "Tekst",
                   icon: Icons.text_fields,
                   press: () {
                     print(auth.currentUser.providerData.toString());

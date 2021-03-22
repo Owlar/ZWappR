@@ -20,8 +20,7 @@ class ProfilePicture extends StatelessWidget {
     @required this.press,
     this.camera,
     this.uri,
-  })  : _image = image,
-        super(key: key);
+  })  : _image = image, super(key: key);
 
   static final IProfileService _profileService = ProfileService();
   @override
@@ -47,31 +46,30 @@ class ProfilePicture extends StatelessWidget {
               future: futureUserModel,
               builder: (context,AsyncSnapshot snapshot) {
                 if (snapshot.hasError) {
-
                   return Text("error");
                 }
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return  CircularProgressIndicator();
-                  }
-                if(snapshot.data.imageID == null){
+                  return CircularProgressIndicator();
+                }
+                if (snapshot.data.imageID == null) {
                   return CircleAvatar(
+                    backgroundColor: zwapprWhite,
                     backgroundImage: _image == null
                         ? (uri == null
-                        ? AssetImage("assets/images/profile_test.png")
+                        ? AssetImage("assets/images/default_profile_avatar.png")
                         : NetworkImage(pic))
                         : FileImage(_image),
                   );
-                }else{
-
+                } else {
                   imageID = snapshot.data.imageID;
                   print("Has data " + snapshot.data.imageID);
                   print(_image.toString());
                   return CircleAvatar(
                       backgroundImage: _image == null
                           ? NetworkImage(snapshot.data.imageID)
-                          : FileImage(_image));
+                          : FileImage(_image)
+                  );
                 }
-
               },
             ),
             camera == true
@@ -89,7 +87,8 @@ class ProfilePicture extends StatelessWidget {
                           onPressed: press, //photoPicker,
                           child: SvgPicture.asset(
                               "assets/icons/photo_camera-24px.svg"),
-                        )),
+                        )
+                    ),
                   )
                 : Text(""),
           ],

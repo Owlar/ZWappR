@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_cluster_manager/google_maps_cluster_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:zwappr/features/map/data/thing_markers.dart';
@@ -10,6 +9,7 @@ import 'package:zwappr/features/map/models/thing_marker_model.dart';
 import 'package:zwappr/features/map/services/i_map_service.dart';
 import 'package:zwappr/features/map/services/map_service.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
+import 'package:zwappr/utils/location/user_geo_position.dart';
 
 class MapPage extends StatefulWidget {
   @override
@@ -89,7 +89,7 @@ class _MapPageState extends State<MapPage> {
   }
 
   void _getCurrentPosition() async {
-    final geoPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+    final geoPosition = await getUserGeoPosition();
     setState(() {
       _currentPositionLatitude = "${geoPosition.latitude}";
       _currentPositionLongitude = "${geoPosition.longitude}";

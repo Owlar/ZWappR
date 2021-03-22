@@ -18,8 +18,8 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   static final IMapService _mapService = MapService();
-  static const _initialZoomLevel = 8.0;
-  static const _stopClusteringZoomLevel = 15.0;
+  static const _initialZoomLevel = 6.0;
+  static const _stopClusteringZoomLevel = 14.0;
 
   Completer<GoogleMapController> _controller = Completer();
 

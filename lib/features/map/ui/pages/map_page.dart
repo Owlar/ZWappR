@@ -16,7 +16,7 @@ class MapPage extends StatefulWidget {
   _MapPageState createState() => _MapPageState();
 }
 
-class _MapPageState extends State<MapPage> {
+class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
   static final IMapService _mapService = MapService();
   static const _initialZoomLevel = 6.0;
   static const _stopClusteringZoomLevel = 14.0;
@@ -34,6 +34,9 @@ class _MapPageState extends State<MapPage> {
   LatLng _currentPosition = LatLng(59.1292475, 11.3506146);
 
   bool _isCheckboxSelected = true;
+
+  @override
+  bool get wantKeepAlive => true;
 
   Future<void> _getThingsFromServiceAndCreateMarkers() async {
     final List<ThingMarker> _thingsAsMarkersFromService = (await _mapService.getAll());
@@ -57,6 +60,8 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return Scaffold(
         body: GoogleMap(
           initialCameraPosition: CameraPosition(

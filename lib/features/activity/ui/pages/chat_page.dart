@@ -134,7 +134,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                   future: test,
                   builder: (context, AsyncSnapshot snapshot) {
                     if (snapshot.hasError) {
-                      return Center(child: Text("Ingen meldinger"));
+                      return Text("${snapshot.error}");
                     }
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(

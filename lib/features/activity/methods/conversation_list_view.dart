@@ -33,13 +33,26 @@ ListView buildConversationListView(List<ChatUsers> chatUsers,
                   child: Row(
                     children: <Widget>[
                       CircleAvatar(
-                        backgroundImage: NetworkImage(chatUsers[index].image),
+                        backgroundImage:
+                        NetworkImage(chatUsers[index].image),
                         maxRadius: 30,
                       ),
-                        CircleAvatar(
-                          backgroundImage: NetworkImage(chatUsers[index].image),
-                          maxRadius: 10,
-                        ),
+                     /* Stack(
+                        fit: StackFit.expand,
+                        overflow: Overflow.visible,
+                        children: [
+                          CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(chatUsers[index].image),
+                            maxRadius: 30,
+                          ),
+                          CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(chatUsers[index].image),
+                            maxRadius: 10,
+                          ),
+                        ],
+                      ),*/
                       SizedBox(width: 16),
                       Expanded(
                         child: Container(

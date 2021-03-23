@@ -41,7 +41,7 @@ class _ThingsPageState extends State<ThingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: FutureBuilder<List>(
-            future:_getThingsFromService(),
+            future: _getThingsFromService(),
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.hasError) {
                 return Text("${snapshot.error}");

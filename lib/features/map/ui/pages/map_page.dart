@@ -7,6 +7,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:zwappr/features/map/models/thing_marker_model.dart';
 import 'package:zwappr/features/map/services/i_map_service.dart';
 import 'package:zwappr/features/map/services/map_service.dart';
+import 'package:zwappr/features/map/ui/widgets/category_card.dart';
+import 'package:zwappr/features/things/utils/list_categories.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 import 'package:zwappr/utils/location/user_geo_position.dart';
 
@@ -34,7 +36,6 @@ class _MapPageState extends State<MapPage> {
 
   Future<void> _getThingsFromServiceAndCreateMarkers() async {
     final List<ThingMarker> _thingsAsMarkersFromService = (await _mapService.getAll());
-    print(_thingsAsMarkersFromService);
     _thingsAsMarkersFromService.forEach((thing) => {
       items.add(
           ClusterItem(
@@ -73,7 +74,9 @@ class _MapPageState extends State<MapPage> {
           myLocationButtonEnabled: true,
         ),
         floatingActionButton: FloatingActionButton.extended(
-            onPressed: _filter,
+            onPressed: () {
+              _openFilteringModalBottomSheet(context);
+            },
             icon: Icon(Icons.filter_list, color: zwapprBlack, size: 30),
             label: Text("Filter", style: TextStyle(color: zwapprBlack, fontSize: 16))
         )
@@ -81,10 +84,51 @@ class _MapPageState extends State<MapPage> {
     );
   }
 
-  Future<void> _filter() async {
-    // TODO: Filtering on things
+  void _openFilteringModalBottomSheet(context) {
+    showModalBottomSheet(context: context, builder: (BuildContext buildContext) {
+      return Scaffold(
+          body: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/background_screen.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton(
+                          onPressed: () {
 
+                          },
+                          child: Text("Tilbake", style: TextStyle(fontSize: 20))
+                      ),
+                      Text("Kategori", style: TextStyle(fontSize: 20)),
+                      TextButton(
+                        onPressed: () {
 
+                        },
+                        child: Text("Nullstill", style: TextStyle(fontSize: 20))
+                      )
+                    ],
+                  ),
+                  Container(
+                      height: 300,
+                      child: ListView.builder(
+                          itemCount: categories.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final selectedCategory = categories[index];
+                            return buildCategoryCard(selectedCategory, context);
+                          }
+                      )
+                  )
+                ]
+              )
+          )
+      );
+    });
   }
 
   void _getCurrentPosition() async {

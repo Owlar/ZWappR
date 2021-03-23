@@ -66,41 +66,44 @@ Card buildCard(thing, BuildContext context, FutureOr onGoBack) {
                           ])),
                     Expanded(
                       flex: 1,
-                      child: Column(children: [
-                        Visibility(
-                            child: PopupMenuButton<String>(
-                              itemBuilder: (BuildContext context) {
-                                return Choices.getAll.map((String choice) {
-                                  return PopupMenuItem<String>(
-                                    value: choice, child: Text(choice)
-                                  );
-                                }).toList();
-                              },
-                              child: Icon(Icons.more_vert, size: 30),
-                              onSelected: (String value) async {
-                                switch (value) {
-                                  case Choices.Edit:
-                                    Route route = MaterialPageRoute(builder: (context) => EditThingPage(thingToBeEdited: thing));
-                                    Navigator.push(context, route).then(onGoBack);
-                                    break;
-                                  case Choices.Delete:
-                                    await _thingsService.delete(thing.uid).then(onGoBack);
-                                    break;
-                                  default:
-                                    print("Couldn't find case for value $value");
-                                }
-                              },
-                            )),
-                            SizedBox(height: 10),
-                            // TODO: Ternary: If thing is active, green color and "Aktiv", else red color and "Inaktiv"
-                            Text(
-                              "Aktiv",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  backgroundColor: zwapprGreen
-                              ),
-                            )
-                      ]))
+                      child: Column(
+                          children: [
+                            Visibility(
+                                child: PopupMenuButton<String>(
+                                  itemBuilder: (BuildContext context) {
+                                    return Choices.getAll.map((String choice) {
+                                      return PopupMenuItem<String>(
+                                        value: choice, child: Text(choice)
+                                      );
+                                    }).toList();
+                                  },
+                                  child: Icon(Icons.more_vert, size: 30),
+                                  onSelected: (String value) async {
+                                    switch (value) {
+                                      case Choices.Edit:
+                                        Route route = MaterialPageRoute(builder: (context) => EditThingPage(thingToBeEdited: thing));
+                                        Navigator.push(context, route).then(onGoBack);
+                                        break;
+                                      case Choices.Delete:
+                                        await _thingsService.delete(thing.uid).then(onGoBack);
+                                        break;
+                                      default:
+                                        print("Couldn't find case for value $value");
+                                    }
+                                  },
+                                )),
+                                SizedBox(height: 10),
+                                // TODO: Ternary: If thing is active, green color and "Aktiv", else red color and "Inaktiv"
+                                Text(
+                                  "Aktiv",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      backgroundColor: zwapprGreen
+                                  ),
+                                )
+                          ]
+                      )
+                    )
             ])),
           ])));
 }

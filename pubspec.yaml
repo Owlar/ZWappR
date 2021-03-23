@@ -71,6 +71,9 @@ dependencies:
   geolocator: ^6.2.1
   google_maps_cluster_manager: ^0.2.1
 
+  # Bottom sheet
+  modal_bottom_sheet: ^1.0.0+1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

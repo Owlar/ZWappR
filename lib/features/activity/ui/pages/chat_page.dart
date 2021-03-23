@@ -100,7 +100,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            "Samtaler",
+                            "Meldinger",
                             style: TextStyle(
                                 fontSize: 32, fontWeight: FontWeight.bold
                             ),
@@ -134,7 +134,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                   future: test,
                   builder: (context, AsyncSnapshot snapshot) {
                     if (snapshot.hasError) {
-                      return Center(child: Text("Ingen samtaler"));
+                      return Center(child: Text("Ingen meldinger"));
                     }
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(

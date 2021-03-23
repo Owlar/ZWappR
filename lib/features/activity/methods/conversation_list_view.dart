@@ -32,27 +32,31 @@ ListView buildConversationListView(List<ChatUsers> chatUsers,
                 Expanded(
                   child: Row(
                     children: <Widget>[
-                      CircleAvatar(
-                        backgroundImage:
-                        NetworkImage(chatUsers[index].image),
-                        maxRadius: 30,
+                      SizedBox(
+                        width: 60,
+                        height: 60,
+                        child: Stack(
+                          overflow: Overflow.visible,
+                          children: [
+                            CircleAvatar(
+                              backgroundImage:
+                                  NetworkImage(chatUsers[index].image),
+                              maxRadius: 30,
+                            ),
+                            Positioned(
+                              bottom: 0,
+                              right: -6,
+                              child: SizedBox(
+                                child: CircleAvatar(
+                                  backgroundImage:
+                                      NetworkImage(chatUsers[index].image),
+                                  maxRadius: 10,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                     /* Stack(
-                        fit: StackFit.expand,
-                        overflow: Overflow.visible,
-                        children: [
-                          CircleAvatar(
-                            backgroundImage:
-                                NetworkImage(chatUsers[index].image),
-                            maxRadius: 30,
-                          ),
-                          CircleAvatar(
-                            backgroundImage:
-                                NetworkImage(chatUsers[index].image),
-                            maxRadius: 10,
-                          ),
-                        ],
-                      ),*/
                       SizedBox(width: 16),
                       Expanded(
                         child: Container(

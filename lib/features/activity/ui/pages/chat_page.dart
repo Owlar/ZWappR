@@ -148,6 +148,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                         String formatted = "";
                         String msg = "";
                         int userId = 0;
+                        int myId;
 
                         conversationList.add(
                             snapshot.data["data"][i]["convoID"].toString()
@@ -156,8 +157,10 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                         if (snapshot.data["data"][i]["participants"]["userInfo"]
                           [0]["id"].toString() == id) {
                             userId = 1;
+                            myId = 0;
                         } else {
                           userId = 0;
+                          myId = 1;
                         }
 
                         if (snapshot.data["data"][i]["previewMsg"] != null) {
@@ -187,7 +190,8 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                               .toString(),
                           formatted,
                             snapshot.data["data"][i]["participants"]["userInfo"][userId]
-                            ["thingImageID"]
+                            ["thingImageID"], snapshot.data["data"][i]["participants"]["userInfo"][myId]
+                        ["thingImageID"]
                         );
                         chatUsers.add(c);
                       }

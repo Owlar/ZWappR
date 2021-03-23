@@ -22,7 +22,11 @@ ListView buildConversationListView(List<ChatUsers> chatUsers,
                 builder: (context) => ChatDetailPage(
                     name: chatUsers[index].name,
                     image: chatUsers[index].image,
-                    msgId: conversationList[index]));
+                    msgId: conversationList[index],
+                    imageOne: chatUsers[index].thingsImage,
+                    imageTwo: chatUsers[index].myThingImage ,
+                   )
+            );
             Navigator.push(context, route).then(onGoBack);
           },
           child: Container(

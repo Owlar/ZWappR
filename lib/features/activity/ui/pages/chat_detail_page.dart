@@ -13,19 +13,23 @@ class ChatDetailPage extends StatefulWidget {
   String name;
   String image;
   String msgId;
+  String imageOne;
+  String imageTwo;
 
   ChatDetailPage({
     @required this.name,
     @required this.image,
     @required this.msgId,
+    @required this.imageOne,
+    @required this.imageTwo,
   });
 
   @override
   _ChatDetailPageState createState() => _ChatDetailPageState();
 }
 
-class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObserver{
-
+class _ChatDetailPageState extends State<ChatDetailPage>
+    with WidgetsBindingObserver {
   final TextEditingController newMessage = TextEditingController();
   static final IChatService _chatService = ChatService();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -33,6 +37,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObse
   Future<String> getId() async {
     return await _firebaseAuth.currentUser.getIdToken(true);
   }
+
   Future<void> fireBase() async {
     FirebaseStorage firebaseStorage = FirebaseStorage.instance;
   }
@@ -42,16 +47,18 @@ class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObse
     WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
+
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     // TODO: implement didChangeAppLifecycleState
     super.didChangeAppLifecycleState(state);
-    switch(state){
+    switch (state) {
       case AppLifecycleState.paused:
         print('paused');
         break;
@@ -73,7 +80,12 @@ class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObse
     String tmpMsg;
     test = _chatService.getMsg(widget.msgId);
     List<ChatMessage> messages = [];
-    //messages.add(ChatMessage(messageContent:"bilder", messageType: "ha", messageImage: "https://firebasestorage.googleapis.com/v0/b/zwappr.appspot.com/o/users%2Fimage2021-03-23%2010%3A22%3A16.916578?alt=media&token=3646cec7-e3ab-4f22-a5d6-9c0beb220b58"));
+    /*messages.add(ChatMessage(
+        messageContent: "Teksten er her",
+        messageType: "ha",
+        messageImageOne:
+            "https://firebasestorage.googleapis.com/v0/b/zwappr.appspot.com/o/users%2Fimage2021-03-23%2010%3A22%3A16.916578?alt=media&token=3646cec7-e3ab-4f22-a5d6-9c0beb220b58",
+        messageImageTwo: "https://firebasestorage.googleapis.com/v0/b/zwappr.appspot.com/o/users%2Fimage2021-03-23%2010%3A22%3A16.916578?alt=media&token=3646cec7-e3ab-4f22-a5d6-9c0beb220b58"));*/
 
     return Scaffold(
       body: Container(
@@ -85,12 +97,23 @@ class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObse
         ),
         child: Stack(
           children: <Widget>[
-            FutureBuilder<Map>(
-              future: test,
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.hasError) {
+            Container(
+              padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
+              child: FutureBuilder<Map>(
+                future: test,
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasError) {
+                    return Text("${snapshot.error}");
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  } else {
                     String id = _firebaseAuth.currentUser.uid;
                     String from;
+                    String imageOne;
+                    String imageTwo;
+                    print(snapshot.data["data"][0].toString());
+
                     //ChatMessage(messageContent: snapshot.data["data"][0]["content"].toString(), messageType: "receiver");
                     for (int i = 0; i < snapshot.data["size"]; i++) {
                       if (snapshot.data["data"][i]["from"].toString() == id) {
@@ -98,30 +121,25 @@ class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObse
                       } else {
                         from = "receiver";
                       }
-                      messages.add(ChatMessage(messageContent: snapshot.data["data"][i]["content"].toString(), messageType: from));
-                    }
-                    return Text("${snapshot.error}");
-                }
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
-                } else {
-                  String id = _firebaseAuth.currentUser.uid;
-                  String from;
-                  print(snapshot.data["data"].toString());
+                      if (snapshot.data["data"][i]["from"].toString() ==
+                          'system') {
+                        from = "";
+                        imageOne = widget.imageOne;
+                        imageTwo = widget.imageTwo;
+                        //image = snapshot.data["data"][i]["things"][0];
+                      }
 
-                  //ChatMessage(messageContent: snapshot.data["data"][0]["content"].toString(), messageType: "receiver");
-                  for (int i = 0; i < snapshot.data["size"]; i++) {
-                    if (snapshot.data["data"][i]["from"].toString() == id) {
-                      from = "sender";
-                    } else {
-                      from = "receiver";
+                      messages.add(ChatMessage(
+                          messageContent:
+                              snapshot.data["data"][i]["content"].toString(),
+                          messageType: from,
+                          messageImageOne: imageOne, messageImageTwo: imageTwo));
                     }
-                    messages.add(ChatMessage(messageContent: snapshot.data["data"][i]["content"].toString(), messageType: from));
+
+                    return ListViewMsg(messages: messages);
                   }
-
-                  return ListViewMsg(messages: messages);
-                }
-              },
+                },
+              ),
             ),
             Align(
               alignment: Alignment.bottomLeft,
@@ -227,4 +245,3 @@ class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObse
     );
   }
 }
-

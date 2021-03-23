@@ -3,11 +3,12 @@ import 'package:flutter/cupertino.dart';
 class ChatMessage {
   String messageContent;
   String messageType;
-  String messageImage;
-
+  String messageImageOne;
+  String messageImageTwo;
   ChatMessage({
     @required this.messageContent,
     @required this.messageType,
-    this.messageImage
+    this.messageImageOne,
+    this.messageImageTwo
   });
 }

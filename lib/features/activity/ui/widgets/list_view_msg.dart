@@ -43,7 +43,7 @@ class ListViewMsg extends StatelessWidget {
                     : messages[index].messageType == "sender" ? zwapprWhite : zwapprBlue),
               ),
               padding: EdgeInsets.all(16),
-              child:  messages[index].messageImage == null ? Text(
+              child:  messages[index].messageImageOne == null ? Text(
                 messages[index].messageContent,
                 style: TextStyle(fontSize: 15),
               ):Row(
@@ -51,7 +51,11 @@ class ListViewMsg extends StatelessWidget {
                   Container(
                     height: 80,
                       width: 80,
-                      child: Image.network(messages[index].messageImage)),
+                      child: Image.network(messages[index].messageImageOne)),
+                  Container(
+                      height: 80,
+                      width: 80,
+                      child: Image.network(messages[index].messageImageTwo)),
                   Text(
                     messages[index].messageContent,
                     style: TextStyle(fontSize: 15),

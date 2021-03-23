@@ -50,7 +50,7 @@ ListView buildConversationListView(List<ChatUsers> chatUsers,
                                 child: CircleAvatar(
                                   backgroundImage:
                                       NetworkImage(chatUsers[index].image),
-                                  maxRadius: 10,
+                                  maxRadius: 14,
                                 ),
                               ),
                             ),

@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:zwappr/features/activity/models/chat_users.dart';
 import 'package:zwappr/features/activity/ui/pages/chat_detail_page.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
-ListView buildConversationListView(List<ChatUsers> chatUsers, List<String> conversationList, FutureOr onGoBack) {
+ListView buildConversationListView(List<ChatUsers> chatUsers,
+    List<String> conversationList, FutureOr onGoBack) {
   return ListView.builder(
     itemCount: chatUsers.length,
     shrinkWrap: true,
@@ -16,7 +18,11 @@ ListView buildConversationListView(List<ChatUsers> chatUsers, List<String> conve
       return Container(
         child: GestureDetector(
           onTap: () {
-            Route route = MaterialPageRoute(builder: (context) => ChatDetailPage(name: chatUsers[index].name, image: chatUsers[index].image, msgId:  conversationList[index] ));
+            Route route = MaterialPageRoute(
+                builder: (context) => ChatDetailPage(
+                    name: chatUsers[index].name,
+                    image: chatUsers[index].image,
+                    msgId: conversationList[index]));
             Navigator.push(context, route).then(onGoBack);
           },
           child: Container(
@@ -30,6 +36,10 @@ ListView buildConversationListView(List<ChatUsers> chatUsers, List<String> conve
                         backgroundImage: NetworkImage(chatUsers[index].image),
                         maxRadius: 30,
                       ),
+                        CircleAvatar(
+                          backgroundImage: NetworkImage(chatUsers[index].image),
+                          maxRadius: 10,
+                        ),
                       SizedBox(width: 16),
                       Expanded(
                         child: Container(
@@ -49,8 +59,7 @@ ListView buildConversationListView(List<ChatUsers> chatUsers, List<String> conve
                                 style: TextStyle(
                                     fontSize: 14,
                                     color: zwapprBlack,
-                                    fontWeight: FontWeight.bold
-                                ),
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
@@ -61,10 +70,7 @@ ListView buildConversationListView(List<ChatUsers> chatUsers, List<String> conve
                 ),
                 Text(
                   chatUsers[index].date,
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold
-                  ),
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                 ),
               ],
             ),

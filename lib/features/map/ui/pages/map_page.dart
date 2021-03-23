@@ -87,6 +87,7 @@ class _MapPageState extends State<MapPage> {
 
   void _openFilteringModalBottomSheet(context) {
     showModalBottomSheet(context: context, builder: (BuildContext buildContext) {
+      return StatefulBuilder(builder: (BuildContext context, StateSetter newStateForAllCards) {
         return Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -102,13 +103,17 @@ class _MapPageState extends State<MapPage> {
                       TextButton(
                           onPressed: () {
                             Navigator.of(context).pop();
+                            // TODO: Must only display selected categories on map
+                            _isCheckboxSelected = true;
                           },
                           child: Text("Tilbake", style: TextStyle(fontSize: 20))
                       ),
                       Text("Kategori", style: TextStyle(fontSize: 20)),
                       TextButton(
                           onPressed: () {
-
+                            newStateForAllCards((){
+                              _isCheckboxSelected = true;
+                            });
                           },
                           child: Text("Nullstill", style: TextStyle(fontSize: 20))
                       )
@@ -119,9 +124,9 @@ class _MapPageState extends State<MapPage> {
                       child: ListView.builder(
                           itemCount: categories.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return StatefulBuilder(builder: (BuildContext context, StateSetter newState) {
+                            return StatefulBuilder(builder: (BuildContext context, StateSetter newStateForCard) {
                               final selectedCategory = categories[index];
-                              return buildCategoryCard(selectedCategory, context, newState);
+                              return buildCategoryCard(selectedCategory, context, newStateForCard);
                             });
                           }
                       )
@@ -129,6 +134,7 @@ class _MapPageState extends State<MapPage> {
                 ]
             )
         );
+      });
     });
   }
 

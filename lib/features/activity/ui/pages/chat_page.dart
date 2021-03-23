@@ -142,22 +142,23 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                         child: CircularProgressIndicator()
                       );
                     } else {
-                      print(snapshot.data["data"][0].toString());
-                      for (int i = 0; i < snapshot.data["size"]; i++) {
+                      print(snapshot.data["data"][0]["participants"]["userInfo"][0]["thingImageID"].toString());
+                    //  return Text("ss");
+                     for (int i = 0; i < snapshot.data["size"]; i++) {
                         String id = auth.currentUser.uid;
                         String formatted = "";
                         String msg = "";
-                        String userId = "";
+                        int userId = 0;
 
                         conversationList.add(
                             snapshot.data["data"][i]["convoID"].toString()
                         );
 
-                        if (snapshot.data["data"][i]["participants"]["user1"]
-                          ["id"].toString() == id) {
-                            userId = "user2";
+                        if (snapshot.data["data"][i]["participants"]["userInfo"]
+                          [0]["id"].toString() == id) {
+                            userId = 1;
                         } else {
-                          userId = "user1";
+                          userId = 0;
                         }
 
                         if (snapshot.data["data"][i]["previewMsg"] != null) {
@@ -178,14 +179,16 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                         }
 
                         ChatUsers c = new ChatUsers(
-                          snapshot.data["data"][i]["participants"][userId]
+                          snapshot.data["data"][i]["participants"]["userInfo"][userId]
                                   ["displayName"]
                               .toString(),
                           msg,
-                          snapshot.data["data"][i]["participants"][userId]
+                          snapshot.data["data"][i]["participants"]["userInfo"][userId]
                                   ["imageID"]
                               .toString(),
                           formatted,
+                            snapshot.data["data"][i]["participants"]["userInfo"][userId]
+                            ["thingImageID"]
                         );
                         chatUsers.add(c);
                       }

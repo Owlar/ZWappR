@@ -7,7 +7,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:zwappr/features/map/models/thing_marker_model.dart';
 import 'package:zwappr/features/map/services/i_map_service.dart';
 import 'package:zwappr/features/map/services/map_service.dart';
-import 'package:zwappr/features/map/ui/widgets/category_card.dart';
 import 'package:zwappr/features/things/utils/list_categories.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 import 'package:zwappr/utils/location/user_geo_position.dart';
@@ -33,6 +32,8 @@ class _MapPageState extends State<MapPage> {
 
   // Set to HiØ's position as default
   LatLng _currentPosition = LatLng(59.1292475, 11.3506146);
+
+  bool _isCheckboxSelected = true;
 
   Future<void> _getThingsFromServiceAndCreateMarkers() async {
     final List<ThingMarker> _thingsAsMarkersFromService = (await _mapService.getAll());
@@ -86,31 +87,30 @@ class _MapPageState extends State<MapPage> {
 
   void _openFilteringModalBottomSheet(context) {
     showModalBottomSheet(context: context, builder: (BuildContext buildContext) {
-      return Scaffold(
-          body: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/background_screen.png"),
-                  fit: BoxFit.cover,
-                ),
+        return Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/background_screen.png"),
+                fit: BoxFit.cover,
               ),
-              child: Column(
+            ),
+            child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextButton(
                           onPressed: () {
-
+                            Navigator.of(context).pop();
                           },
                           child: Text("Tilbake", style: TextStyle(fontSize: 20))
                       ),
                       Text("Kategori", style: TextStyle(fontSize: 20)),
                       TextButton(
-                        onPressed: () {
+                          onPressed: () {
 
-                        },
-                        child: Text("Nullstill", style: TextStyle(fontSize: 20))
+                          },
+                          child: Text("Nullstill", style: TextStyle(fontSize: 20))
                       )
                     ],
                   ),
@@ -119,16 +119,48 @@ class _MapPageState extends State<MapPage> {
                       child: ListView.builder(
                           itemCount: categories.length,
                           itemBuilder: (BuildContext context, int index) {
-                            final selectedCategory = categories[index];
-                            return buildCategoryCard(selectedCategory, context);
+                            return StatefulBuilder(builder: (BuildContext context, StateSetter newState) {
+                              final selectedCategory = categories[index];
+                              return buildCategoryCard(selectedCategory, context, newState);
+                            });
                           }
                       )
                   )
                 ]
-              )
-          )
-      );
+            )
+        );
     });
+  }
+
+  Card buildCategoryCard(String selectedCategory, BuildContext context, StateSetter stateSetter) {
+    return Card(
+        margin: EdgeInsets.fromLTRB(70.0, 14.0, 70.0, 0),
+        child: Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Checkbox(
+                    value: _isCheckboxSelected,
+                    onChanged: (value) {
+                      stateSetter(() {
+                        _isCheckboxSelected = value;
+                      });
+                    },
+                  ),
+                  Expanded(
+                    child: Text(selectedCategory),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.arrow_forward),
+                    onPressed: () {
+                      // TODO: Implement
+                    },
+                  )
+                ]
+            )
+        )
+    );
   }
 
   void _getCurrentPosition() async {

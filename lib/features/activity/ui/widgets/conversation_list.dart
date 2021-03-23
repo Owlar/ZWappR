@@ -1,6 +1,10 @@
+/*
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zwappr/features/activity/ui/pages/chat_detail_page.dart';
+import 'package:zwappr/features/activity/ui/pages/chat_page.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
 
@@ -11,9 +15,10 @@ class ConversationList extends StatefulWidget {
   String date;
   String msgId;
   bool isMessageRead;
-
+  VoidCallback press;
   ConversationList({
     @required this.name,
+    @required this.press,
     @required this.message,
     @required this.image,
     @required this.date,
@@ -26,14 +31,20 @@ class ConversationList extends StatefulWidget {
 }
 
 class _ConversationListState extends State<ConversationList> {
+
+  FutureOr onGoBack(dynamic value) {
+
+
+      ChatPage().createState().onGoBack(value);
+
+  }
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ChatDetailPage(name: widget.name, image: widget.image, msgId: widget.msgId )),
-        );
+
+      onTap: /*widget.press,*/() {
+        Route route = MaterialPageRoute(builder: (context) => ChatDetailPage(name: widget.name, image: widget.image, msgId: widget.msgId ));
+        Navigator.push(context, route).then(onGoBack);
       },
       child: Container(
         padding: EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
@@ -65,11 +76,9 @@ class _ConversationListState extends State<ConversationList> {
                           Text(
                             widget.message,
                             style: TextStyle(
-                                fontSize: 13,
+                                fontSize: 14,
                                 color: zwapprBlack,
-                                fontWeight: widget.isMessageRead
-                                    ? FontWeight.bold
-                                    : FontWeight.normal),
+                                fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -82,9 +91,8 @@ class _ConversationListState extends State<ConversationList> {
               widget.date,
               style: TextStyle(
                   fontSize: 12,
-                  fontWeight: widget.isMessageRead
-                      ? FontWeight.bold
-                      : FontWeight.normal
+                  fontWeight: FontWeight.bold
+
               ),
             ),
           ],
@@ -92,4 +100,4 @@ class _ConversationListState extends State<ConversationList> {
       ),
     );
   }
-}
+}*/

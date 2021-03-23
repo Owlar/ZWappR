@@ -24,7 +24,7 @@ class Menu extends StatelessWidget {
       ),
       child: Row(
         children: [
-          FlatButton(
+          TextButton(
             child: new Icon(
               icon,
               size: 36,

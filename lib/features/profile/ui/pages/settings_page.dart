@@ -14,8 +14,8 @@ class SettingsPage extends StatelessWidget {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   SettingsPage({
-        Key key,
-        @required this.image
+    Key key,
+    @required this.image
   }) : super(key: key);
 
   @override

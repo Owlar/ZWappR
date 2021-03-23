@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class ThingModel {
-  String uid;
+class ThingMarker {
   final String title;
   final String description;
   final String imageUrl;
@@ -14,8 +13,7 @@ class ThingModel {
   bool isSwipedOff;
   bool isLiked;
 
-  ThingModel({
-    this.uid,
+  ThingMarker({
     @required this.title,
     @required this.description,
     @required this.imageUrl,
@@ -29,9 +27,8 @@ class ThingModel {
     this.isLiked
   });
 
-  factory ThingModel.fromJson(Map<String, dynamic> json) {
-    return ThingModel(
-        uid: json["uid"] as String,
+  factory ThingMarker.fromJson(Map<String, dynamic> json) {
+    return ThingMarker(
         title: json["title"] as String,
         description: json["description"] as String,
         imageUrl: json["imageUrl"] as String,

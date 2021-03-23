@@ -44,7 +44,8 @@ class _FeedPageState extends State<FeedPage> {
                     child: FutureBuilder(
                       future: _getThingsFromService(),
                       builder: (context, snapshot) {
-                        return Stack(children: things.map(_buildThing).toList());
+
+                    return Stack(children: things.map(_buildThing).toList());
                       }
                     ),
                   ),
@@ -176,20 +177,33 @@ class _FeedPageState extends State<FeedPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            // TODO: Reimplement
-            /*Center(
-              child: Image.network(thing.imageUrl, height: 300),
-            ),*/
-            SizedBox(height: 10),
+            Center(
+              child: Image.network(thing.imageUrl, height: 200),
+            ),
+            SizedBox(height: 4),
             Text(
               "${thing.title}",
               style: TextStyle(color: zwapprBlack, fontSize: 30),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 4),
             Text(
               "${thing.description}",
               style: TextStyle(color: zwapprBlack, fontSize: 18),
-            )
+            ),
+            SizedBox(height: 10),
+            Text(
+              "${thing.exchangeValue} kr",
+              style: TextStyle(color: zwapprBlack, fontSize: 14, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 4),
+            Text(
+              "Brukstilstand: ${thing.condition}",
+              style: TextStyle(color: zwapprBlack, fontSize: 14),
+            ),
+            Text(
+              "Kategori: ${thing.category}",
+              style: TextStyle(color: zwapprBlack, fontSize: 14),
+            ),
           ]
         )
     );
@@ -240,7 +254,6 @@ class _FeedPageState extends State<FeedPage> {
     }
     setState(() {
       things.remove(thing);
-      print(thing.uid);
       //_feedService.delete(thing.uid);
     });
   }

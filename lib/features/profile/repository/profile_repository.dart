@@ -38,5 +38,17 @@ class ProfileRepository {
       );
 
   }
+  Future<void> updateImage(String url) async {
+    _firebaseAuth.currentUser.getIdToken(true).then((idToken) async => {
+      await http.put(
+        "https://us-central1-zwappr.cloudfunctions.net/api/users/me",
+        headers: <String, String>{
+          "Content-Type": "application/json; charset=UTF-8",
+          "idToken": idToken
+        },
+        body: jsonEncode(<String, String>{"imageID": url}),
+      )
+    });
+  }
 
 }

@@ -5,7 +5,7 @@ import 'package:zwappr/features/feed/providers/feedback_position_provider.dart';
 import 'package:zwappr/features/feed/ui/feed_page.dart';
 import 'package:zwappr/features/home/service/i_notification_service.dart';
 import 'package:zwappr/features/home/service/notification_service.dart';
-import 'package:zwappr/features/map/ui/map_page.dart';
+import 'package:zwappr/features/map/ui/pages/map_page.dart';
 import 'package:zwappr/features/profile/ui/pages/profile_page.dart';
 import 'package:zwappr/features/things/ui/pages/things_page.dart';
 
@@ -40,6 +40,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: PageView.builder(
         itemCount: 5,
+        physics: _selectedIndex == 3 ? NeverScrollableScrollPhysics() : AlwaysScrollableScrollPhysics(),
         controller: _pageController,
         onPageChanged: (index) => setState(() => _selectedIndex = index),
         itemBuilder: (BuildContext context, int index) {
@@ -87,15 +88,14 @@ class _HomePageState extends State<HomePage> {
               label: "Profil",
             ),
           ],
-          onTap: _onItemTapped,
+          onTap: onItemTapped,
       ),
     );
   }
 
-  void _onItemTapped(int index) {
+  void onItemTapped(int index) {
     setState(() => _selectedIndex = index);
     _pageController.jumpToPage(index);
-    print(index);
   }
 
 }

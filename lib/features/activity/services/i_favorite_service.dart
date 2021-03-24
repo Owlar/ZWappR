@@ -1,3 +1,5 @@
+import 'package:zwappr/features/things/models/thing_model.dart';
+
 abstract class IFavoriteService {
 
   // Creating a conversation with:
@@ -13,7 +15,7 @@ abstract class IFavoriteService {
 
   // Getting a conversation
   Future<Map> get();
-
+  Future<List<ThingModel>> getAll();
   // Getting a message with:
   /// [uid]
 

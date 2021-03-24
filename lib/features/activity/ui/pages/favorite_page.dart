@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:zwappr/features/activity/methods/favorite_card.dart';
+import 'package:zwappr/features/activity/services/favorite_service.dart';
+import 'package:zwappr/features/activity/services/i_favorite_service.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/features/things/services/i_things_service.dart';
 import 'package:zwappr/features/things/services/things_service.dart';
@@ -13,30 +15,31 @@ class FavoritePage extends StatefulWidget {
 }
 
 class _FavoritePageState extends State<FavoritePage> {
-  static final IThingsService _thingsService = ThingsService();
+  static final IFavoriteService _favoriteService = FavoriteService();
 
-  Future<List<ThingModel>> _getThingsFromService() async {
-    final List<ThingModel> _thingsFromService = (await _thingsService.getAll());
+  Future<List<ThingModel>> _getFavoriteFromService() async {
+    final List<ThingModel> _thingsFromService = (await _favoriteService.getAll());
     return _thingsFromService;
   }
   @override
   void initState() {
     super.initState();
     setState(() {
-      _getThingsFromService();
+      _getFavoriteFromService();
 
     });
   }
 
   Future<FutureOr> onGoBack(dynamic value) {
     setState(() {
-      _getThingsFromService();
+      _getFavoriteFromService();
 
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    _favoriteService.create("3beWSQVGraC97py7ZpUm");
     return Scaffold(
         body: Container(
           padding: EdgeInsets.all(10),
@@ -47,7 +50,7 @@ class _FavoritePageState extends State<FavoritePage> {
             ),
           ),
           child: FutureBuilder<List>(
-            future: _getThingsFromService(),
+            future: _getFavoriteFromService(),
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.hasError) {
                 return Text("${snapshot.error}");
@@ -57,7 +60,6 @@ class _FavoritePageState extends State<FavoritePage> {
                     child: CircularProgressIndicator()
                 );
               } else {
-                print('############################# REDO #############################');
                 return ListView.builder(
                   padding: const EdgeInsets.all(14.0),
                   itemCount: snapshot.data.length,

@@ -39,7 +39,7 @@ class _FavoritePageState extends State<FavoritePage> {
 
   @override
   Widget build(BuildContext context) {
-    _favoriteService.create("3beWSQVGraC97py7ZpUm");
+    //_favoriteService.create("3beWSQVGraC97py7ZpUm");
     return Scaffold(
         body: Container(
           padding: EdgeInsets.all(10),

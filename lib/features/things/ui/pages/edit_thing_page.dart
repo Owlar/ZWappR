@@ -268,7 +268,7 @@ class _EditThingPageState extends State<EditThingPage> {
                               latitude: userPosition.latitude,
                               longitude: userPosition.longitude
                             );
-                           await _thingsService.put(newThing);
+                            await _thingsService.put(newThing);
                             Navigator.pop(context);
                           }
                         },

@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:zwappr/features/activity/methods/favorite_card.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/features/things/services/i_things_service.dart';
 import 'package:zwappr/features/things/services/things_service.dart';
-import 'package:zwappr/features/things/ui/widgets/card.dart';
-import 'package:zwappr/utils/colors/color_theme.dart';
 
 
 class FavoritePage extends StatefulWidget {
@@ -64,7 +63,7 @@ class _FavoritePageState extends State<FavoritePage> {
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int index) {
                     final thing = snapshot.data[index];
-                    return buildCard(thing, context, onGoBack);
+                    return buildFavoriteCard(thing, context, onGoBack);
                   },
                 );
               }

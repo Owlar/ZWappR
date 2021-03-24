@@ -98,7 +98,7 @@ class _ChatDetailPageState extends State<ChatDetailPage>
         child: Stack(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
+              padding: EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 10),
               child: FutureBuilder<Map>(
                 future: test,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {

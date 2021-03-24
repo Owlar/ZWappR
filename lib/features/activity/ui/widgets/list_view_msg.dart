@@ -21,7 +21,7 @@ class ListViewMsg extends StatelessWidget {
       itemBuilder: (context, index) {
         return Container(
           padding:
-          EdgeInsets.only(left: 8, right: 14, top: 4, bottom: 4),
+          EdgeInsets.only(left: 4, right: 4, top: 4, bottom: 4),
           child: Align(
             alignment: (messages[index].messageType == "receiver"
                 ? Alignment.topLeft

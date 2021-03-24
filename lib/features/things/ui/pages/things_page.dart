@@ -40,7 +40,15 @@ class _ThingsPageState extends State<ThingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: FutureBuilder<List>(
+        body: Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/background_screen.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: FutureBuilder<List>(
             future: _getThingsFromService(),
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.hasError) {
@@ -48,26 +56,28 @@ class _ThingsPageState extends State<ThingsPage> {
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
-                  child: CircularProgressIndicator()
+                    child: CircularProgressIndicator()
                 );
               } else {
                 print('############################# REDO #############################');
                 return ListView.builder(
-                    padding: const EdgeInsets.all(14.0),
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final thing = snapshot.data[index];
-                      return buildCard(thing, context, onGoBack);
-                    },
+                  padding: const EdgeInsets.all(14.0),
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final thing = snapshot.data[index];
+                    return buildCard(thing, context, onGoBack);
+                  },
                 );
               }
             },
+          ),
         ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             Route route = MaterialPageRoute(builder: (context) => NewThingPage());
             Navigator.push(context, route).then(onGoBack);
           },
+          backgroundColor: zwapprYellow,
           label: Text("Ny ting", style: TextStyle(color: zwapprBlack, fontSize: 16)),
           icon: Icon(Icons.add, color: zwapprBlack, size: 30),
         )

@@ -12,7 +12,7 @@ Card buildCard(thing, BuildContext context, FutureOr onGoBack) {
   return Card(
       margin: EdgeInsets.fromLTRB(2.0, 14.0, 2.0, 0),
       child: Padding(
-          padding: const EdgeInsets.fromLTRB(2.0, 12.0, 12.0, 12.0),
+          padding: const EdgeInsets.all(6.0),
           child: Column(children: <Widget>[
               Container(
                   child: Row(children: <Widget>[

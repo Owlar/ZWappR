@@ -59,6 +59,12 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Center(
+              child: Text("Kart")
+          )
+        ),
         body: GoogleMap(
           initialCameraPosition: CameraPosition(
             target: _currentPosition,
@@ -79,6 +85,7 @@ class _MapPageState extends State<MapPage> {
             onPressed: () {
               _openFilteringModalBottomSheet(context);
             },
+            backgroundColor: zwapprYellow,
             icon: Icon(Icons.filter_list, color: zwapprBlack, size: 30),
             label: Text("Filter", style: TextStyle(color: zwapprBlack, fontSize: 16))
         )

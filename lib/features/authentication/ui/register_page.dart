@@ -27,7 +27,7 @@ class RegisterPage extends StatelessWidget {
             children: <Widget> [
               SizedBox(height: 42),
               SvgPicture.asset("assets/icons/zwappr_logo.svg", height: 100),
-              SizedBox(height: 42),
+              SizedBox(height: 62),
               Form(
                 key: _formKey,
                 child: Column(
@@ -36,6 +36,8 @@ class RegisterPage extends StatelessWidget {
                       controller: displayNameController,
                       textCapitalization: TextCapitalization.sentences,
                       decoration: InputDecoration(
+                        fillColor: zwapprWhite,
+                        filled: true,
                         labelText: "Brukernavn",
                       ),
                       validator: (value) {
@@ -43,9 +45,12 @@ class RegisterPage extends StatelessWidget {
                         else return null;
                       },
                     ),
+                    SizedBox(height: 4),
                     TextFormField(
                       controller: emailController,
                       decoration: InputDecoration(
+                        fillColor: zwapprWhite,
+                        filled: true,
                         labelText: "E-post",
                       ),
                       validator: (value) {
@@ -53,9 +58,12 @@ class RegisterPage extends StatelessWidget {
                         else return null;
                       },
                     ),
+                    SizedBox(height: 4),
                     TextFormField(
                       controller: passwordController,
                       decoration: InputDecoration(
+                        fillColor: zwapprWhite,
+                        filled: true,
                         labelText: "Passord",
                       ),
                       validator: (value) {

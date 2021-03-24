@@ -31,13 +31,15 @@ class LoginPage extends StatelessWidget {
           children: <Widget> [
             SizedBox(height: 42),
             SvgPicture.asset("assets/icons/zwappr_logo.svg", height: 100),
-            SizedBox(height: 42),
+            SizedBox(height: 62),
             Form(
               key: _formKey,
               child: Column(
                 children: [
                   TextFormField(
                     decoration: InputDecoration(
+                        fillColor: zwapprWhite,
+                        filled: true,
                         labelText: "E-post"
                     ),
                     controller: emailController,
@@ -46,8 +48,11 @@ class LoginPage extends StatelessWidget {
                       else return null;
                     },
                   ),
+                  SizedBox(height: 4),
                   TextFormField(
                     decoration: InputDecoration(
+                        fillColor: zwapprWhite,
+                        filled: true,
                         labelText: "Passord"
                     ),
                     controller: passwordController,

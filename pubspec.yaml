@@ -29,6 +29,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
 
+  # Awesome Icons
+  font_awesome_flutter: ^8.11.0
+
   # Uuid
   uuid: ^2.2.2
 
@@ -74,7 +77,7 @@ dependencies:
   # Bottom sheet
   modal_bottom_sheet: ^1.0.0+1
 
-  # Notifikasjoner
+  # Notifications
   flutter_local_notifications: ^4.0.1+2
 
 dev_dependencies:

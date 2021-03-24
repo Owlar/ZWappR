@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:zwappr/features/map/models/thing_marker_model.dart';
 import 'package:zwappr/features/map/services/i_map_service.dart';
 import 'package:zwappr/features/map/services/map_service.dart';
+import 'package:zwappr/features/map/utils/list_category_icons.dart';
 import 'package:zwappr/features/things/utils/list_categories.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 import 'package:zwappr/utils/location/user_geo_position.dart';
@@ -137,7 +138,7 @@ class _MapPageState extends State<MapPage> {
                           itemBuilder: (BuildContext context, int index) {
                             return StatefulBuilder(builder: (BuildContext context, StateSetter newStateForCard) {
                               final selectedCategory = categories[index];
-                              return buildCategoryCard(selectedCategory, context, newStateForCard);
+                              return buildCategoryCard(selectedCategory, context, newStateForCard, index);
                             });
                           }
                       )
@@ -149,7 +150,7 @@ class _MapPageState extends State<MapPage> {
     });
   }
 
-  Card buildCategoryCard(String selectedCategory, BuildContext context, StateSetter stateSetter) {
+  Card buildCategoryCard(String selectedCategory, BuildContext context, StateSetter stateSetter, int index) {
     return Card(
         margin: EdgeInsets.fromLTRB(70.0, 14.0, 70.0, 0),
         child: Padding(
@@ -165,6 +166,9 @@ class _MapPageState extends State<MapPage> {
                       });
                     },
                   ),
+                  //Icon
+                  categoryIcons[index],
+                  SizedBox(width: 16),
                   Expanded(
                     child: Text(selectedCategory),
                   ),

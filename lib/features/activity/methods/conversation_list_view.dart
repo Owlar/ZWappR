@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:zwappr/features/activity/models/chat_users.dart';
 import 'package:zwappr/features/activity/ui/pages/chat_detail_page.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';

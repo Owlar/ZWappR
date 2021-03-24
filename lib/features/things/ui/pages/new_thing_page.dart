@@ -153,6 +153,7 @@ class _NewThingPageState extends State<NewThingPage> {
                             labelText: "Tittel"
                         ),
                         controller: titleController,
+                        textCapitalization: TextCapitalization.sentences,
                         validator: (value) {
                           if (value.isEmpty)
                             return "Vennligst skriv inn tittel";
@@ -185,6 +186,7 @@ class _NewThingPageState extends State<NewThingPage> {
                             labelText: "Beskrivelse"
                         ),
                         controller: descriptionController,
+                        textCapitalization: TextCapitalization.sentences,
                         validator: (value) {
                           if (value.isEmpty)
                             return "Vennligst skriv inn beskrivelse";

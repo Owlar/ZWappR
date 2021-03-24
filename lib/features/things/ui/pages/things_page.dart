@@ -41,7 +41,7 @@ class _ThingsPageState extends State<ThingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.only(top: 20),
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/background_screen.png"),

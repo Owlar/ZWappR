@@ -61,7 +61,6 @@ Card buildCard(thing, BuildContext context, FutureOr onGoBack) {
                                     ? ""
                                     : "Kategori: " + thing.category,
                                 style: TextStyle(fontSize: 14),
-                                overflow: TextOverflow.ellipsis
                             ),
                           ])),
                     Expanded(
@@ -91,16 +90,18 @@ Card buildCard(thing, BuildContext context, FutureOr onGoBack) {
                                         print("Couldn't find case for value $value");
                                     }
                                   },
-                                )),
-                                SizedBox(height: 10),
-                                // TODO: Ternary: If thing is active, green color and "Aktiv", else red color and "Inaktiv"
-                                Text(
-                                  "Aktiv",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      backgroundColor: zwapprGreen
-                                  ),
                                 )
+                            ),
+                            SizedBox(height: 10),
+                            // TODO: Ternary: If thing is active, green color and "Aktiv", else red color and "Inaktiv"
+                            Text(
+                              "Aktiv",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  backgroundColor: zwapprGreen
+                              ),
+                            ),
+                            SizedBox(height: 70),
                           ]
                       )
                     )

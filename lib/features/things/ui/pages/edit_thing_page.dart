@@ -168,6 +168,7 @@ class _EditThingPageState extends State<EditThingPage> {
                             labelText: "Tittel"
                         ),
                         controller: titleController,
+                        textCapitalization: TextCapitalization.sentences,
                         validator: (value) {
                           if (value.isEmpty)
                             return "Vennligst skriv inn tittel";
@@ -200,6 +201,7 @@ class _EditThingPageState extends State<EditThingPage> {
                             labelText: "Beskrivelse"
                         ),
                         controller: descriptionController,
+                        textCapitalization: TextCapitalization.sentences,
                         validator: (value) {
                           if (value.isEmpty)
                             return "Vennligst skriv inn beskrivelse";
@@ -227,7 +229,7 @@ class _EditThingPageState extends State<EditThingPage> {
                       SizedBox(height: 4),
                       DropdownButtonFormField(
                         decoration: InputDecoration(fillColor: zwapprWhite, filled: true, labelText: "Brukstilstand"),
-                        validator: (value) => value == null ? "Må legge til een brukstilstand" : null,
+                        validator: (value) => value == null ? "Må legge til en brukstilstand" : null,
                         items: conditions.map((String condition) {
                           return DropdownMenuItem<String>(
                               value: condition,

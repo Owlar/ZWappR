@@ -3,6 +3,5 @@ final List<String> conditions = [
   "Som ny",
   "Pent brukt",
   "Godt brukt",
-  "Skadet",
-  "Ukjent"
+  "Skadet"
 ];

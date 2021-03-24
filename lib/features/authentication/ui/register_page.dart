@@ -34,6 +34,7 @@ class RegisterPage extends StatelessWidget {
                   children: [
                     TextFormField(
                       controller: displayNameController,
+                      textCapitalization: TextCapitalization.sentences,
                       decoration: InputDecoration(
                         labelText: "Brukernavn",
                       ),

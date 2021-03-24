@@ -177,6 +177,7 @@ class _EditPageState extends State<EditPage> {
               ),
               TextField(
                 controller: newName,
+                textCapitalization: TextCapitalization.sentences,
                 decoration: InputDecoration(
                   labelText: "Nytt brukernavn",
                 ),

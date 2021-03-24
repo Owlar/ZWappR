@@ -25,7 +25,7 @@ class ListViewMsg extends StatelessWidget {
           child: Align(
             alignment: (messages[index].messageType == "receiver"
                 ? Alignment.topLeft
-                : Alignment.topRight),
+                : messages[index].messageType == "sender" ? Alignment.topRight : Alignment.topCenter),
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
@@ -33,20 +33,36 @@ class ListViewMsg extends StatelessWidget {
                   topRight: Radius.circular(20),
                   bottomLeft: (messages[index].messageType == "receiver"
                       ? Radius.circular(0)
-                      : Radius.circular(20)),
+                      :  messages[index].messageType == "sender" ? Radius.circular(20) : Radius.circular(20)),
                   bottomRight: (messages[index].messageType == "receiver"
                       ? Radius.circular(20)
-                      : Radius.circular(0)),
+                      :  messages[index].messageType == "sender" ? Radius.circular(0) : Radius.circular(20)),
                 ),
                 color: (messages[index].messageType == "receiver"
                     ? zwapprLightGray
-                    : zwapprWhite),
+                    : messages[index].messageType == "sender" ? zwapprWhite : zwapprBlue),
               ),
               padding: EdgeInsets.all(16),
-              child: Text(
+              child:  messages[index].messageImageOne == null ? Text(
                 messages[index].messageContent,
                 style: TextStyle(fontSize: 15),
+              ):Row(
+                children: [
+                  Container(
+                    height: 80,
+                      width: 80,
+                      child: Image.network(messages[index].messageImageOne)),
+                  Container(
+                      height: 80,
+                      width: 80,
+                      child: Image.network(messages[index].messageImageTwo)),
+                  Text(
+                    messages[index].messageContent,
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ],
               ),
+               // NetworkImage(chatUsers[index].image),
             ),
           ),
         );

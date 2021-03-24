@@ -75,6 +75,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     List<ChatUsers> chatUsers = [];
     List<String> conversationList = [];
+    //_chatService.create("NPDjGHiQFSYyrPCmGS5r9V5j70C2");
 
     return Scaffold(
       body: Container(
@@ -134,28 +135,32 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                   future: test,
                   builder: (context, AsyncSnapshot snapshot) {
                     if (snapshot.hasError) {
-                      return Center(child: Text("Ingen meldinger"));
+                      return Text("${snapshot.error}");
                     }
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(
                         child: CircularProgressIndicator()
                       );
                     } else {
-                      for (int i = 0; i < snapshot.data["size"]; i++) {
+                    
+                     for (int i = 0; i < snapshot.data["size"]; i++) {
                         String id = auth.currentUser.uid;
                         String formatted = "";
                         String msg = "";
-                        String userId = "";
+                        int userId = 0;
+                        int myId;
 
                         conversationList.add(
                             snapshot.data["data"][i]["convoID"].toString()
                         );
 
-                        if (snapshot.data["data"][i]["participants"]["user1"]
-                          ["id"].toString() == id) {
-                            userId = "user2";
+                        if (snapshot.data["data"][i]["participants"]["userInfo"]
+                          [0]["id"].toString() == id) {
+                            userId = 1;
+                            myId = 0;
                         } else {
-                          userId = "user1";
+                          userId = 0;
+                          myId = 1;
                         }
 
                         if (snapshot.data["data"][i]["previewMsg"] != null) {
@@ -176,14 +181,17 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                         }
 
                         ChatUsers c = new ChatUsers(
-                          snapshot.data["data"][i]["participants"][userId]
+                          snapshot.data["data"][i]["participants"]["userInfo"][userId]
                                   ["displayName"]
                               .toString(),
                           msg,
-                          snapshot.data["data"][i]["participants"][userId]
+                          snapshot.data["data"][i]["participants"]["userInfo"][userId]
                                   ["imageID"]
                               .toString(),
                           formatted,
+                            snapshot.data["data"][i]["participants"]["userInfo"][userId]
+                            ["thingImageID"], snapshot.data["data"][i]["participants"]["userInfo"][myId]
+                        ["thingImageID"]
                         );
                         chatUsers.add(c);
                       }

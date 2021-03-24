@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:zwappr/features/activity/models/chat_users.dart';
 import 'package:zwappr/features/activity/ui/pages/chat_detail_page.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
-ListView buildConversationListView(List<ChatUsers> chatUsers, List<String> conversationList, FutureOr onGoBack) {
+ListView buildConversationListView(List<ChatUsers> chatUsers,
+    List<String> conversationList, FutureOr onGoBack) {
   return ListView.builder(
     itemCount: chatUsers.length,
     shrinkWrap: true,
@@ -16,7 +18,15 @@ ListView buildConversationListView(List<ChatUsers> chatUsers, List<String> conve
       return Container(
         child: GestureDetector(
           onTap: () {
-            Route route = MaterialPageRoute(builder: (context) => ChatDetailPage(name: chatUsers[index].name, image: chatUsers[index].image, msgId:  conversationList[index] ));
+            Route route = MaterialPageRoute(
+                builder: (context) => ChatDetailPage(
+                    name: chatUsers[index].name,
+                    image: chatUsers[index].image,
+                    msgId: conversationList[index],
+                    imageOne: chatUsers[index].thingsImage,
+                    imageTwo: chatUsers[index].myThingImage ,
+                   )
+            );
             Navigator.push(context, route).then(onGoBack);
           },
           child: Container(
@@ -26,9 +36,30 @@ ListView buildConversationListView(List<ChatUsers> chatUsers, List<String> conve
                 Expanded(
                   child: Row(
                     children: <Widget>[
-                      CircleAvatar(
-                        backgroundImage: NetworkImage(chatUsers[index].image),
-                        maxRadius: 30,
+                      SizedBox(
+                        width: 60,
+                        height: 60,
+                        child: Stack(
+                          overflow: Overflow.visible,
+                          children: [
+                            CircleAvatar(
+                              backgroundImage:
+                                  NetworkImage(chatUsers[index].thingsImage),
+                              maxRadius: 30,
+                            ),
+                            Positioned(
+                              bottom: 0,
+                              right: -6,
+                              child: SizedBox(
+                                child: CircleAvatar(
+                                  backgroundImage:
+                                      NetworkImage(chatUsers[index].image),
+                                  maxRadius: 14,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(width: 16),
                       Expanded(
@@ -49,8 +80,7 @@ ListView buildConversationListView(List<ChatUsers> chatUsers, List<String> conve
                                 style: TextStyle(
                                     fontSize: 14,
                                     color: zwapprBlack,
-                                    fontWeight: FontWeight.bold
-                                ),
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
@@ -61,10 +91,7 @@ ListView buildConversationListView(List<ChatUsers> chatUsers, List<String> conve
                 ),
                 Text(
                   chatUsers[index].date,
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold
-                  ),
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                 ),
               ],
             ),

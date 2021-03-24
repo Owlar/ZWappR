@@ -12,9 +12,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-
-  final FirebaseMessaging _fcm = FirebaseMessaging();
-
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

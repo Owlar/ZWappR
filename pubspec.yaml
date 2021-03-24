@@ -74,6 +74,9 @@ dependencies:
   # Bottom sheet
   modal_bottom_sheet: ^1.0.0+1
 
+  # Notifikasjoner
+  flutter_local_notifications: ^4.0.1+2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

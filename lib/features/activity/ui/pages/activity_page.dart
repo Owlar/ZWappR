@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zwappr/features/activity/ui/pages/chat_page.dart';
+import 'package:zwappr/features/activity/ui/pages/favorite_page.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
 class ActivityPage extends StatefulWidget {
@@ -29,8 +30,7 @@ class _ActivityPageState extends State<ActivityPage> {
         body: TabBarView(
           children: [
             ChatPage(),
-            // TODO: Replace with FavoritePage
-            Icon(Icons.favorite)
+           FavoritePage(),
           ],
         ),
       ),

@@ -293,19 +293,22 @@ class _MapPageState extends State<MapPage> {
 
   // Source (21.03.2021):
   // https://pub.dev/packages/google_maps_cluster_manager/versions/0.2.1/example
-  Future<Marker> Function(Cluster<ThingMarker>) get _markerBuilder =>
-          (cluster) async {
-        return Marker(
-          markerId: MarkerId(cluster.getId()),
-          position: cluster.location,
-          onTap: () {
-            print('---- $cluster');
-            cluster.items.forEach((p) => print(p));
-          },
-          icon: await _getMarkerBitmap(cluster.isMultiple ? 125 : 75,
-              text: cluster.isMultiple ? cluster.count.toString() : null),
-        );
-      };
+  Future<Marker> Function(Cluster<ThingMarker>) get _markerBuilder => (cluster) async {
+    return Marker(
+      markerId: MarkerId(cluster.getId()),
+      position: cluster.location,
+      infoWindow: InfoWindow(
+          title: cluster.items.last.title,
+          snippet: "Kategori: ${cluster.items.last.category}"
+      ),
+      onTap: () {
+          cluster.items.forEach((p) => print(p));
+      },
+      icon: await _getMarkerBitmap(cluster.isMultiple
+          ? 125 : 75, text: cluster.isMultiple
+          ? cluster.count.toString() : null),
+      );
+  };
 
   // Source (21.03.2021):
   // https://pub.dev/packages/google_maps_cluster_manager/versions/0.2.1/example

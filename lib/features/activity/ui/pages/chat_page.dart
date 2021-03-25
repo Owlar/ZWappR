@@ -145,7 +145,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                         child: CircularProgressIndicator()
                       );
                     } else {
-                    
+                    // Building Conversation List View
                      for (int i = 0; i < snapshot.data["size"]; i++) {
                         String id = auth.currentUser.uid;
                         String formatted = "";

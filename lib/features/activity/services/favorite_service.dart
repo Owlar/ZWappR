@@ -9,8 +9,6 @@ class FavoriteService implements IFavoriteService{
   Future<void> create(String thingId) async => _repository.create(thingId);
 
 
-  @override
-  Future<Map> get() async => _repository.get();
 
   @override
   Future<Map> getMe() {

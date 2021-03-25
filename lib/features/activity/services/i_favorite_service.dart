@@ -14,7 +14,7 @@ abstract class IFavoriteService {
   Future<void> put(String uid);
 
   // Getting a conversation
-  Future<Map> get();
+
   Future<List<ThingModel>> getAll();
   // Getting a message with:
   /// [uid]

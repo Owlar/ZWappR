@@ -60,14 +60,14 @@ Card buildFavoriteCard(thing, BuildContext context, FutureOr onGoBack) {
                     icon: Icon(Icons.delete),
                     color: zwapprDarkGray,
                     onPressed: () {
-                      print('Pressed');
+                      print('delete pressed ');
                     },
                   ),
                   IconButton(
                     icon: Icon(Icons.favorite),
                     color: zwapprRed,
                     onPressed: () {
-                      print('Pressed');
+                      print('favorite pressed');
                     },
                   ),
                 ],

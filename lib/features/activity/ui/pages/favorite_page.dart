@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:zwappr/features/activity/methods/favorite_card.dart';
+import 'package:zwappr/features/activity/models/chat_users.dart';
 import 'package:zwappr/features/activity/services/favorite_service.dart';
 import 'package:zwappr/features/activity/services/i_favorite_service.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
@@ -18,8 +19,8 @@ class _FavoritePageState extends State<FavoritePage> {
   static final IFavoriteService _favoriteService = FavoriteService();
 
   Future<List<ThingModel>> _getFavoriteFromService() async {
-    final List<ThingModel> _thingsFromService = (await _favoriteService.getAll());
-    return _thingsFromService;
+     final List<ThingModel> _favoriteFromService = (await _favoriteService.getAll());
+    return _favoriteFromService;
   }
   @override
   void initState() {
@@ -39,7 +40,7 @@ class _FavoritePageState extends State<FavoritePage> {
 
   @override
   Widget build(BuildContext context) {
-    //_favoriteService.create("3beWSQVGraC97py7ZpUm");
+    //_favoriteService.create("3ReG0PYyEAUio7qc1lsE");
     return Scaffold(
         body: Container(
           padding: EdgeInsets.all(10),
@@ -60,6 +61,7 @@ class _FavoritePageState extends State<FavoritePage> {
                     child: CircularProgressIndicator()
                 );
               } else {
+
                 return ListView.builder(
                   padding: const EdgeInsets.all(14.0),
                   itemCount: snapshot.data.length,

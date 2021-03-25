@@ -6,20 +6,11 @@ import 'package:zwappr/features/things/models/thing_model.dart';
 
 class FavoriteRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  Future<Map> get() async {
-    final response = await http.get(
-        "https://us-central1-zwappr.cloudfunctions.net/api/things/favorite",
-        headers: <String, String>{
-          "Content-Type": "application/json; charset=UTF-8",
-          "idToken": await _firebaseAuth.currentUser.getIdToken()
-        }
-    );
-    return (jsonDecode(response.body));
-  }
+
 
   Future<List<ThingModel>> getAll() async {
     final response = await http.get(
-        "https://us-central1-zwappr.cloudfunctions.net/api/things/me",
+        "https://us-central1-zwappr.cloudfunctions.net/api/things/favorite",
         headers: <String, String>{
           "Content-Type": "application/json; charset=UTF-8",
           "idToken": await _firebaseAuth.currentUser.getIdToken()

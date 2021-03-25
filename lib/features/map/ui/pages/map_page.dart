@@ -20,6 +20,7 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   static final IMapService _mapService = MapService();
   static const _initialZoomLevel = 6.0;
+  static const _animationZoomLevel = 17.0;
   static const _stopClusteringZoomLevel = 14.0;
 
   Completer<GoogleMapController> _controller = Completer();
@@ -28,13 +29,12 @@ class _MapPageState extends State<MapPage> {
   Set<Marker> markers = Set();
   List<ClusterItem<ThingMarker>> items = List();
 
-  String _currentPositionLatitude;
-  String _currentPositionLongitude;
-
   // Set to HiØ's position as default
   LatLng _currentPosition = LatLng(59.1292475, 11.3506146);
 
   bool _isCheckboxSelected = true;
+
+  MapType _currentMapType;
 
 
   Future<void> _getThingsFromServiceAndCreateMarkers() async {
@@ -51,7 +51,6 @@ class _MapPageState extends State<MapPage> {
 
   @override
   void initState() {
-    _getCurrentPosition();
     _getThingsFromServiceAndCreateMarkers();
     _clusterManager = _initClusterManager();
     super.initState();
@@ -59,42 +58,133 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Center(
-              child: Text("Kart")
+    return Stack(
+      children: [
+        Scaffold(
+            body: GoogleMap(
+              markers: markers,
+              mapType: _currentMapType,
+              initialCameraPosition: CameraPosition(
+                  target: _currentPosition,
+                  zoom: _initialZoomLevel
+              ),
+              onMapCreated: (GoogleMapController controller) {
+                _controller.complete(controller);
+                _clusterManager.setMapController(controller);
+              },
+              onCameraMove: _clusterManager.onCameraMove,
+              onCameraIdle: _clusterManager.updateMap,
+              rotateGesturesEnabled: true,
+              scrollGesturesEnabled: true,
+              myLocationEnabled: true,
+              zoomGesturesEnabled: true,
+              zoomControlsEnabled: false,
+              myLocationButtonEnabled: false,
+              mapToolbarEnabled: false,
+            ),
+            floatingActionButton: FloatingActionButton.extended(
+                onPressed: () {
+                  _openFilteringModalBottomSheet(context);
+                },
+                backgroundColor: zwapprYellow,
+                icon: Icon(Icons.filter_list, color: zwapprBlack, size: 30),
+                label: Text("Filter", style: TextStyle(color: zwapprBlack, fontSize: 16))
+            )
+        ),
+        Padding(
+          padding: EdgeInsets.all(4.0),
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 100),
+              Align(
+                alignment: Alignment.topRight,
+                child: FloatingActionButton(
+                  shape: RoundedRectangleBorder(),
+                  mini: true,
+                  onPressed: () {
+                    _getCurrentPositionAndAnimate();
+                  },
+                  backgroundColor: zwapprWhite,
+                  child: Icon(Icons.my_location, size: 30, color: zwapprBlack),
+                )
+              ),
+              Align(
+                  alignment: Alignment.topRight,
+                  child: Visibility(
+                    child: PopupMenuButton<TypeOfMap>(
+                        child: FloatingActionButton(
+                          // DON'T ADD onPressed
+                          shape: RoundedRectangleBorder(),
+                          mini: true,
+                          backgroundColor: zwapprWhite,
+                          child: Icon(Icons.layers, size: 30, color: zwapprBlack),
+                        ),
+                        onSelected: (TypeOfMap result) async {
+                          switch(result) {
+                            case TypeOfMap.Normal:
+                              setState(() {
+                                _currentMapType = MapType.normal;
+                              });
+                              break;
+                            case TypeOfMap.Satellite:
+                              setState(() {
+                                _currentMapType = MapType.satellite;
+                              });
+                              break;
+                            case TypeOfMap.Terrain:
+                              setState(() {
+                                _currentMapType = MapType.terrain;
+                              });
+                              break;
+                            case TypeOfMap.Hybrid:
+                              setState(() {
+                                _currentMapType = MapType.hybrid;
+                              });
+                              break;
+                            default:
+                              _currentMapType = MapType.normal;
+                          }
+                        },
+                        itemBuilder: (BuildContext buildContext) => <PopupMenuEntry<TypeOfMap>>[
+                          const PopupMenuItem<TypeOfMap>(
+                            value: TypeOfMap.Normal,
+                            child: Text("Normal"),
+                          ),
+                          const PopupMenuItem<TypeOfMap>(
+                            value: TypeOfMap.Satellite,
+                            child: Text("Satellite"),
+                          ),
+                          const PopupMenuItem<TypeOfMap>(
+                            value: TypeOfMap.Terrain,
+                            child: Text("Terrain"),
+                          ),
+                          const PopupMenuItem<TypeOfMap>(
+                            value: TypeOfMap.Hybrid,
+                            child: Text("Hybrid"),
+                          ),
+                        ]
+                    ),
+                  )
+              )
+            ],
           )
-        ),
-        body: GoogleMap(
-          initialCameraPosition: CameraPosition(
-            target: _currentPosition,
-            zoom: _initialZoomLevel
-          ),
-          markers: markers,
-          onMapCreated: (GoogleMapController controller) {
-            _controller.complete(controller);
-            _clusterManager.setMapController(controller);
-          },
-          onCameraMove: _clusterManager.onCameraMove,
-          onCameraIdle: _clusterManager.updateMap,
-          zoomControlsEnabled: false,
-          zoomGesturesEnabled: true,
-          rotateGesturesEnabled: true,
-          scrollGesturesEnabled: true,
-          myLocationEnabled: true,
-          myLocationButtonEnabled: true,
-        ),
-        floatingActionButton: FloatingActionButton.extended(
-            onPressed: () {
-              _openFilteringModalBottomSheet(context);
-            },
-            backgroundColor: zwapprYellow,
-            icon: Icon(Icons.filter_list, color: zwapprBlack, size: 30),
-            label: Text("Filter", style: TextStyle(color: zwapprBlack, fontSize: 16))
         )
-
+      ],
     );
+  }
+
+  void _getCurrentPositionAndAnimate() async {
+    final GoogleMapController controller = await _controller.future;
+    final geoPosition = await getUserGeoPosition();
+    setState(() {
+      _currentPosition = LatLng(geoPosition.latitude, geoPosition.longitude);
+    });
+    controller.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(
+        target: _currentPosition,
+        zoom: _animationZoomLevel,
+      )
+    ));
   }
 
   void _openFilteringModalBottomSheet(context) {
@@ -184,14 +274,6 @@ class _MapPageState extends State<MapPage> {
     );
   }
 
-  void _getCurrentPosition() async {
-    final geoPosition = await getUserGeoPosition();
-    setState(() {
-      _currentPositionLatitude = "${geoPosition.latitude}";
-      _currentPositionLongitude = "${geoPosition.longitude}";
-      _currentPosition = LatLng(geoPosition.latitude, geoPosition.longitude);
-    });
-  }
 
   ClusterManager _initClusterManager() {
     return ClusterManager<ThingMarker>(
@@ -263,3 +345,5 @@ class _MapPageState extends State<MapPage> {
 
 
 }
+
+enum TypeOfMap { Normal, Satellite, Terrain, Hybrid }

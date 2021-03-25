@@ -12,7 +12,7 @@ final List<Icon> categoryIcons = [
   Icon(FontAwesomeIcons.home, size: iconSize),
   Icon(FontAwesomeIcons.tshirt, size: iconSize),
   Icon(FontAwesomeIcons.couch, size: iconSize),
-  Icon(FontAwesomeIcons.industry, size: iconSize),
+  Icon(FontAwesomeIcons.city, size: iconSize),
   Icon(FontAwesomeIcons.solidFutbol, size: iconSize),
   Icon(FontAwesomeIcons.motorcycle, size: iconSize),
   Icon(FontAwesomeIcons.cube, size: iconSize),

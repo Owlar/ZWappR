@@ -134,6 +134,9 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                 FutureBuilder<Map>(
                   future: test,
                   builder: (context, AsyncSnapshot snapshot) {
+                   if(!snapshot.hasData){
+                      return Center(child: Text("Ingen Meldinger"));
+                    }
                     if (snapshot.hasError) {
                       return Text("${snapshot.error}");
                     }

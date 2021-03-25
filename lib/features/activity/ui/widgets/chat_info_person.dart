@@ -22,8 +22,6 @@ class ChatInfoPerson extends StatelessWidget {
             IconButton(
               onPressed: () {
                 Navigator.pop(context);
-
-               // Navigator.push( context, MaterialPageRoute( builder: (context) => ChatPage()), ).then((value) => Navigator.pop(context)));
               },
               icon: Icon(
                 Icons.keyboard_arrow_left,
@@ -31,16 +29,12 @@ class ChatInfoPerson extends StatelessWidget {
                 size: 26,
               ),
             ),
-            SizedBox(
-              width: 2,
-            ),
+            SizedBox(width: 2),
             CircleAvatar(
               backgroundImage: NetworkImage(image),
               maxRadius: 20,
             ),
-            SizedBox(
-              width: 12,
-            ),
+            SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,9 +44,7 @@ class ChatInfoPerson extends StatelessWidget {
                     name,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
-                  SizedBox(
-                    height: 6,
-                  ),
+                  SizedBox(height: 6),
                 ],
               ),
             ),

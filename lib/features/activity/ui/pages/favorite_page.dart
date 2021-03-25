@@ -18,7 +18,7 @@ class FavoritePage extends StatefulWidget {
 class _FavoritePageState extends State<FavoritePage> {
   static final IFavoriteService _favoriteService = FavoriteService();
 
-  Future<List<ThingModel>> _getFavoriteFromService() async {
+  Future<List<ThingModel>> _getAllFavoritesFromService() async {
      final List<ThingModel> _favoriteFromService = (await _favoriteService.getAll());
     return _favoriteFromService;
   }
@@ -26,15 +26,13 @@ class _FavoritePageState extends State<FavoritePage> {
   void initState() {
     super.initState();
     setState(() {
-      _getFavoriteFromService();
-
+      _getAllFavoritesFromService();
     });
   }
 
   Future<FutureOr> onGoBack(dynamic value) {
     setState(() {
-      _getFavoriteFromService();
-
+      _getAllFavoritesFromService();
     });
   }
 
@@ -51,7 +49,7 @@ class _FavoritePageState extends State<FavoritePage> {
             ),
           ),
           child: FutureBuilder<List>(
-            future: _getFavoriteFromService(),
+            future: _getAllFavoritesFromService(),
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.hasError) {
                 return Text("${snapshot.error}");
@@ -61,7 +59,6 @@ class _FavoritePageState extends State<FavoritePage> {
                     child: CircularProgressIndicator()
                 );
               } else {
-
                 return ListView.builder(
                   padding: const EdgeInsets.all(14.0),
                   itemCount: snapshot.data.length,

@@ -30,7 +30,7 @@ class _ActivityPageState extends State<ActivityPage> {
         body: TabBarView(
           children: [
             ChatPage(),
-           FavoritePage(),
+            FavoritePage(),
           ],
         ),
       ),

@@ -46,7 +46,7 @@ class ListViewMsg extends StatelessWidget {
               child:  messages[index].messageImageOne == null ? Text(
                 messages[index].messageContent,
                 style: TextStyle(fontSize: 15),
-              ):Container(
+              ) : Container(
                 alignment: Alignment.center,
                 child: Row(
                   children: [
@@ -58,9 +58,10 @@ class ListViewMsg extends StatelessWidget {
                         height: 80,
                         width: 80,
                         child: Image.network(messages[index].messageImageTwo)),
+                    SizedBox(width: 18),
                     Text(
                       messages[index].messageContent,
-                      style: TextStyle(fontSize: 17),
+                      style: TextStyle(fontSize: 20),
                     ),
                   ],
                 ),

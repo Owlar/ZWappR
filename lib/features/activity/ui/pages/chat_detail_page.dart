@@ -28,8 +28,7 @@ class ChatDetailPage extends StatefulWidget {
   _ChatDetailPageState createState() => _ChatDetailPageState();
 }
 
-class _ChatDetailPageState extends State<ChatDetailPage>
-    with WidgetsBindingObserver {
+class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObserver {
   final TextEditingController newMessage = TextEditingController();
   static final IChatService _chatService = ChatService();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -121,21 +120,20 @@ class _ChatDetailPageState extends State<ChatDetailPage>
                       } else {
                         from = "receiver";
                       }
-                      if (snapshot.data["data"][i]["from"].toString() ==
-                          'system') {
+                      if (snapshot.data["data"][i]["from"].toString() == 'system') {
                         from = "";
                         imageOne = widget.imageOne;
                         imageTwo = widget.imageTwo;
                         //image = snapshot.data["data"][i]["things"][0];
                       }
-
-                      messages.add(ChatMessage(
-                          messageContent:
-                              snapshot.data["data"][i]["content"].toString(),
-                          messageType: from,
-                          messageImageOne: imageOne, messageImageTwo: imageTwo));
+                      messages.add(
+                          ChatMessage(
+                            messageContent: snapshot.data["data"][i]["content"].toString(),
+                            messageType: from,
+                            messageImageOne: imageOne, messageImageTwo: imageTwo
+                          )
+                      );
                     }
-
                     return ListViewMsg(messages: messages);
                   }
                 },
@@ -195,9 +193,7 @@ class _ChatDetailPageState extends State<ChatDetailPage>
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 15,
-                    ),
+                    SizedBox(width: 15),
                     Expanded(
                       child: TextField(
                         onChanged: (str) {

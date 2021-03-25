@@ -5,10 +5,9 @@ import 'package:zwappr/features/things/models/thing_model.dart';
 class FavoriteService implements IFavoriteService{
 
   final FavoriteRepository _repository = FavoriteRepository();
+
   @override
   Future<void> create(String thingId) async => _repository.create(thingId);
-
-
 
   @override
   Future<Map> getMe() {

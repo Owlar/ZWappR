@@ -9,7 +9,7 @@ abstract class IChatService {
   /// [msg]
   Future<void> createMsg(String convoId, String msg);
 
-  // Updating me as a user with:
+  // Updating a conversation with:
   /// [uid]
   Future<void> put(String uid);
 

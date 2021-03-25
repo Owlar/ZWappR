@@ -57,19 +57,20 @@ Card buildFavoriteCard(thing, BuildContext context, FutureOr onGoBack) {
                   child: Column(
                 children: [
                   IconButton(
-                    icon: Icon(Icons.delete),
-                    color: zwapprDarkGray,
-                    onPressed: () {
-                      print('delete pressed ');
-                    },
-                  ),
-                  IconButton(
                     icon: Icon(Icons.favorite),
                     color: zwapprRed,
                     onPressed: () {
                       print('favorite pressed');
                     },
                   ),
+                  IconButton(
+                    icon: Icon(Icons.delete),
+                    color: zwapprDarkGray,
+                    onPressed: () {
+                      print('delete pressed ');
+                    },
+                  ),
+
                 ],
               ))
             ])),

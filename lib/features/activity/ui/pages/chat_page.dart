@@ -24,8 +24,6 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   static final IChatService _chatService = ChatService();
 
   Future<Map> test = _chatService.get();
-  String _now;
-  Timer _everySecond;
 
   @override
   void initState() {
@@ -134,17 +132,22 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                 FutureBuilder<Map>(
                   future: test,
                   builder: (context, AsyncSnapshot snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                          child: CircularProgressIndicator()
+                      );
+                    }
                    if(!snapshot.hasData){
                       return Center(child: Text("Ingen Meldinger"));
                     }
                     if (snapshot.hasError) {
                       return Text("${snapshot.error}");
                     }
-                    if (snapshot.connectionState == ConnectionState.waiting) {
+                    /*if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(
                         child: CircularProgressIndicator()
                       );
-                    } else {
+                    }*/ else {
                     // Building Conversation List View
                      for (int i = 0; i < snapshot.data["size"]; i++) {
                         String id = auth.currentUser.uid;
@@ -209,6 +212,4 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
       ),
     );
   }
-
-
 }

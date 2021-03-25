@@ -7,13 +7,13 @@ import 'package:zwappr/utils/colors/color_theme.dart';
 
 ListView buildConversationListView(List<ChatUsers> chatUsers,
     List<String> conversationList, FutureOr onGoBack) {
-  return ListView.builder(
-    itemCount: chatUsers.length,
-    shrinkWrap: true,
-    padding: EdgeInsets.only(top: 10),
-    physics: NeverScrollableScrollPhysics(),
-    //physics: BouncingScrollPhysics(),
-    itemBuilder: (context, index) {
+    return ListView.builder(
+      itemCount: chatUsers.length,
+      shrinkWrap: true,
+      padding: EdgeInsets.only(top: 10),
+      physics: NeverScrollableScrollPhysics(),
+      //physics: BouncingScrollPhysics(),
+      itemBuilder: (context, index) {
       return Container(
         child: GestureDetector(
           onTap: () {

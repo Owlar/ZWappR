@@ -138,18 +138,17 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                       );
                     }
                    if(!snapshot.hasData){
-                      return Center(child: Text("Ingen Meldinger"));
+                      return Center(
+                          child: Text("Ingen Meldinger")
+                      );
                     }
                     if (snapshot.hasError) {
-                      return Text("${snapshot.error}");
-                    }
-                    /*if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(
-                        child: CircularProgressIndicator()
+                        child: Text("${snapshot.error}")
                       );
-                    }*/ else {
-                    // Building Conversation List View
-                     for (int i = 0; i < snapshot.data["size"]; i++) {
+                    } else {
+                      // Building Conversation List View
+                      for (int i = 0; i < snapshot.data["size"]; i++) {
                         String id = auth.currentUser.uid;
                         String formatted = "";
                         String msg = "";
@@ -195,9 +194,11 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                                   ["imageID"]
                               .toString(),
                           formatted,
-                            snapshot.data["data"][i]["participants"]["userInfo"][userId]
-                            ["thingImageID"], snapshot.data["data"][i]["participants"]["userInfo"][myId]
-                        ["thingImageID"]
+                          snapshot.data["data"][i]["participants"]["userInfo"][userId]
+                                  ["thingImageID"],
+                          snapshot.data["data"][i]["participants"]["userInfo"][myId]
+                                  ["thingImageID"],
+
                         );
                         chatUsers.add(c);
                       }

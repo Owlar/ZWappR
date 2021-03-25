@@ -20,8 +20,9 @@ class _FavoritePageState extends State<FavoritePage> {
 
   Future<List<ThingModel>> _getAllFavoritesFromService() async {
      final List<ThingModel> _favoriteFromService = (await _favoriteService.getAll());
-    return _favoriteFromService;
+      return _favoriteFromService;
   }
+
   @override
   void initState() {
     super.initState();
@@ -41,7 +42,9 @@ class _FavoritePageState extends State<FavoritePage> {
     //_favoriteService.create("3ReG0PYyEAUio7qc1lsE");
     return Scaffold(
         body: Container(
-          padding: EdgeInsets.all(10),
+          height: double.infinity,
+          width: double.infinity,
+          padding: EdgeInsets.only(top: 20),
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/background_screen.png"),
@@ -52,7 +55,9 @@ class _FavoritePageState extends State<FavoritePage> {
             future: _getAllFavoritesFromService(),
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.hasError) {
-                return Text("${snapshot.error}");
+                return Center(
+                  child: Text("${snapshot.error}")
+                );
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(

@@ -21,7 +21,7 @@ class ListViewMsg extends StatelessWidget {
       itemBuilder: (context, index) {
         return Container(
           padding:
-          EdgeInsets.only(left: 14, right: 14, top: 4, bottom: 4),
+          EdgeInsets.only(left: 4, right: 4, top: 4, bottom: 4),
           child: Align(
             alignment: (messages[index].messageType == "receiver"
                 ? Alignment.topLeft
@@ -46,21 +46,24 @@ class ListViewMsg extends StatelessWidget {
               child:  messages[index].messageImageOne == null ? Text(
                 messages[index].messageContent,
                 style: TextStyle(fontSize: 15),
-              ):Row(
-                children: [
-                  Container(
-                    height: 80,
-                      width: 80,
-                      child: Image.network(messages[index].messageImageOne)),
-                  Container(
+              ):Container(
+                alignment: Alignment.center,
+                child: Row(
+                  children: [
+                    Container(
                       height: 80,
-                      width: 80,
-                      child: Image.network(messages[index].messageImageTwo)),
-                  Text(
-                    messages[index].messageContent,
-                    style: TextStyle(fontSize: 15),
-                  ),
-                ],
+                        width: 80,
+                        child: Image.network(messages[index].messageImageOne)),
+                    Container(
+                        height: 80,
+                        width: 80,
+                        child: Image.network(messages[index].messageImageTwo)),
+                    Text(
+                      messages[index].messageContent,
+                      style: TextStyle(fontSize: 17),
+                    ),
+                  ],
+                ),
               ),
                // NetworkImage(chatUsers[index].image),
             ),

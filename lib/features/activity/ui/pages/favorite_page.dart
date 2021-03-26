@@ -44,7 +44,6 @@ class _FavoritePageState extends State<FavoritePage> {
         body: Container(
           height: double.infinity,
           width: double.infinity,
-          padding: EdgeInsets.only(top: 20),
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/background_screen.png"),
@@ -54,14 +53,19 @@ class _FavoritePageState extends State<FavoritePage> {
           child: FutureBuilder<List>(
             future: _getAllFavoritesFromService(),
             builder: (context, AsyncSnapshot snapshot) {
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text("${snapshot.error}")
-                );
-              }
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
                     child: CircularProgressIndicator()
+                );
+              }
+              if (!snapshot.hasData) {
+                return Center(
+                    child: Text("Ingen favoritter")
+                );
+              }
+              if (snapshot.hasError) {
+                return Center(
+                  child: Text("${snapshot.error}")
                 );
               } else {
                 return ListView.builder(

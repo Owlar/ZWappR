@@ -56,6 +56,7 @@ Card buildFavoriteCard(thing, BuildContext context, FutureOr onGoBack) {
                         )
                     ),
                     Expanded(
+                      flex: 1,
                       child: Column(
                         children: [
                           IconButton(
@@ -72,6 +73,7 @@ Card buildFavoriteCard(thing, BuildContext context, FutureOr onGoBack) {
                               print('delete pressed ');
                             },
                           ),
+                          SizedBox(height: 40),
                         ],
                       )
                     )

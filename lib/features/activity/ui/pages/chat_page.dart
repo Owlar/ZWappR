@@ -73,7 +73,6 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     List<ChatUsers> chatUsers = [];
     List<String> conversationList = [];
-    //_chatService.create("NPDjGHiQFSYyrPCmGS5r9V5j70C2");
 
     return Scaffold(
       body: Container(
@@ -101,7 +100,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                           Text(
                             "Meldinger",
                             style: TextStyle(
-                                fontSize: 32, fontWeight: FontWeight.bold
+                                fontSize: 28, fontWeight: FontWeight.bold
                             ),
                           ),
                         ],
@@ -113,7 +112,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                   padding: EdgeInsets.only(top: 16, left: 16, right: 16),
                   child: TextField(
                     decoration: InputDecoration(
-                      hintText: "Søk...",
+                      hintText: "Søk i meldinger ...",
                       hintStyle: TextStyle(color: zwapprBlack),
                       prefixIcon: Icon(
                         Icons.search,
@@ -137,9 +136,9 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                           child: CircularProgressIndicator()
                       );
                     }
-                   if(!snapshot.hasData){
+                    if (!snapshot.hasData) {
                       return Center(
-                          child: Text("Ingen Meldinger")
+                          child: Text("Ingen meldinger")
                       );
                     }
                     if (snapshot.hasError) {

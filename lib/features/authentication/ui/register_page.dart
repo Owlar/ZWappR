@@ -39,12 +39,11 @@ class _RegisterPageState extends State<RegisterPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    width: 185,
-
+                    width: 195,
                     child: Column(
                       children: [
                         Text(
-                          "Log inn",
+                          "Logg inn",
                           style: new TextStyle(color: tabBarLogInn,  fontWeight: FontWeight.bold, fontSize: 20),
                         ),
                         ButtonTheme(
@@ -57,8 +56,8 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => LoginPage()));
-
+                                  builder: (context) => LoginPage())
+                              );
                               setState(() {
                                 if (tabBarRegister == zwapprBlack) {
                                   tabBarRegister = zwapprDarkGray;
@@ -74,14 +73,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   Container(
-                    width: 185,
+                    width: 195,
                     child: Column(
                       children: [
-
                         Text(
                           "Registrer",
-                          style: new TextStyle(color: tabBarRegister, fontWeight: FontWeight.bold,  fontSize: 20),
-
+                          style: new TextStyle(color: tabBarRegister, fontWeight: FontWeight.bold, fontSize: 20),
                         ),
                         ButtonTheme(
                           height: 10,
@@ -91,17 +88,15 @@ class _RegisterPageState extends State<RegisterPage> {
                             child: new Container(
                               decoration: new BoxDecoration(color: tabBarRegister),
                             ),
-                            onPressed: () {
-
-                            },
+                            onPressed: () {},
                           ),
                         ),
-
                       ],
                     ),
                   ),
                 ],
               ),
+              SizedBox(height: 10),
               Form(
                 key: _formKey,
                 child: Column(

@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:zwappr/features/authentication/services/authentication_service.dart';
+import 'package:zwappr/features/authentication/ui/login_page.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
+  @override
+  _RegisterPageState createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController displayNameController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-
+  Color tabBarLogInn = zwapprDarkGray;
+  Color tabBarRegister = zwapprBlack;
   final AuthenticationService _authenticationService = AuthenticationService();
 
   @override
@@ -28,6 +35,73 @@ class RegisterPage extends StatelessWidget {
               SizedBox(height: 42),
               SvgPicture.asset("assets/icons/zwappr_logo.svg", height: 100),
               SizedBox(height: 62),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: 185,
+
+                    child: Column(
+                      children: [
+                        Text(
+                          "Log inn",
+                          style: new TextStyle(color: tabBarLogInn,  fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                        ButtonTheme(
+                          height: 10,
+                          child: RaisedButton(
+                            padding: const EdgeInsets.all(8.0),
+                            color: tabBarLogInn,
+                            child: new Container(
+                              decoration: new BoxDecoration(color: tabBarLogInn),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => LoginPage()));
+
+                              setState(() {
+                                if (tabBarRegister == zwapprBlack) {
+                                  tabBarRegister = zwapprDarkGray;
+                                  tabBarLogInn = zwapprBlack;
+                                } else {
+                                  tabBarRegister = zwapprBlack;
+                                }
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: 185,
+                    child: Column(
+                      children: [
+
+                        Text(
+                          "Registrer",
+                          style: new TextStyle(color: tabBarRegister, fontWeight: FontWeight.bold,  fontSize: 20),
+
+                        ),
+                        ButtonTheme(
+                          height: 10,
+                          child: RaisedButton(
+                            padding: const EdgeInsets.all(8.0),
+                            color: tabBarRegister,
+                            child: new Container(
+                              decoration: new BoxDecoration(color: tabBarRegister),
+                            ),
+                            onPressed: () {
+
+                            },
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  ),
+                ],
+              ),
               Form(
                 key: _formKey,
                 child: Column(

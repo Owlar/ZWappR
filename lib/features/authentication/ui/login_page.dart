@@ -20,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  Color tabBarLogInn = zwapprBlack;
+  Color tabBarLogin = zwapprBlack;
   Color tabBarRegister = zwapprDarkGray;
 
   static final IAuthenticationService _authenticationService =
@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                         Text(
                           "Logg inn",
                           style: new TextStyle(
-                              color: tabBarLogInn,
+                              color: tabBarLogin,
                               fontWeight: FontWeight.bold,
                               fontSize: 20
                           ),
@@ -61,10 +61,10 @@ class _LoginPageState extends State<LoginPage> {
                           height: 10,
                           child: RaisedButton(
                             padding: const EdgeInsets.all(8.0),
-                            color: tabBarLogInn,
+                            color: tabBarLogin,
                             child: new Container(
                               decoration:
-                                  new BoxDecoration(color: tabBarLogInn),
+                                  new BoxDecoration(color: tabBarLogin),
                             ),
                             onPressed: () {},
                           ),
@@ -97,12 +97,8 @@ class _LoginPageState extends State<LoginPage> {
                                   builder: (context) => RegisterPage()
                               ));
                               setState(() {
-                                if (tabBarRegister == zwapprBlack) {
-                                  tabBarRegister = zwapprDarkGray;
-                                  tabBarLogInn = zwapprBlack;
-                                } else {
-                                  tabBarRegister = zwapprBlack;
-                                }
+                                tabBarLogin = zwapprBlack;
+                                tabBarRegister = zwapprDarkGray;
                               });
                             },
                           ),

@@ -158,14 +158,19 @@ class _EditPageState extends State<EditPage> {
                   children: [
                     GestureDetector(
                       onTap: () async {
-                        if (newName.text != "") {
-                          _profileService.put(newName.text);
+                        if (newName.text == "" && _nameOfImage == null) {
+                          print('No changes ' + _nameOfImage.toString());
+                        } else {
+                          if (newName.text != "") {
+                            _profileService.put(newName.text);
+                          }
+                          if (_nameOfImage != null) {
+                            await downloadURL();
+                            await _profileService.updateImage(_downloadURL);
+                          }
+                          FocusScope.of(context).unfocus();
+                          Navigator.pop(context);
                         }
-
-                        if (_downloadURL != null) {
-                          await _profileService.updateImage(_downloadURL);
-                        }
-                        Navigator.pop(context);
                       },
                       child: Text(
                         'Lagre',
@@ -177,9 +182,9 @@ class _EditPageState extends State<EditPage> {
                       icon: Icon(Icons.save),
                       iconSize: 36,
                       onPressed: () async {
-                        if(newName.text == "" && _nameOfImage == null){
+                        if (newName.text == "" && _nameOfImage == null) {
                           print('No changes ' + _nameOfImage.toString());
-                        }else {
+                        } else {
                           if (newName.text != "") {
                             _profileService.put(newName.text);
                           }

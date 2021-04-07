@@ -137,7 +137,7 @@ class _EditPageState extends State<EditPage> {
                 camera: true,
                 press: () async {
                   photoPicker();
-                  await downloadURL();
+
                 }),
             SizedBox(height: 20),
             Row(
@@ -167,20 +167,30 @@ class _EditPageState extends State<EditPage> {
                         }
                         Navigator.pop(context);
                       },
-                      child: Text('Lagre'),
+                      child: Text(
+                        'Lagre',
+                        style: new TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 14),
+                      ),
                     ),
                     IconButton(
                       icon: Icon(Icons.save),
                       iconSize: 36,
                       onPressed: () async {
-                        if (newName.text != "") {
-                          _profileService.put(newName.text);
-                        }
+                        if(newName.text == "" && _nameOfImage == null){
+                          print('No changes ' + _nameOfImage.toString());
+                        }else {
+                          if (newName.text != "") {
+                            _profileService.put(newName.text);
+                          }
 
-                        if (_downloadURL != null) {
-                          await _profileService.updateImage(_downloadURL);
+                          if (_nameOfImage != null) {
+                            await downloadURL();
+                            await _profileService.updateImage(_downloadURL);
+                          }
+                          FocusScope.of(context).unfocus();
+                          Navigator.pop(context);
                         }
-                        Navigator.pop(context);
                       },
                     ),
                   ],
@@ -188,9 +198,14 @@ class _EditPageState extends State<EditPage> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Center(child: Text(email[1])),
-            ),
+                padding: const EdgeInsets.all(20.0),
+                child: Center(
+                  child: Text(
+                    email[1],
+                    style: new TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                )),
             TextField(
               controller: newName,
               textCapitalization: TextCapitalization.sentences,

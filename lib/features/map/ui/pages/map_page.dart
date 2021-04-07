@@ -33,6 +33,7 @@ class _MapPageState extends State<MapPage> {
   LatLng _currentPosition = LatLng(59.1292475, 11.3506146);
 
   bool _isCheckboxSelected = true;
+  final Set<String> _savedCategories = Set();
 
   MapType _currentMapType;
 
@@ -53,6 +54,8 @@ class _MapPageState extends State<MapPage> {
   void initState() {
     _getThingsFromServiceAndCreateMarkers();
     _clusterManager = _initClusterManager();
+    // Make all checkboxes in filter window checked
+    _savedCategories.addAll(categories);
     super.initState();
   }
 
@@ -205,16 +208,20 @@ class _MapPageState extends State<MapPage> {
                       TextButton(
                           onPressed: () {
                             Navigator.of(context).pop();
-                            // TODO: Must only display selected categories on map
-                            _isCheckboxSelected = true;
                           },
                           child: Text("Tilbake", style: TextStyle(fontSize: 20))
                       ),
-                      Text("Kategori", style: TextStyle(fontSize: 20)),
+                      TextButton(
+                          onPressed: () {
+                            // TODO: Implement filtering
+                          },
+                          child: Text("Filtrer", style: TextStyle(fontSize: 20))
+                      ),
                       TextButton(
                           onPressed: () {
                             newStateForAllCards((){
-                              _isCheckboxSelected = true;
+                              // Make all checkboxes in filter window checked
+                              _savedCategories.addAll(categories);
                             });
                           },
                           child: Text("Nullstill", style: TextStyle(fontSize: 20))
@@ -249,10 +256,14 @@ class _MapPageState extends State<MapPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Checkbox(
-                    value: _isCheckboxSelected,
+                    value: _savedCategories.contains(selectedCategory),
                     onChanged: (value) {
                       stateSetter(() {
-                        _isCheckboxSelected = value;
+                        if (value == true) {
+                          _savedCategories.add(selectedCategory);
+                        } else {
+                          _savedCategories.remove(selectedCategory);
+                        }
                       });
                     },
                   ),

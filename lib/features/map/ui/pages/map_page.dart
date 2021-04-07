@@ -54,7 +54,6 @@ class _MapPageState extends State<MapPage> {
   void initState() {
     _getThingsFromServiceAndCreateMarkers();
     _clusterManager = _initClusterManager();
-    _categoriesFilteredAway.removeAll(categories);
     super.initState();
   }
 
@@ -220,7 +219,6 @@ class _MapPageState extends State<MapPage> {
                       ),
                       TextButton(
                           onPressed: () {
-                            // TODO: Implement filtering
                             _filterMarkersByCategory();
                             Navigator.of(context).pop();
                           },

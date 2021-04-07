@@ -49,13 +49,17 @@ class _LoginPageState extends State<LoginPage> {
                     width: 195,
                     child: Column(
                       children: [
-                        Text(
-                          "Logg inn",
-                          style: new TextStyle(
-                              color: tabBarLogin,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20
+                        TextButton(
+                          child: Text(
+                            "Logg inn",
+                            style: new TextStyle(
+                                color: tabBarLogin,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20
+                            ),
                           ),
+                          onPressed: (){
+                          },
                         ),
                         ButtonTheme(
                           height: 10,
@@ -76,12 +80,23 @@ class _LoginPageState extends State<LoginPage> {
                     width: 195,
                     child: Column(
                       children: [
-                        Text(
-                          "Registrer",
-                          style: new TextStyle(
-                              color: tabBarRegister,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
+                        TextButton(
+                          child: Text(
+                            "Registrer",
+                            style: new TextStyle(
+                                color: tabBarRegister,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                          onPressed: (){
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => RegisterPage()
+                            ));
+                            setState(() {
+                              tabBarLogin = zwapprBlack;
+                              tabBarRegister = zwapprDarkGray;
+                            });
+                          },
                         ),
                         ButtonTheme(
                           height: 10,

@@ -42,9 +42,20 @@ class _RegisterPageState extends State<RegisterPage> {
                     width: 195,
                     child: Column(
                       children: [
-                        Text(
-                          "Logg inn",
-                          style: new TextStyle(color: tabBarLogin,  fontWeight: FontWeight.bold, fontSize: 20),
+                        TextButton(
+                          child: Text(
+                            "Logg inn",
+                            style: new TextStyle(color: tabBarLogin,  fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                          onPressed: (){
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => LoginPage())
+                            );
+                            setState(() {
+                              tabBarRegister = zwapprBlack;
+                              tabBarLogin = zwapprDarkGray;
+                            });
+                          },
                         ),
                         ButtonTheme(
                           height: 10,
@@ -72,9 +83,13 @@ class _RegisterPageState extends State<RegisterPage> {
                     width: 195,
                     child: Column(
                       children: [
-                        Text(
-                          "Registrer",
-                          style: new TextStyle(color: tabBarRegister, fontWeight: FontWeight.bold, fontSize: 20),
+                        TextButton(
+
+                          child: Text(
+                            "Registrer",
+                            style: new TextStyle(color: tabBarRegister, fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                          onPressed: (){},
                         ),
                         ButtonTheme(
                           height: 10,

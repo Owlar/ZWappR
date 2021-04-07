@@ -154,18 +154,43 @@ class _EditPageState extends State<EditPage> {
                     );
                   },
                 ),
-                IconButtons(
-                  icon: Icons.save,
-                  press: () async {
-                    if (newName.text != "") {
-                      _profileService.put(newName.text);
-                    }
+                Stack(
 
-                    if (_downloadURL != null) {
-                      await _profileService.updateImage(_downloadURL);
-                    }
-                    Navigator.pop(context);
-                  },
+                  children: [
+                    Positioned(
+                      left: -16,
+                      child: TextButton(
+                          child: Text('Lagre',
+                            style: new TextStyle(
+                                color: zwapprBlack,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                            ),),
+                          onPressed: () async {
+                            if (newName.text != "") {
+                              _profileService.put(newName.text);
+                            }
+
+                            if (_downloadURL != null) {
+                              await _profileService.updateImage(_downloadURL);
+                            }
+                            Navigator.pop(context);
+                          }),
+                    ),
+                    IconButtons(
+                      icon: Icons.save,
+                      press: () async {
+                        if (newName.text != "") {
+                          _profileService.put(newName.text);
+                        }
+
+                        if (_downloadURL != null) {
+                          await _profileService.updateImage(_downloadURL);
+                        }
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -177,14 +202,11 @@ class _EditPageState extends State<EditPage> {
               controller: newName,
               textCapitalization: TextCapitalization.sentences,
               decoration: InputDecoration(
-                fillColor: zwapprWhite,
-                filled: true,
-                labelText: "Nytt brukernavn",
-                  prefixIcon: Icon(
-                      Icons.account_circle,
-                      color: zwapprBlack, size: 34
-                  )
-              ),
+                  fillColor: zwapprWhite,
+                  filled: true,
+                  labelText: "Nytt brukernavn",
+                  prefixIcon:
+                      Icon(Icons.account_circle, color: zwapprBlack, size: 34)),
             ),
           ],
         ),

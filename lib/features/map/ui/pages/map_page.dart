@@ -63,7 +63,7 @@ class _MapPageState extends State<MapPage> {
       children: [
         Scaffold(
             body: GoogleMap(
-              markers: Set<Marker>.of(markers),
+              markers: markers,
               mapType: _currentMapType,
               initialCameraPosition: CameraPosition(
                   target: _currentPosition,

@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:zwappr/features/profile/ui/widgets/back_btn_blue.dart';
 import 'package:zwappr/features/profile/ui/widgets/icon_buttons.dart';
 import 'package:zwappr/features/profile/ui/widgets/menu.dart';
 import 'package:zwappr/features/profile/ui/widgets/profile_picture.dart';
+import 'package:zwappr/utils/colors/color_theme.dart';
 
 import 'edit_page.dart';
 
@@ -34,6 +36,7 @@ class SettingsPage extends StatelessWidget {
           child: Center(
             child: Column(
               children: [
+                BackBtnBlue(),
                 ProfilePicture(
                     image: image,
                     uri: auth.currentUser.photoURL,

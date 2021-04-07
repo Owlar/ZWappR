@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:zwappr/features/profile/services/i_profile_service.dart';
 import 'package:zwappr/features/profile/services/profile_service.dart';
 import 'package:zwappr/features/profile/ui/pages/settings_page.dart';
+import 'package:zwappr/features/profile/ui/widgets/back_btn_blue.dart';
 import 'package:zwappr/features/profile/ui/widgets/menu.dart';
 import 'package:zwappr/features/profile/ui/widgets/profile_picture.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
@@ -16,10 +17,7 @@ import '../widgets/icon_buttons.dart';
 class EditPage extends StatefulWidget {
   final File image;
 
-  EditPage({
-    Key key,
-    @required this.image
-  }) : super(key: key);
+  EditPage({Key key, @required this.image}) : super(key: key);
 
   @override
   _EditPageState createState() => _EditPageState();
@@ -38,9 +36,7 @@ class _EditPageState extends State<EditPage> {
   File _image;
 
   Future getImage() async {
-    final image = await imagePicker.getImage(
-        source: ImageSource.camera
-    );
+    final image = await imagePicker.getImage(source: ImageSource.camera);
     setState(() {
       _image = File(image.path);
     });
@@ -49,8 +45,7 @@ class _EditPageState extends State<EditPage> {
 
   Future getGallery() async {
     final image = await imagePicker.getImage(
-        source: ImageSource.gallery, imageQuality: 50
-    );
+        source: ImageSource.gallery, imageQuality: 50);
     setState(() {
       _image = File(image.path);
     });
@@ -126,83 +121,72 @@ class _EditPageState extends State<EditPage> {
 
     return Scaffold(
         body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/background_screen.png"),
-              fit: BoxFit.cover,
-            ),
-          ),
-        child: Center(
-          child: Column(
-            children: [
-              ProfilePicture(
-                  image: _image,
-                  uri: auth.currentUser.photoURL,
-                  camera: true,
-                  press: () async {
-                    photoPicker();
-                    await downloadURL();
-                  }
-              ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButtons(
-                    icon: Icons.settings,
-                    press: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SettingsPage(image: widget.image)),
-                      );
-                    },
-                  ),
-                  IconButtons(
-                    icon: Icons.save,
-                    press: () async {
-                      if (newName.text != "") {
-                        _profileService.put(newName.text);
-                      }
-                      if (_downloadURL == null) {
-                        await downloadURL();
-                      }
-                      if (_downloadURL != null) {
-                        await _profileService.updateImage(_downloadURL);
-                      }
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              ),
-              TextField(
-                controller: newName,
-                textCapitalization: TextCapitalization.sentences,
-                decoration: InputDecoration(
-                  labelText: "Nytt brukernavn",
-                ),
-              ),
-              Menu(
-                text: "Om deg selv",
-                icon: Icons.book,
-                press: () {},
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: Colors.black),
-                  ),
-                ),
-                child: Menu(
-                  text: "Tekst",
-                  icon: Icons.text_fields,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/images/background_screen.png"),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Center(
+        child: Column(
+          children: [
+            BackBtnBlue(),
+            ProfilePicture(
+                image: _image,
+                uri: auth.currentUser.photoURL,
+                camera: true,
+                press: () async {
+                  photoPicker();
+                  await downloadURL();
+                }),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButtons(
+                  icon: Icons.settings,
                   press: () {
-                    print(auth.currentUser.providerData.toString());
-                    print(email[1]);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              SettingsPage(image: widget.image)),
+                    );
                   },
                 ),
+                IconButtons(
+                  icon: Icons.save,
+                  press: () async {
+                    if (newName.text != "") {
+                      _profileService.put(newName.text);
+                    }
+
+                    if (_downloadURL != null) {
+                      await _profileService.updateImage(_downloadURL);
+                    }
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Center(child: Text(email[1])),
+            ),
+            TextField(
+              controller: newName,
+              textCapitalization: TextCapitalization.sentences,
+              decoration: InputDecoration(
+                fillColor: zwapprWhite,
+                filled: true,
+                labelText: "Nytt brukernavn",
+                  prefixIcon: Icon(
+                      Icons.account_circle,
+                      color: zwapprBlack, size: 34
+                  )
               ),
-            ],
+            ),
+          ],
         ),
       ),
     ));

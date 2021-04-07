@@ -20,9 +20,11 @@ class ProfilePicture extends StatelessWidget {
     @required this.press,
     this.camera,
     this.uri,
-  })  : _image = image, super(key: key);
+  })  : _image = image,
+        super(key: key);
 
   static final IProfileService _profileService = ProfileService();
+
   @override
   Widget build(BuildContext context) {
     String pic;
@@ -34,7 +36,7 @@ class ProfilePicture extends StatelessWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
       child: SizedBox(
         height: 115,
         width: 115,
@@ -44,7 +46,7 @@ class ProfilePicture extends StatelessWidget {
           children: [
             FutureBuilder<UserModel>(
               future: futureUserModel,
-              builder: (context,AsyncSnapshot snapshot) {
+              builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.hasError) {
                   return Text("error");
                 }
@@ -56,8 +58,9 @@ class ProfilePicture extends StatelessWidget {
                     backgroundColor: zwapprWhite,
                     backgroundImage: _image == null
                         ? (uri == null
-                        ? AssetImage("assets/images/default_profile_avatar.png")
-                        : NetworkImage(pic))
+                            ? AssetImage(
+                                "assets/images/default_profile_avatar.png")
+                            : NetworkImage(pic))
                         : FileImage(_image),
                   );
                 } else {
@@ -67,8 +70,7 @@ class ProfilePicture extends StatelessWidget {
                   return CircleAvatar(
                       backgroundImage: _image == null
                           ? NetworkImage(snapshot.data.imageID)
-                          : FileImage(_image)
-                  );
+                          : FileImage(_image));
                 }
               },
             ),
@@ -87,8 +89,7 @@ class ProfilePicture extends StatelessWidget {
                           onPressed: press, //photoPicker,
                           child: SvgPicture.asset(
                               "assets/icons/photo_camera-24px.svg"),
-                        )
-                    ),
+                        )),
                   )
                 : Text(""),
           ],

@@ -150,6 +150,7 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Center(
             child: Column(
               children: [
+                SizedBox(height: 50),
                 ProfilePicture(
                     image: _image,
                     uri: auth.currentUser.photoURL,
@@ -197,7 +198,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 Button(press: (){}),
                 Menu(
                   text: "Likt",
-                  icon: Icons.star,
+                  icon: Icons.check,
                   press: (){},
                 ),
                 Menu(

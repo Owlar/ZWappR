@@ -235,7 +235,7 @@ class _FeedPageState extends State<FeedPage> {
         RaisedButton(
           shape: CircleBorder(),
           padding: const EdgeInsets.all(4),
-          child: Icon(Icons.favorite, color: zwapprBlue, size: 70),
+          child: Icon(Icons.check, color: zwapprGreen, size: 70),
           color: zwapprBlack,
           onPressed: () {
 

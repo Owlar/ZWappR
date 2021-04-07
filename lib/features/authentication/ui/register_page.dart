@@ -22,7 +22,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
+      body: Container(
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -31,7 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ),
           child: Column(
-            children: <Widget> [
+            children: <Widget>[
               SizedBox(height: 42),
               SvgPicture.asset("assets/icons/zwappr_logo.svg", height: 100),
               SizedBox(height: 62),
@@ -42,20 +42,22 @@ class _RegisterPageState extends State<RegisterPage> {
                     width: 195,
                     child: Column(
                       children: [
-                        TextButton(
-                          child: Text(
-                            "Logg inn",
-                            style: new TextStyle(color: tabBarLogin,  fontWeight: FontWeight.bold, fontSize: 20),
-                          ),
-                          onPressed: (){
+                        GestureDetector(
+                          onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => LoginPage())
-                            );
+                                builder: (context) => LoginPage()));
                             setState(() {
                               tabBarRegister = zwapprBlack;
                               tabBarLogin = zwapprDarkGray;
                             });
                           },
+                          child: Text(
+                            'Log inn',
+                            style: new TextStyle(
+                                color: tabBarLogin,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
                         ),
                         ButtonTheme(
                           height: 10,
@@ -67,8 +69,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => LoginPage())
-                              );
+                                  builder: (context) => LoginPage()));
                               setState(() {
                                 tabBarRegister = zwapprBlack;
                                 tabBarLogin = zwapprDarkGray;
@@ -83,13 +84,15 @@ class _RegisterPageState extends State<RegisterPage> {
                     width: 195,
                     child: Column(
                       children: [
-                        TextButton(
-
+                        GestureDetector(
+                          onTap: () {},
                           child: Text(
                             "Registrer",
-                            style: new TextStyle(color: tabBarRegister, fontWeight: FontWeight.bold, fontSize: 20),
+                            style: new TextStyle(
+                                color: tabBarRegister,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
                           ),
-                          onPressed: (){},
                         ),
                         ButtonTheme(
                           height: 10,
@@ -97,7 +100,8 @@ class _RegisterPageState extends State<RegisterPage> {
                             padding: const EdgeInsets.all(8.0),
                             color: tabBarRegister,
                             child: new Container(
-                              decoration: new BoxDecoration(color: tabBarRegister),
+                              decoration:
+                                  new BoxDecoration(color: tabBarRegister),
                             ),
                             onPressed: () {},
                           ),
@@ -109,74 +113,77 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               SizedBox(height: 10),
               Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    TextFormField(
-                      controller: displayNameController,
-                      textCapitalization: TextCapitalization.sentences,
-                      decoration: InputDecoration(
-                        fillColor: zwapprWhite,
-                        filled: true,
-                        labelText: "Brukernavn",
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: displayNameController,
+                        textCapitalization: TextCapitalization.sentences,
+                        decoration: InputDecoration(
+                          fillColor: zwapprWhite,
+                          filled: true,
+                          labelText: "Brukernavn",
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty)
+                            return "Vennligst lag brukernavn";
+                          else
+                            return null;
+                        },
                       ),
-                      validator: (value) {
-                        if (value.isEmpty) return "Vennligst lag brukernavn";
-                        else return null;
-                      },
-                    ),
-                    SizedBox(height: 4),
-                    TextFormField(
-                      controller: emailController,
-                      decoration: InputDecoration(
-                        fillColor: zwapprWhite,
-                        filled: true,
-                        labelText: "E-post",
+                      SizedBox(height: 4),
+                      TextFormField(
+                        controller: emailController,
+                        decoration: InputDecoration(
+                          fillColor: zwapprWhite,
+                          filled: true,
+                          labelText: "E-post",
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty)
+                            return "Vennligst skriv inn e-post";
+                          else
+                            return null;
+                        },
                       ),
-                      validator: (value) {
-                        if (value.isEmpty) return "Vennligst skriv inn e-post";
-                        else return null;
-                      },
-                    ),
-                    SizedBox(height: 4),
-                    TextFormField(
-                      controller: passwordController,
-                      decoration: InputDecoration(
-                        fillColor: zwapprWhite,
-                        filled: true,
-                        labelText: "Passord",
+                      SizedBox(height: 4),
+                      TextFormField(
+                        controller: passwordController,
+                        decoration: InputDecoration(
+                          fillColor: zwapprWhite,
+                          filled: true,
+                          labelText: "Passord",
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty)
+                            return "Vennligst lag passord";
+                          else
+                            return null;
+                        },
                       ),
-                      validator: (value) {
-                        if (value.isEmpty) return "Vennligst lag passord";
-                        else return null;
-                      },
-                    ),
-                    SizedBox(height: 42),
-                    RaisedButton(
-                      color: zwapprBlack,
-                      textColor: zwapprWhite,
-                      onPressed: () async {
-                        if (_formKey.currentState.validate()) {
-                          final user = (await _authenticationService.register(
-                              displayName: displayNameController.text.trim(),
-                              email: emailController.text.trim(),
-                              password: passwordController.text.trim()
-                          ));
-                          if (user != null) {
-                            //Back to login page
-                            Navigator.pop(context);
+                      SizedBox(height: 42),
+                      RaisedButton(
+                        color: zwapprBlack,
+                        textColor: zwapprWhite,
+                        onPressed: () async {
+                          if (_formKey.currentState.validate()) {
+                            final user = (await _authenticationService.register(
+                                displayName: displayNameController.text.trim(),
+                                email: emailController.text.trim(),
+                                password: passwordController.text.trim()));
+                            if (user != null) {
+                              //Back to login page
+                              Navigator.pop(context);
+                            }
                           }
-                        }
-                      },
-                      child: Text("Lag bruker"),
-                    ),
-                  ],
-                )
-              ),
+                        },
+                        child: Text("Lag bruker"),
+                      ),
+                    ],
+                  )),
             ],
-          )
-        ),
-        resizeToAvoidBottomInset: false,
+          )),
+      resizeToAvoidBottomInset: false,
     );
   }
 }

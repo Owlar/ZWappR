@@ -49,17 +49,15 @@ class _LoginPageState extends State<LoginPage> {
                     width: 195,
                     child: Column(
                       children: [
-                        TextButton(
+                        GestureDetector(
+                          onTap: () {},
                           child: Text(
-                            "Logg inn",
+                            'Log inn',
                             style: new TextStyle(
                                 color: tabBarLogin,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 20
-                            ),
+                                fontSize: 20),
                           ),
-                          onPressed: (){
-                          },
                         ),
                         ButtonTheme(
                           height: 10,
@@ -67,8 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                             padding: const EdgeInsets.all(8.0),
                             color: tabBarLogin,
                             child: new Container(
-                              decoration:
-                                  new BoxDecoration(color: tabBarLogin),
+                              decoration: new BoxDecoration(color: tabBarLogin),
                             ),
                             onPressed: () {},
                           ),
@@ -80,7 +77,15 @@ class _LoginPageState extends State<LoginPage> {
                     width: 195,
                     child: Column(
                       children: [
-                        TextButton(
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => RegisterPage()));
+                            setState(() {
+                              tabBarLogin = zwapprBlack;
+                              tabBarRegister = zwapprDarkGray;
+                            });
+                          },
                           child: Text(
                             "Registrer",
                             style: new TextStyle(
@@ -88,15 +93,6 @@ class _LoginPageState extends State<LoginPage> {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20),
                           ),
-                          onPressed: (){
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => RegisterPage()
-                            ));
-                            setState(() {
-                              tabBarLogin = zwapprBlack;
-                              tabBarRegister = zwapprDarkGray;
-                            });
-                          },
                         ),
                         ButtonTheme(
                           height: 10,
@@ -109,8 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => RegisterPage()
-                              ));
+                                  builder: (context) => RegisterPage()));
                               setState(() {
                                 tabBarLogin = zwapprBlack;
                                 tabBarRegister = zwapprDarkGray;
@@ -133,11 +128,8 @@ class _LoginPageState extends State<LoginPage> {
                             fillColor: zwapprWhite,
                             filled: true,
                             labelText: "E-post",
-                            prefixIcon: Icon(
-                                Icons.account_circle,
-                                color: zwapprBlack, size: 34
-                            )
-                        ),
+                            prefixIcon: Icon(Icons.account_circle,
+                                color: zwapprBlack, size: 34)),
                         controller: emailController,
                         validator: (value) {
                           if (value.isEmpty)
@@ -152,11 +144,8 @@ class _LoginPageState extends State<LoginPage> {
                             fillColor: zwapprWhite,
                             filled: true,
                             labelText: "Passord",
-                            prefixIcon: Icon(
-                                Icons.lock_outline,
-                                color: zwapprBlack, size: 34
-                            )
-                        ),
+                            prefixIcon: Icon(Icons.lock_outline,
+                                color: zwapprBlack, size: 34)),
                         controller: passwordController,
                         validator: (value) {
                           if (value.isEmpty)
@@ -175,12 +164,10 @@ class _LoginPageState extends State<LoginPage> {
                             if (_formKey.currentState.validate()) {
                               final user = (await _authenticationService.signIn(
                                   email: emailController.text.trim(),
-                                  password: passwordController.text.trim()
-                              ));
+                                  password: passwordController.text.trim()));
                               if (user != null) {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => HomePage())
-                                );
+                                    builder: (context) => HomePage()));
                               }
                             }
                           },
@@ -195,7 +182,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: new Container(
                       margin: const EdgeInsets.only(left: 10.0, right: 15.0),
                       child: Divider(
-                        color:zwapprDarkGray,
+                        color: zwapprDarkGray,
                         thickness: 2,
                       )),
                 ),
@@ -204,8 +191,7 @@ class _LoginPageState extends State<LoginPage> {
                   style: new TextStyle(
                       color: zwapprDarkGray,
                       fontWeight: FontWeight.bold,
-                      fontSize: 20
-                  ),
+                      fontSize: 20),
                 ),
                 Expanded(
                   child: new Container(
@@ -213,8 +199,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Divider(
                         color: zwapprDarkGray,
                         thickness: 2,
-                      )
-                  ),
+                      )),
                 ),
               ]),
               SizedBox(height: 10),
@@ -225,8 +210,7 @@ class _LoginPageState extends State<LoginPage> {
                       (await _authenticationService.signInWithFacebook());
                   if (userCredential != null) {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => HomePage())
-                    );
+                        MaterialPageRoute(builder: (context) => HomePage()));
                   }
                 },
               ),
@@ -237,17 +221,16 @@ class _LoginPageState extends State<LoginPage> {
                       (await _authenticationService.signInWithGoogle());
                   if (userCredential != null) {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => HomePage())
-                    );
+                        MaterialPageRoute(builder: (context) => HomePage()));
                   }
                 },
               ),
               Expanded(
                 child: Align(
                   alignment: FractionalOffset.bottomCenter,
-                    child: Text('Privacy policy and licence agreement'),
-                  ),
+                  child: Text('Privacy policy and licence agreement'),
                 ),
+              ),
             ],
           )),
       resizeToAvoidBottomInset: false,

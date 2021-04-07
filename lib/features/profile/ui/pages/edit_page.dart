@@ -154,32 +154,25 @@ class _EditPageState extends State<EditPage> {
                     );
                   },
                 ),
-                Stack(
-
+                Row(
                   children: [
-                    Positioned(
-                      left: -16,
-                      child: TextButton(
-                          child: Text('Lagre',
-                            style: new TextStyle(
-                                color: zwapprBlack,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                            ),),
-                          onPressed: () async {
-                            if (newName.text != "") {
-                              _profileService.put(newName.text);
-                            }
+                    GestureDetector(
+                      onTap: () async {
+                        if (newName.text != "") {
+                          _profileService.put(newName.text);
+                        }
 
-                            if (_downloadURL != null) {
-                              await _profileService.updateImage(_downloadURL);
-                            }
-                            Navigator.pop(context);
-                          }),
+                        if (_downloadURL != null) {
+                          await _profileService.updateImage(_downloadURL);
+                        }
+                        Navigator.pop(context);
+                      },
+                      child: Text('Lagre'),
                     ),
-                    IconButtons(
-                      icon: Icons.save,
-                      press: () async {
+                    IconButton(
+                      icon: Icon(Icons.save),
+                      iconSize: 36,
+                      onPressed: () async {
                         if (newName.text != "") {
                           _profileService.put(newName.text);
                         }

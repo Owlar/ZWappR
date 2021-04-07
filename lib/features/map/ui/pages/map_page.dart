@@ -54,8 +54,7 @@ class _MapPageState extends State<MapPage> {
   void initState() {
     _getThingsFromServiceAndCreateMarkers();
     _clusterManager = _initClusterManager();
-    // Make all checkboxes in filter window checked
-    _savedCategories.addAll(categories);
+    _savedCategories.removeAll(categories);
     super.initState();
   }
 
@@ -65,7 +64,7 @@ class _MapPageState extends State<MapPage> {
       children: [
         Scaffold(
             body: GoogleMap(
-              markers: markers,
+              markers: Set<Marker>.of(markers),
               mapType: _currentMapType,
               initialCameraPosition: CameraPosition(
                   target: _currentPosition,
@@ -190,6 +189,14 @@ class _MapPageState extends State<MapPage> {
     ));
   }
 
+  void _filterMarkersByCategory() async {
+    setState(() {
+      _savedCategories.forEach((c) => {
+        markers.removeWhere((m) => m.infoWindow.snippet == "Kategori: $c")
+      });
+    });
+  }
+
   void _openFilteringModalBottomSheet(context) {
     showModalBottomSheet(context: context, builder: (BuildContext buildContext) {
       return StatefulBuilder(builder: (BuildContext context, StateSetter newStateForAllCards) {
@@ -214,14 +221,15 @@ class _MapPageState extends State<MapPage> {
                       TextButton(
                           onPressed: () {
                             // TODO: Implement filtering
+                            _filterMarkersByCategory();
+                            Navigator.of(context).pop();
                           },
                           child: Text("Filtrer", style: TextStyle(fontSize: 20))
                       ),
                       TextButton(
                           onPressed: () {
                             newStateForAllCards((){
-                              // Make all checkboxes in filter window checked
-                              _savedCategories.addAll(categories);
+                              _savedCategories.removeAll(categories);
                             });
                           },
                           child: Text("Nullstill", style: TextStyle(fontSize: 20))
@@ -256,13 +264,13 @@ class _MapPageState extends State<MapPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Checkbox(
-                    value: _savedCategories.contains(selectedCategory),
+                    value: !_savedCategories.contains(selectedCategory),
                     onChanged: (value) {
                       stateSetter(() {
                         if (value == true) {
-                          _savedCategories.add(selectedCategory);
-                        } else {
                           _savedCategories.remove(selectedCategory);
+                        } else {
+                          _savedCategories.add(selectedCategory);
                         }
                       });
                     },

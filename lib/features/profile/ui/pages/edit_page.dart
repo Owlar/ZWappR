@@ -8,7 +8,6 @@ import 'package:zwappr/features/profile/services/i_profile_service.dart';
 import 'package:zwappr/features/profile/services/profile_service.dart';
 import 'package:zwappr/features/profile/ui/pages/settings_page.dart';
 import 'package:zwappr/features/profile/ui/widgets/back_btn_blue.dart';
-import 'package:zwappr/features/profile/ui/widgets/menu.dart';
 import 'package:zwappr/features/profile/ui/widgets/profile_picture.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 

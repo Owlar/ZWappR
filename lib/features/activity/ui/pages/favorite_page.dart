@@ -2,12 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:zwappr/features/activity/methods/favorite_card.dart';
-import 'package:zwappr/features/activity/models/chat_users.dart';
 import 'package:zwappr/features/activity/services/favorite_service.dart';
 import 'package:zwappr/features/activity/services/i_favorite_service.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
-import 'package:zwappr/features/things/services/i_things_service.dart';
-import 'package:zwappr/features/things/services/things_service.dart';
 
 
 class FavoritePage extends StatefulWidget {

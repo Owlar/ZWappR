@@ -32,8 +32,8 @@ class _MapPageState extends State<MapPage> {
   // Set to HiØ's position as default
   LatLng _currentPosition = LatLng(59.1292475, 11.3506146);
 
-  bool _isCheckboxSelected = true;
-  final Set<String> _savedCategories = Set();
+  // Markers with these categories will not be shown on map
+  final Set<String> _categoriesFilteredAway = Set();
 
   MapType _currentMapType;
 
@@ -54,7 +54,7 @@ class _MapPageState extends State<MapPage> {
   void initState() {
     _getThingsFromServiceAndCreateMarkers();
     _clusterManager = _initClusterManager();
-    _savedCategories.removeAll(categories);
+    _categoriesFilteredAway.removeAll(categories);
     super.initState();
   }
 
@@ -191,7 +191,7 @@ class _MapPageState extends State<MapPage> {
 
   void _filterMarkersByCategory() async {
     setState(() {
-      _savedCategories.forEach((c) => {
+      _categoriesFilteredAway.forEach((c) => {
         markers.removeWhere((m) => m.infoWindow.snippet == "Kategori: $c")
       });
     });
@@ -229,7 +229,7 @@ class _MapPageState extends State<MapPage> {
                       TextButton(
                           onPressed: () {
                             newStateForAllCards((){
-                              _savedCategories.removeAll(categories);
+                              _categoriesFilteredAway.removeAll(categories);
                             });
                           },
                           child: Text("Nullstill", style: TextStyle(fontSize: 20))
@@ -264,13 +264,13 @@ class _MapPageState extends State<MapPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Checkbox(
-                    value: !_savedCategories.contains(selectedCategory),
+                    value: !_categoriesFilteredAway.contains(selectedCategory),
                     onChanged: (value) {
                       stateSetter(() {
                         if (value == true) {
-                          _savedCategories.remove(selectedCategory);
+                          _categoriesFilteredAway.remove(selectedCategory);
                         } else {
-                          _savedCategories.add(selectedCategory);
+                          _categoriesFilteredAway.add(selectedCategory);
                         }
                       });
                     },

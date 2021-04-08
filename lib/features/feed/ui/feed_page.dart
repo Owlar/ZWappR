@@ -18,10 +18,17 @@ class _FeedPageState extends State<FeedPage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   List<ThingModel> things = List();
+  Future<void> _thingsFromService;
 
   Future<void> _getThingsFromService() async {
     final List<ThingModel> thingsFromService = (await _feedService.getAll());
     things = thingsFromService;
+  }
+
+  @override
+  void initState() {
+    _thingsFromService = _getThingsFromService();
+    super.initState();
   }
 
   @override
@@ -42,10 +49,9 @@ class _FeedPageState extends State<FeedPage> {
                   SizedBox(height: 22),
                   Expanded(
                     child: FutureBuilder(
-                      future: _getThingsFromService(),
+                      future: _thingsFromService,
                       builder: (context, snapshot) {
-
-                    return Stack(children: things.map(_buildThing).toList());
+                        return Stack(children: things.map(_buildThing).toList());
                       }
                     ),
                   ),
@@ -254,7 +260,6 @@ class _FeedPageState extends State<FeedPage> {
     }
     setState(() {
       things.remove(thing);
-      //_feedService.delete(thing.uid);
     });
   }
   // Source: https://github.com/Owlar/tinder_ui_clone_example/blob/master/lib/widget/user_card_widget.dart

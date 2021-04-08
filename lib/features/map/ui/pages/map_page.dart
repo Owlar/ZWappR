@@ -23,7 +23,7 @@ class _MapPageState extends State<MapPage> {
   static const _animationZoomLevel = 17.0;
   static const _stopClusteringZoomLevel = 14.0;
   static const _CATEGORY = "Kategori: ";
-
+  bool flag = false;
   Completer<GoogleMapController> _controller = Completer();
 
   ClusterManager _clusterManager;
@@ -75,7 +75,7 @@ class _MapPageState extends State<MapPage> {
                 _clusterManager.setMapController(controller);
               },
               onCameraMove: _clusterManager.onCameraMove,
-              onCameraIdle: _clusterManager.updateMap,
+              onCameraIdle: flag == true ? _clusterManager.getMarkers : _clusterManager.updateMap,
               rotateGesturesEnabled: true,
               scrollGesturesEnabled: true,
               myLocationEnabled: true,
@@ -190,6 +190,7 @@ class _MapPageState extends State<MapPage> {
   }
 
   void _filterMarkersByCategory() async {
+    flag = true;
     setState(() {
       _categoriesFilteredAway.forEach((c) => {
         markers.removeWhere((m) => m.infoWindow.snippet == "$_CATEGORY$c")

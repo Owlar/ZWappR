@@ -27,6 +27,7 @@ class _MapPageState extends State<MapPage> {
   Completer<GoogleMapController> _controller = Completer();
 
   ClusterManager _clusterManager;
+  Future<void> _futureGet;
   Set<Marker> markers = Set();
   List<ClusterItem<ThingMarker>> items = List();
 
@@ -53,125 +54,131 @@ class _MapPageState extends State<MapPage> {
 
   @override
   void initState() {
-    _getThingsFromServiceAndCreateMarkers();
     _clusterManager = _initClusterManager();
+    _futureGet = _getThingsFromServiceAndCreateMarkers();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Scaffold(
-            body: GoogleMap(
-              markers: markers,
-              mapType: _currentMapType,
-              initialCameraPosition: CameraPosition(
-                  target: _currentPosition,
-                  zoom: _initialZoomLevel
-              ),
-              onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-                _clusterManager.setMapController(controller);
-              },
-              onCameraMove: _clusterManager.onCameraMove,
-              onCameraIdle: _clusterManager.updateMap,
-              rotateGesturesEnabled: true,
-              scrollGesturesEnabled: true,
-              myLocationEnabled: true,
-              zoomGesturesEnabled: true,
-              zoomControlsEnabled: false,
-              myLocationButtonEnabled: false,
-              mapToolbarEnabled: false,
-            ),
-            floatingActionButton: FloatingActionButton.extended(
-                onPressed: () {
-                  _openFilteringModalBottomSheet(context);
-                },
-                backgroundColor: zwapprYellow,
-                icon: Icon(Icons.filter_list, color: zwapprBlack, size: 30),
-                label: Text("Filter", style: TextStyle(color: zwapprBlack, fontSize: 16))
-            )
-        ),
-        Padding(
-          padding: EdgeInsets.all(4.0),
-          child: Column(
-            children: <Widget>[
-              SizedBox(height: 100),
-              Align(
-                alignment: Alignment.topRight,
-                child: FloatingActionButton(
-                  shape: RoundedRectangleBorder(),
-                  mini: true,
-                  onPressed: () {
-                    _getCurrentPositionAndAnimate();
+    return FutureBuilder(
+      future: _futureGet,
+      builder: (context, snapshot) {
+        return Stack(
+          children: [
+            Scaffold(
+                body: GoogleMap(
+                  markers: markers,
+                  mapType: _currentMapType,
+                  initialCameraPosition: CameraPosition(
+                      target: _currentPosition,
+                      zoom: _initialZoomLevel
+                  ),
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller.complete(controller);
+                    _clusterManager.setMapController(controller);
                   },
-                  backgroundColor: zwapprWhite,
-                  child: Icon(Icons.my_location, size: 30, color: zwapprBlack),
+                  onCameraMove: _clusterManager.onCameraMove,
+                  //onCameraIdle: _clusterManager.updateMap,
+                  rotateGesturesEnabled: true,
+                  scrollGesturesEnabled: true,
+                  myLocationEnabled: true,
+                  zoomGesturesEnabled: true,
+                  zoomControlsEnabled: false,
+                  myLocationButtonEnabled: false,
+                  mapToolbarEnabled: false,
+                ),
+                floatingActionButton: FloatingActionButton.extended(
+                    onPressed: () {
+                      _openFilteringModalBottomSheet(context);
+                    },
+                    backgroundColor: zwapprYellow,
+                    icon: Icon(Icons.filter_list, color: zwapprBlack, size: 30),
+                    label: Text("Filter", style: TextStyle(color: zwapprBlack, fontSize: 16))
                 )
-              ),
-              Align(
-                  alignment: Alignment.topRight,
-                  child: Visibility(
-                    child: PopupMenuButton<TypeOfMap>(
+            ),
+            Padding(
+                padding: EdgeInsets.all(4.0),
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(height: 100),
+                    Align(
+                        alignment: Alignment.topRight,
                         child: FloatingActionButton(
-                          // DON'T ADD onPressed
                           shape: RoundedRectangleBorder(),
                           mini: true,
+                          onPressed: () {
+                            _getCurrentPositionAndAnimate();
+                          },
                           backgroundColor: zwapprWhite,
-                          child: Icon(Icons.layers, size: 30, color: zwapprBlack),
-                        ),
-                        onSelected: (TypeOfMap result) async {
-                          switch(result) {
-                            case TypeOfMap.Normal:
-                              setState(() {
-                                _currentMapType = MapType.normal;
-                              });
-                              break;
-                            case TypeOfMap.Satellite:
-                              setState(() {
-                                _currentMapType = MapType.satellite;
-                              });
-                              break;
-                            case TypeOfMap.Terrain:
-                              setState(() {
-                                _currentMapType = MapType.terrain;
-                              });
-                              break;
-                            case TypeOfMap.Hybrid:
-                              setState(() {
-                                _currentMapType = MapType.hybrid;
-                              });
-                              break;
-                            default:
-                              _currentMapType = MapType.normal;
-                          }
-                        },
-                        itemBuilder: (BuildContext buildContext) => <PopupMenuEntry<TypeOfMap>>[
-                          const PopupMenuItem<TypeOfMap>(
-                            value: TypeOfMap.Normal,
-                            child: Text("Normal"),
-                          ),
-                          const PopupMenuItem<TypeOfMap>(
-                            value: TypeOfMap.Satellite,
-                            child: Text("Satellite"),
-                          ),
-                          const PopupMenuItem<TypeOfMap>(
-                            value: TypeOfMap.Terrain,
-                            child: Text("Terrain"),
-                          ),
-                          const PopupMenuItem<TypeOfMap>(
-                            value: TypeOfMap.Hybrid,
-                            child: Text("Hybrid"),
-                          ),
-                        ]
+                          child: Icon(Icons.my_location, size: 30, color: zwapprBlack),
+                        )
                     ),
-                  )
-              )
-            ],
-          )
-        )
-      ],
+                    Align(
+                        alignment: Alignment.topRight,
+                        child: Visibility(
+                          child: PopupMenuButton<TypeOfMap>(
+                              child: FloatingActionButton(
+                                // DON'T ADD onPressed
+                                shape: RoundedRectangleBorder(),
+                                mini: true,
+                                backgroundColor: zwapprWhite,
+                                child: Icon(Icons.layers, size: 30, color: zwapprBlack),
+                              ),
+                              onSelected: (TypeOfMap result) async {
+                                switch(result) {
+                                  case TypeOfMap.Normal:
+                                    setState(() {
+                                      _currentMapType = MapType.normal;
+                                    });
+                                    break;
+                                  case TypeOfMap.Satellite:
+                                    setState(() {
+                                      _currentMapType = MapType.satellite;
+                                    });
+                                    break;
+                                  case TypeOfMap.Terrain:
+                                    setState(() {
+                                      _currentMapType = MapType.terrain;
+                                    });
+                                    break;
+                                  case TypeOfMap.Hybrid:
+                                    setState(() {
+                                      _currentMapType = MapType.hybrid;
+                                    });
+                                    break;
+                                  default:
+                                    _currentMapType = MapType.normal;
+                                }
+                              },
+                              itemBuilder: (BuildContext buildContext) => <PopupMenuEntry<TypeOfMap>>[
+                                const PopupMenuItem<TypeOfMap>(
+                                  value: TypeOfMap.Normal,
+                                  child: Text("Normal"),
+                                ),
+                                const PopupMenuItem<TypeOfMap>(
+                                  value: TypeOfMap.Satellite,
+                                  child: Text("Satellite"),
+                                ),
+                                const PopupMenuItem<TypeOfMap>(
+                                  value: TypeOfMap.Terrain,
+                                  child: Text("Terrain"),
+                                ),
+                                const PopupMenuItem<TypeOfMap>(
+                                  value: TypeOfMap.Hybrid,
+                                  child: Text("Hybrid"),
+                                ),
+                              ]
+                          ),
+                        )
+                    )
+                  ],
+                )
+            )
+          ],
+        );
+
+      }
     );
   }
 

@@ -249,7 +249,7 @@ class _EditThingPageState extends State<EditThingPage> {
                         textColor: zwapprWhite,
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
-                            if ( _downloadURL == null) {
+                            if ( _nameOfImage != null) {
                               await downloadURL();
                             }
                             final userPosition = await getUserGeoPosition();

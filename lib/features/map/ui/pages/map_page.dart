@@ -2,12 +2,9 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_maps_cluster_manager/google_maps_cluster_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:zwappr/features/map/models/thing_marker_model.dart';
-import 'package:zwappr/features/map/providers/fetch_data_provider.dart';
 import 'package:zwappr/features/map/services/i_map_service.dart';
 import 'package:zwappr/features/map/services/map_service.dart';
 import 'package:zwappr/features/map/utils/list_category_icons.dart';
@@ -42,7 +39,7 @@ class _MapPageState extends State<MapPage> {
   MapType _currentMapType;
 
 
-  Future<void> _createMarkers(List<ThingMarker> things) async {
+  Future<void> _getThingsFromServiceAndCreateMarkers() async {
     final List<ThingMarker> _thingsAsMarkersFromService = (await _mapService.getAll());
     _thingsAsMarkersFromService.forEach((thing) => {
       items.add(
@@ -56,9 +53,7 @@ class _MapPageState extends State<MapPage> {
 
   @override
   void initState() {
-    final fetchedItems = Provider.of<FetchDataProvider>(context, listen: false);
-    fetchedItems.getFetchedData();
-    _createMarkers(fetchedItems.items);
+    _getThingsFromServiceAndCreateMarkers();
     _clusterManager = _initClusterManager();
     super.initState();
   }

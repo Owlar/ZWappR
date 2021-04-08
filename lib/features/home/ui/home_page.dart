@@ -5,7 +5,6 @@ import 'package:zwappr/features/feed/providers/feedback_position_provider.dart';
 import 'package:zwappr/features/feed/ui/feed_page.dart';
 import 'package:zwappr/features/home/service/i_notification_service.dart';
 import 'package:zwappr/features/home/service/notification_service.dart';
-import 'package:zwappr/features/map/providers/fetch_data_provider.dart';
 import 'package:zwappr/features/map/ui/pages/map_page.dart';
 import 'package:zwappr/features/profile/ui/pages/profile_page.dart';
 import 'package:zwappr/features/things/ui/pages/things_page.dart';
@@ -53,7 +52,7 @@ class _HomePageState extends State<HomePage> {
             case 2:
               return ThingsPage();
             case 3:
-              return ChangeNotifierProvider(create: (context) => FetchDataProvider(), child: MapPage());
+              return MapPage();
             case 4:
               return ProfilePage();
             default:

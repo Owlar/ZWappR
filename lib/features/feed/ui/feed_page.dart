@@ -255,12 +255,16 @@ class _FeedPageState extends State<FeedPage> {
     final minimumDrag = 100;
     if (details.offset.dx > minimumDrag) {
       thing.isSwipedOff = true;
+      setState(() {
+        things.remove(thing);
+      });
     } else if (details.offset.dx < -minimumDrag) {
       thing.isLiked = true;
+      setState(() {
+        things.remove(thing);
+      });
     }
-    setState(() {
-      things.remove(thing);
-    });
+
   }
   // Source: https://github.com/Owlar/tinder_ui_clone_example/blob/master/lib/widget/user_card_widget.dart
 

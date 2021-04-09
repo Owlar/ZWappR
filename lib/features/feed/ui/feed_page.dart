@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:zwappr/features/feed/providers/feedback_position_provider.dart';
 import 'package:zwappr/features/feed/services/feed_service.dart';
 import 'package:zwappr/features/feed/services/i_feed_service.dart';
-import 'package:zwappr/features/feed/ui/widgets/own_thing_card.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
@@ -21,6 +20,8 @@ class _FeedPageState extends State<FeedPage> {
   List<ThingModel> things = List();
   List<ThingModel> ownThings = List();
   Future<void> _thingsFromService;
+
+  bool _valueOwnThingOffer = false;
 
   Future<void> _getThingsFromService() async {
     final List<ThingModel> thingsFromService = (await _feedService.getAll());
@@ -72,8 +73,11 @@ class _FeedPageState extends State<FeedPage> {
                             scrollDirection: Axis.horizontal,
                             itemCount: snapshot.data.length,
                             itemBuilder: (BuildContext context, int index) {
-                              final thing = snapshot.data[index];
-                              return buildOwnThingCard(thing, context);
+                              return StatefulBuilder(builder: (BuildContext context, StateSetter newStateForCard) {
+                                final thing = snapshot.data[index];
+                                return buildOwnThingCard(thing, context, newStateForCard);
+                              });
+
                             },
                           );
                         }
@@ -94,6 +98,35 @@ class _FeedPageState extends State<FeedPage> {
               ]
           )
       ),
+    );
+  }
+
+  Card buildOwnThingCard(ThingModel thing, BuildContext context, StateSetter newStateForCard) {
+    return Card(
+        child: Container(
+          child: Stack(
+            alignment: Alignment.topRight,
+            children: [
+              Checkbox(
+                onChanged: (bool value) {
+                  newStateForCard(() {
+                    // TODO: Make selected item the offer for the thing swiping on
+                    // TODO: Make only one item checkable because one should only be able to make offer with one item
+                    _valueOwnThingOffer = value;
+                  });
+                },
+                value: _valueOwnThingOffer,
+              ),
+            ],
+          ),
+          width: 120,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: NetworkImage(thing.imageUrl),
+            ),
+          ),
+        )
     );
   }
 

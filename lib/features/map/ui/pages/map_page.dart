@@ -23,7 +23,7 @@ class _MapPageState extends State<MapPage> {
   static const _animationZoomLevel = 17.0;
   static const _stopClusteringZoomLevel = 14.0;
   static const _CATEGORY = "Kategori: ";
-  bool flag = false;
+
   Completer<GoogleMapController> _controller = Completer();
 
   ClusterManager _clusterManager;
@@ -37,6 +37,7 @@ class _MapPageState extends State<MapPage> {
   final Set<String> _categoriesFilteredAway = Set();
 
   MapType _currentMapType;
+  bool flag = false;
 
 
   Future<void> _getThingsFromServiceAndCreateMarkers() async {

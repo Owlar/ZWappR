@@ -118,7 +118,7 @@ class _FeedPageState extends State<FeedPage> {
                 gradient: LinearGradient(
                   colors: [Colors.black12, zwapprBlack],
                   begin: Alignment.center,
-                  stops: [0.1, 1],
+                  stops: [0.1, 2],
                   end: Alignment.bottomCenter,
                 )
             ),
@@ -162,10 +162,14 @@ class _FeedPageState extends State<FeedPage> {
               child: Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    border: Border.all(color: color, width: 3),
+                    color: zwapprWhite,
+                    boxShadow: [
+                      BoxShadow(color: zwapprBlack, spreadRadius: 0.2),
+                    ],
+                    border: Border.all(color: color, width: 5),
                   ),
                   child: Text(
-                      isSwipingRight ? "JA!" : "NEI!",
+                      isSwipingRight ? "Ja!" : "Nei!",
                       style: TextStyle(
                         color: color,
                         fontSize: 50,
@@ -189,17 +193,17 @@ class _FeedPageState extends State<FeedPage> {
               SizedBox(height: 4),
               Text(
                 "${thing.title}",
-                style: TextStyle(color: zwapprWhite, fontSize: 30),
+                style: TextStyle(color: zwapprWhite, fontSize: 34),
               ),
               SizedBox(height: 4),
               Text(
                 "${thing.description}",
-                style: TextStyle(color: zwapprWhite, fontSize: 18),
+                style: TextStyle(color: zwapprWhite, fontSize: 14),
               ),
               SizedBox(height: 10),
               Text(
                 "${thing.exchangeValue} kr",
-                style: TextStyle(color: zwapprWhite, fontSize: 14, fontWeight: FontWeight.bold),
+                style: TextStyle(color: zwapprWhite, fontSize: 16, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 4),
               Text(

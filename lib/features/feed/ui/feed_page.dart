@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:zwappr/features/feed/providers/feedback_position_provider.dart';
 import 'package:zwappr/features/feed/services/feed_service.dart';
 import 'package:zwappr/features/feed/services/i_feed_service.dart';
+import 'package:zwappr/features/feed/ui/widgets/own_thing_card.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
@@ -18,11 +19,17 @@ class _FeedPageState extends State<FeedPage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   List<ThingModel> things = List();
+  List<ThingModel> ownThings = List();
   Future<void> _thingsFromService;
 
   Future<void> _getThingsFromService() async {
     final List<ThingModel> thingsFromService = (await _feedService.getAll());
     things = thingsFromService;
+  }
+
+  Future<List<ThingModel>> _getOwnThingsFromService() async {
+    final List<ThingModel> thingsFromService = (await _feedService.getAllOfMyOwn());
+    return thingsFromService;
   }
 
   @override
@@ -47,6 +54,32 @@ class _FeedPageState extends State<FeedPage> {
                 SizedBox(height: 22),
                 SvgPicture.asset("assets/icons/zwappr_logo.svg", height: 100),
                 SizedBox(height: 22),
+                Container(
+                    height: 140,
+                    child: FutureBuilder(
+                      future: _getOwnThingsFromService(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          return Text("${snapshot.error}");
+                        }
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Center(
+                              child: CircularProgressIndicator()
+                          );
+                        } else {
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              final thing = snapshot.data[index];
+                              return buildOwnThingCard(thing, context);
+                            },
+                          );
+                        }
+                      },
+                    )
+                ),
                 Expanded(
                   child: FutureBuilder(
                       future: _thingsFromService,
@@ -55,8 +88,9 @@ class _FeedPageState extends State<FeedPage> {
                       }
                   ),
                 ),
+                SizedBox(height: 10),
                 SizedBox(child: _swipeBottomButtons()),
-                SizedBox(height: 22),
+                SizedBox(height: 10),
               ]
           )
       ),
@@ -99,9 +133,8 @@ class _FeedPageState extends State<FeedPage> {
     final imageUrl = thing.imageUrl;
 
     return Container(
-        height: size.height * 0.5,
+        height: size.height * 0.6,
         width: size.width * 0.95,
-
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           image: DecorationImage(
@@ -226,7 +259,7 @@ class _FeedPageState extends State<FeedPage> {
           RaisedButton(
             shape: CircleBorder(),
             padding: const EdgeInsets.all(4),
-            child: Icon(Icons.close, color: zwapprRed, size: 50),
+            child: Icon(Icons.close, color: zwapprRed, size: 60),
             color: zwapprBlack,
             onPressed: () {
             },
@@ -234,7 +267,7 @@ class _FeedPageState extends State<FeedPage> {
           RaisedButton(
             shape: CircleBorder(),
             padding: const EdgeInsets.all(4),
-            child: Icon(Icons.star, color: zwapprYellow, size: 50),
+            child: Icon(Icons.star, color: zwapprYellow, size: 60),
             color: zwapprBlack,
             onPressed: () {
 
@@ -243,7 +276,7 @@ class _FeedPageState extends State<FeedPage> {
           RaisedButton(
             shape: CircleBorder(),
             padding: const EdgeInsets.all(4),
-            child: Icon(Icons.check, color: zwapprGreen, size: 50),
+            child: Icon(Icons.check, color: zwapprGreen, size: 60),
             color: zwapprBlack,
             onPressed: () {
 

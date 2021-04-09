@@ -34,33 +34,33 @@ class _FeedPageState extends State<FeedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/background_screen.png"),
-                fit: BoxFit.cover,
-              ),
+      body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/background_screen.png"),
+              fit: BoxFit.cover,
             ),
-            padding: const EdgeInsets.all(8),
-            child: Column(
-                children: [
-                  SizedBox(height: 22),
-                  SvgPicture.asset("assets/icons/zwappr_logo.svg", height: 100),
-                  SizedBox(height: 22),
-                  Expanded(
-                    child: FutureBuilder(
+          ),
+          padding: const EdgeInsets.all(8),
+          child: Column(
+              children: [
+                SizedBox(height: 22),
+                SvgPicture.asset("assets/icons/zwappr_logo.svg", height: 100),
+                SizedBox(height: 22),
+                Expanded(
+                  child: FutureBuilder(
                       future: _thingsFromService,
                       builder: (context, snapshot) {
                         return Stack(children: things.map(_buildThing).toList());
                       }
-                    ),
                   ),
-                  SizedBox(child: _swipeBottomButtons()),
-                  SizedBox(height: 22),
-                ]
-            )
-          ),
-        );
+                ),
+                SizedBox(child: _swipeBottomButtons()),
+                SizedBox(height: 22),
+              ]
+          )
+      ),
+    );
   }
 
   Widget _buildThing(ThingModel thing) {
@@ -68,27 +68,27 @@ class _FeedPageState extends State<FeedPage> {
     final isThingInFocus = thingIndex == things.length -1;
 
     return Listener(
-      onPointerMove: (pointerEvent) {
-        final provider = Provider.of<FeedbackPositionProvider>(context, listen: false);
-        provider.updatePosition(pointerEvent.localDelta.dx);
-      },
-      onPointerCancel: (_) {
-        final provider = Provider.of<FeedbackPositionProvider>(context, listen: false);
-        provider.resetPosition();
-      },
-      onPointerUp: (_) {
-        final provider = Provider.of<FeedbackPositionProvider>(context, listen: false);
-        provider.resetPosition();
-      },
-      child: Draggable(
-        child: _thingSwipingCard(thing: thing, isThingInFocus: isThingInFocus),
-        feedback: Material(
-          type: MaterialType.transparency,
+        onPointerMove: (pointerEvent) {
+          final provider = Provider.of<FeedbackPositionProvider>(context, listen: false);
+          provider.updatePosition(pointerEvent.localDelta.dx);
+        },
+        onPointerCancel: (_) {
+          final provider = Provider.of<FeedbackPositionProvider>(context, listen: false);
+          provider.resetPosition();
+        },
+        onPointerUp: (_) {
+          final provider = Provider.of<FeedbackPositionProvider>(context, listen: false);
+          provider.resetPosition();
+        },
+        child: Draggable(
           child: _thingSwipingCard(thing: thing, isThingInFocus: isThingInFocus),
-        ),
-        childWhenDragging: Container(),
-        onDragEnd: (details) => _onDragEnd(details, thing),
-      )
+          feedback: Material(
+            type: MaterialType.transparency,
+            child: _thingSwipingCard(thing: thing, isThingInFocus: isThingInFocus),
+          ),
+          childWhenDragging: Container(),
+          onDragEnd: (details) => _onDragEnd(details, thing),
+        )
     );
   }
 
@@ -96,49 +96,52 @@ class _FeedPageState extends State<FeedPage> {
     final provider = Provider.of<FeedbackPositionProvider>(context);
     final swipingDirection = provider.swipingDirection;
     final size = MediaQuery.of(context).size;
+    final imageUrl = thing.imageUrl;
 
     return Container(
-      height: size.height * 0.5,
-      width: size.width * 0.90,
+        height: size.height * 0.5,
+        width: size.width * 0.95,
 
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: zwapprWhite,
-      ),
-      child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(color: Colors.black12, spreadRadius: 0.6),
-          ],
-          gradient: LinearGradient(
-            colors: [Colors.white70, Colors.white10],
-            begin: Alignment.center,
-            stops: [0.4, 1],
-            end: Alignment.bottomCenter,
-          )
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: NetworkImage(imageUrl),
+          ),
         ),
-        child: Stack(
-          children: [
-            Positioned(
-              right: 8,
-              left: 8,
-              bottom: 12,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: _buildThingInformation(thing: thing),
-                  )
+        child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(color: Colors.black12, spreadRadius: 0.1),
                 ],
-              )
+                gradient: LinearGradient(
+                  colors: [Colors.black12, zwapprBlack],
+                  begin: Alignment.center,
+                  stops: [0.1, 1],
+                  end: Alignment.bottomCenter,
+                )
             ),
-            if (isThingInFocus) _buildLikeBadge(swipingDirection),
-          ],
+            child: Stack(
+              children: [
+                Positioned(
+                    right: 8,
+                    left: 8,
+                    bottom: 12,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: _buildThingInformation(thing: thing),
+                        )
+                      ],
+                    )
+                ),
+                if (isThingInFocus) _buildLikeBadge(swipingDirection),
+              ],
+            )
         )
-      )
-
     );
   }
 
@@ -151,27 +154,27 @@ class _FeedPageState extends State<FeedPage> {
       return Container();
     else {
       return Positioned(
-        top: 20,
-        right: isSwipingRight ? null : 20,
-        left: isSwipingRight ? 20 : null,
-        child: Transform.rotate(
-          angle: angle,
-          child: Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              border: Border.all(color: color, width: 3),
-            ),
-            child: Text(
-              isSwipingRight ? "YES!" : "NO!",
-              style: TextStyle(
-                color: color,
-                fontSize: 50,
-                fontWeight: FontWeight.bold,
-              )
+          top: 20,
+          right: isSwipingRight ? null : 20,
+          left: isSwipingRight ? 20 : null,
+          child: Transform.rotate(
+              angle: angle,
+              child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: color, width: 3),
+                  ),
+                  child: Text(
+                      isSwipingRight ? "JA!" : "NEI!",
+                      style: TextStyle(
+                        color: color,
+                        fontSize: 50,
+                        fontWeight: FontWeight.bold,
+                      )
 
-            )
+                  )
+              )
           )
-        )
       );
     }
   }
@@ -180,74 +183,69 @@ class _FeedPageState extends State<FeedPage> {
     return Padding(
         padding: const EdgeInsets.all(8),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Center(
-              child: Image.network(thing.imageUrl, height: 200),
-            ),
-            SizedBox(height: 4),
-            Text(
-              "${thing.title}",
-              style: TextStyle(color: zwapprBlack, fontSize: 30),
-            ),
-            SizedBox(height: 4),
-            Text(
-              "${thing.description}",
-              style: TextStyle(color: zwapprBlack, fontSize: 18),
-            ),
-            SizedBox(height: 10),
-            Text(
-              "${thing.exchangeValue} kr",
-              style: TextStyle(color: zwapprBlack, fontSize: 14, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 4),
-            Text(
-              "Brukstilstand: ${thing.condition}",
-              style: TextStyle(color: zwapprBlack, fontSize: 14),
-            ),
-            Text(
-              "Kategori: ${thing.category}",
-              style: TextStyle(color: zwapprBlack, fontSize: 14),
-            ),
-          ]
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(height: 4),
+              Text(
+                "${thing.title}",
+                style: TextStyle(color: zwapprWhite, fontSize: 30),
+              ),
+              SizedBox(height: 4),
+              Text(
+                "${thing.description}",
+                style: TextStyle(color: zwapprWhite, fontSize: 18),
+              ),
+              SizedBox(height: 10),
+              Text(
+                "${thing.exchangeValue} kr",
+                style: TextStyle(color: zwapprWhite, fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 4),
+              Text(
+                "Brukstilstand: ${thing.condition}",
+                style: TextStyle(color: zwapprWhite, fontSize: 14),
+              ),
+              Text(
+                "Kategori: ${thing.category}",
+                style: TextStyle(color: zwapprWhite, fontSize: 14),
+              ),
+            ]
         )
     );
   }
 
   Widget _swipeBottomButtons() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        RaisedButton(
-          shape: CircleBorder(),
-          padding: const EdgeInsets.all(4),
-          child: Icon(Icons.close, color: zwapprRed, size: 70),
-          color: zwapprBlack,
-          onPressed: () {
-          },
-        ),
-        SizedBox(width: 10),
-        RaisedButton(
-          shape: CircleBorder(),
-          padding: const EdgeInsets.all(4),
-          child: Icon(Icons.star, color: zwapprYellow, size: 70),
-          color: zwapprBlack,
-          onPressed: () {
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          RaisedButton(
+            shape: CircleBorder(),
+            padding: const EdgeInsets.all(4),
+            child: Icon(Icons.close, color: zwapprRed, size: 50),
+            color: zwapprBlack,
+            onPressed: () {
+            },
+          ),
+          RaisedButton(
+            shape: CircleBorder(),
+            padding: const EdgeInsets.all(4),
+            child: Icon(Icons.star, color: zwapprYellow, size: 50),
+            color: zwapprBlack,
+            onPressed: () {
 
-          },
-        ),
-        SizedBox(width: 10),
-        RaisedButton(
-          shape: CircleBorder(),
-          padding: const EdgeInsets.all(4),
-          child: Icon(Icons.check, color: zwapprGreen, size: 70),
-          color: zwapprBlack,
-          onPressed: () {
+            },
+          ),
+          RaisedButton(
+            shape: CircleBorder(),
+            padding: const EdgeInsets.all(4),
+            child: Icon(Icons.check, color: zwapprGreen, size: 50),
+            color: zwapprBlack,
+            onPressed: () {
 
-          },
-        ),
-      ]
+            },
+          ),
+        ]
     );
   }
 
@@ -266,6 +264,6 @@ class _FeedPageState extends State<FeedPage> {
     }
 
   }
-  // Source: https://github.com/Owlar/tinder_ui_clone_example/blob/master/lib/widget/user_card_widget.dart
+// Source: https://github.com/Owlar/tinder_ui_clone_example/blob/master/lib/widget/user_card_widget.dart
 
 }

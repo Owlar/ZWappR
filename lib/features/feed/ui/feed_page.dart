@@ -21,7 +21,7 @@ class _FeedPageState extends State<FeedPage> {
   List<ThingModel> ownThings = List();
   Future<void> _thingsFromService;
 
-  bool _valueOwnThingOffer = false;
+  final Set _savedPotentialOffers = Set();
 
   Future<void> _getThingsFromService() async {
     final List<ThingModel> thingsFromService = (await _feedService.getAll());
@@ -56,7 +56,7 @@ class _FeedPageState extends State<FeedPage> {
                 SvgPicture.asset("assets/icons/zwappr_logo.svg", height: 100),
                 SizedBox(height: 22),
                 Container(
-                    height: 140,
+                    height: 100,
                     child: FutureBuilder(
                       future: _getOwnThingsFromService(),
                       builder: (context, snapshot) {
@@ -75,7 +75,7 @@ class _FeedPageState extends State<FeedPage> {
                             itemBuilder: (BuildContext context, int index) {
                               return StatefulBuilder(builder: (BuildContext context, StateSetter newStateForCard) {
                                 final thing = snapshot.data[index];
-                                return buildOwnThingCard(thing, context, newStateForCard);
+                                return buildOwnThingCard(thing, context, newStateForCard, index);
                               });
 
                             },
@@ -101,25 +101,28 @@ class _FeedPageState extends State<FeedPage> {
     );
   }
 
-  Card buildOwnThingCard(ThingModel thing, BuildContext context, StateSetter newStateForCard) {
+  Card buildOwnThingCard(ThingModel thing, BuildContext context, StateSetter newStateForCard, int index) {
     return Card(
         child: Container(
-          child: Stack(
-            alignment: Alignment.topRight,
-            children: [
-              Checkbox(
-                onChanged: (bool value) {
-                  newStateForCard(() {
-                    // TODO: Make selected item the offer for the thing swiping on
-                    // TODO: Make only one item checkable because one should only be able to make offer with one item
-                    _valueOwnThingOffer = value;
-                  });
-                },
-                value: _valueOwnThingOffer,
-              ),
-            ],
+          child: CheckboxListTile(
+            checkColor: zwapprWhite,
+            activeColor: zwapprBlue,
+            contentPadding: EdgeInsets.zero,
+            onChanged: (bool value) {
+              newStateForCard(() {
+                if (value == true) {
+                  // Should only be able to select one item as offer
+                  _savedPotentialOffers.clear();
+                  _savedPotentialOffers.add(index);
+                } else {
+                  _savedPotentialOffers.remove(index);
+                }
+                setState(() {});
+              });
+            },
+            value: _savedPotentialOffers.contains(index),
           ),
-          width: 120,
+          width: 90,
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,

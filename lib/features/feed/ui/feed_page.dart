@@ -18,10 +18,10 @@ class _FeedPageState extends State<FeedPage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   List<ThingModel> things = List();
-  List<ThingModel> ownThings = List();
   Future<void> _thingsFromService;
 
   final Set _savedPotentialOffers = Set();
+  ThingModel _offerThing;
 
   Future<void> _getThingsFromService() async {
     final List<ThingModel> thingsFromService = (await _feedService.getAll());
@@ -105,15 +105,17 @@ class _FeedPageState extends State<FeedPage> {
     return Card(
         child: Container(
           child: CheckboxListTile(
+            title: Text("${thing.exchangeValue} kr"),
             checkColor: zwapprWhite,
             activeColor: zwapprBlue,
-            contentPadding: EdgeInsets.zero,
+            contentPadding: EdgeInsets.all(2.0),
             onChanged: (bool value) {
               newStateForCard(() {
                 if (value == true) {
                   // Should only be able to select one item as offer
                   _savedPotentialOffers.clear();
                   _savedPotentialOffers.add(index);
+                  _offerThing = thing;
                 } else {
                   _savedPotentialOffers.remove(index);
                 }
@@ -122,7 +124,7 @@ class _FeedPageState extends State<FeedPage> {
             },
             value: _savedPotentialOffers.contains(index),
           ),
-          width: 90,
+          width: 100,
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
@@ -328,7 +330,9 @@ class _FeedPageState extends State<FeedPage> {
       thing.isSwipedOff = true;
       setState(() {
         things.remove(thing);
+        _feedService.offerItemInExchangeForLikedItem(_offerThing, thing.uid);
       });
+
     } else if (details.offset.dx < -minimumDrag) {
       thing.isLiked = true;
       setState(() {
@@ -337,6 +341,6 @@ class _FeedPageState extends State<FeedPage> {
     }
 
   }
-// Source: https://github.com/Owlar/tinder_ui_clone_example/blob/master/lib/widget/user_card_widget.dart
+  // Source: https://github.com/JohannesMilke/tinder_ui_clone_example
 
 }

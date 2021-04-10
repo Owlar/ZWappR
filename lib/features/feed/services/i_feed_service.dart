@@ -12,4 +12,9 @@ abstract class IFeedService {
   /// [uid]
   Future<void> delete(String uid);
 
+  // Offering my own thing in exchange for their item that was liked with:
+  /// [thingOffer]
+  /// [thingLikedUid]
+  Future<void> offerItemInExchangeForLikedItem(ThingModel thingOffer, String thingLikedUid);
+
 }

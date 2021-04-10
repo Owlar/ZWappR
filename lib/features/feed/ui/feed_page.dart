@@ -324,17 +324,48 @@ class _FeedPageState extends State<FeedPage> {
     );
   }
 
+  // Source: https://api.flutter.dev/flutter/material/AlertDialog-class.html
+  Future<void> _showDialog(String title, String description) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            title: Text(title),
+            content: SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    Text(description),
+                  ],
+                )
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text("Godta"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ]
+        );
+      }
+    );
+  }
+
   _onDragEnd(DraggableDetails details, ThingModel thing) {
     final minimumDrag = 100;
     if (details.offset.dx > minimumDrag) {
-      thing.isSwipedOff = true;
-      setState(() {
-        things.remove(thing);
-        _feedService.offerItemInExchangeForLikedItem(_offerThing, thing.uid);
-      });
-
-    } else if (details.offset.dx < -minimumDrag) {
       thing.isLiked = true;
+      if (_offerThing == null) {
+        _showDialog("Obs!", "Vennligst velg en av dine egne gjenstander som tilbud");
+      } else {
+        setState(() {
+          things.remove(thing);
+          _feedService.offerItemInExchangeForLikedItem(_offerThing, thing.uid);
+        });
+      }
+    } else if (details.offset.dx < -minimumDrag) {
+      thing.isSwipedOff = true;
       setState(() {
         things.remove(thing);
       });

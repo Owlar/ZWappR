@@ -91,7 +91,7 @@ class _MapPageState extends State<MapPage> {
                 },
                 backgroundColor: zwapprYellow,
                 icon: Icon(Icons.filter_list, color: zwapprBlack, size: 30),
-                label: Text("Filter", style: TextStyle(color: zwapprBlack, fontSize: 16))
+                label: Text("Filtrere", style: TextStyle(color: zwapprBlack, fontSize: 16))
             )
         ),
         Padding(

@@ -20,8 +20,7 @@ class ListViewMsg extends StatelessWidget {
       physics: BouncingScrollPhysics(),
       itemBuilder: (context, index) {
         return Container(
-          padding:
-          EdgeInsets.only(left: 4, right: 4, top: 4, bottom: 4),
+          padding: EdgeInsets.only(left: 4, right: 4, top: 4, bottom: 4),
           child: Align(
             alignment: (messages[index].messageType == "receiver"
                 ? Alignment.topLeft
@@ -59,10 +58,12 @@ class ListViewMsg extends StatelessWidget {
                         width: 80,
                         child: Image.network(messages[index].messageImageTwo)),
                     SizedBox(width: 18),
-                    Text(
-                      messages[index].messageContent,
-                      style: TextStyle(fontSize: 20),
-                    ),
+                    Expanded(
+                      child: Text(
+                        messages[index].messageContent,
+                        style: TextStyle(fontSize: 18)
+                      ),
+                    )
                   ],
                 ),
               ),

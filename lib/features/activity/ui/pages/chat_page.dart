@@ -45,7 +45,6 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-
     super.didChangeAppLifecycleState(state);
     switch (state) {
       case AppLifecycleState.paused:

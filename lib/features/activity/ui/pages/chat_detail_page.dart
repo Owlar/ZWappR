@@ -55,7 +55,6 @@ class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObse
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    // TODO: implement didChangeAppLifecycleState
     super.didChangeAppLifecycleState(state);
     switch (state) {
       case AppLifecycleState.paused:
@@ -79,12 +78,6 @@ class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObse
     String tmpMsg;
     test = _chatService.getMsg(widget.msgId);
     List<ChatMessage> messages = [];
-    /*messages.add(ChatMessage(
-        messageContent: "Teksten er her",
-        messageType: "ha",
-        messageImageOne:
-            "https://firebasestorage.googleapis.com/v0/b/zwappr.appspot.com/o/users%2Fimage2021-03-23%2010%3A22%3A16.916578?alt=media&token=3646cec7-e3ab-4f22-a5d6-9c0beb220b58",
-        messageImageTwo: "https://firebasestorage.googleapis.com/v0/b/zwappr.appspot.com/o/users%2Fimage2021-03-23%2010%3A22%3A16.916578?alt=media&token=3646cec7-e3ab-4f22-a5d6-9c0beb220b58"));*/
 
     return Scaffold(
       body: Container(
@@ -111,9 +104,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> with WidgetsBindingObse
                     String from;
                     String imageOne;
                     String imageTwo;
-                    print(snapshot.data["data"][0].toString());
 
-                    //ChatMessage(messageContent: snapshot.data["data"][0]["content"].toString(), messageType: "receiver");
                     for (int i = 0; i < snapshot.data["size"]; i++) {
                       if (snapshot.data["data"][i]["from"].toString() == id) {
                         from = "sender";

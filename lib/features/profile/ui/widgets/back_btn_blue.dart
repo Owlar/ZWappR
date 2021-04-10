@@ -11,10 +11,8 @@ class BackBtnBlue extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
       child: Align(
-
         alignment: Alignment.topLeft,
         child: IconButton(
-
           icon: const Icon(Icons.arrow_back_ios),
           iconSize: 30,
           color: zwapprBlue,

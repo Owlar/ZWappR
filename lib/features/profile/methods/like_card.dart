@@ -59,7 +59,13 @@ Card buildLikeCard(thing, BuildContext context, FutureOr onGoBack) {
                       flex: 1,
                       child: Column(
                         children: [
-
+                          IconButton(
+                            icon: Icon(Icons.check),
+                            color: zwapprGreen,
+                            onPressed: () {
+                              print('Like pressed');
+                            },
+                          ),
                           IconButton(
                             icon: Icon(Icons.delete),
                             color: zwapprDarkGray,

@@ -201,7 +201,6 @@ class _ProfilePageState extends State<ProfilePage> {
               text: "Likt",
               icon: Icons.check,
               press: () {
-                print('test');
                 Route route =
                     MaterialPageRoute(builder: (context) => LikePage());
                 Navigator.push(context, route).then(onGoBack);

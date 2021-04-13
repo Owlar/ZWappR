@@ -28,6 +28,8 @@ class _FavoritePageState extends State<FavoritePage> {
     });
   }
 
+
+
   Future<FutureOr> onGoBack(dynamic value) {
     setState(() {
       _getAllFavoritesFromService();
@@ -37,6 +39,7 @@ class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
     //_favoriteService.create("3ReG0PYyEAUio7qc1lsE");
+    //_favoriteService.delete("3ReG0PYyEAUio7qc1lsE");
     return Scaffold(
         body: Container(
           height: double.infinity,
@@ -68,7 +71,7 @@ class _FavoritePageState extends State<FavoritePage> {
                 return ListView.builder(
                   padding: const EdgeInsets.all(14.0),
                   itemCount: snapshot.data.length,
-                  itemBuilder: (BuildContext context, int index) {
+                  itemBuilder: (BuildContext context, int index,) {
                     final thing = snapshot.data[index];
                     return buildFavoriteCard(thing, context, onGoBack);
                   },

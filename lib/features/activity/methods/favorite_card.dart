@@ -1,8 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:zwappr/features/activity/services/favorite_service.dart';
+import 'package:zwappr/features/activity/services/i_favorite_service.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
+ final IFavoriteService _favoriteService = FavoriteService();
 Card buildFavoriteCard(thing, BuildContext context, FutureOr onGoBack) {
   return Card(
       margin: EdgeInsets.fromLTRB(2.0, 14.0, 2.0, 0),
@@ -63,13 +66,14 @@ Card buildFavoriteCard(thing, BuildContext context, FutureOr onGoBack) {
                             icon: Icon(Icons.favorite),
                             color: zwapprRed,
                             onPressed: () {
-                              print('favorite pressed');
+                          print('favorite pressed');
                             },
                           ),
                           IconButton(
                             icon: Icon(Icons.delete),
                             color: zwapprDarkGray,
                             onPressed: () {
+                              _favoriteService.delete(thing.uid).then(onGoBack);
                               print('delete pressed ');
                             },
                           ),

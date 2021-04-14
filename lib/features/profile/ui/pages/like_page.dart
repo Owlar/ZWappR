@@ -114,13 +114,28 @@ class _LikePageState extends State<LikePage> {
                                     SizedBox(width: 10),
                                     Expanded(
                                       flex: 2,
-                                      child: thing["offerItem"]["imageUrl"] ==
-                                              null
-                                          ? Image.asset(
-                                              "assets/images/thing_image_placeholder.png")
-                                          : Image.network(
-                                              thing["offerItem"]["imageUrl"]),
-                                    ),
+                                        child: Column(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.stretch,
+                                            children: <Widget>[
+                                              Text(
+                                                  thing["offerItem"]["title"] ==
+                                                      null
+                                                      ? ""
+                                                      : thing["offerItem"]
+                                                  ["title"],
+
+                                                  overflow:
+                                                  TextOverflow.ellipsis),
+                                              thing["offerItem"]["imageUrl"] ==
+                                                  null
+                                                  ? Image.asset(
+                                                  "assets/images/thing_image_placeholder.png")
+                                                  : Image.network(
+                                                  thing["offerItem"]
+                                                  ["imageUrl"]),
+
+                                            ])),
                                     Expanded(
                                         flex: 4,
                                         child: Column(

@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:zwappr/features/activity/services/favorite_service.dart';
 import 'package:zwappr/features/activity/services/i_favorite_service.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
-
- final IFavoriteService _favoriteService = FavoriteService();
+/*
+final IFavoriteService _favoriteService = FavoriteService();
+Icon favoriteIcon = Icon(Icons.favorite);
+Color colorIcon = zwapprRed;
+String currentUid;
 Card buildFavoriteCard(thing, BuildContext context, FutureOr onGoBack) {
   return Card(
       margin: EdgeInsets.fromLTRB(2.0, 14.0, 2.0, 0),
@@ -63,20 +66,38 @@ Card buildFavoriteCard(thing, BuildContext context, FutureOr onGoBack) {
                       child: Column(
                         children: [
                           IconButton(
-                            icon: Icon(Icons.favorite),
-                            color: zwapprRed,
+                            icon: favoriteIcon,
+                            color: colorIcon,
                             onPressed: () {
-                          print('favorite pressed');
+                              currentUid = thing.uid.toString();
+                              if(currentUid == thing.uid.toString()) {
+                                print("currentUid: " + currentUid + " thing.uid.toString: "+ thing.uid.toString());
+                                favoriteIcon =
+                                    Icon(Icons.favorite_border_outlined);
+                                    colorIcon = zwapprBlack;
+                                _favoriteService.getAll().then(onGoBack);
+
+                                Timer(Duration(seconds: 5), () {
+                                  favoriteIcon = Icon(Icons.favorite);
+                                  colorIcon = zwapprRed;
+                                  _favoriteService.delete(thing.uid).then(
+                                      onGoBack);
+                                });
+                              }else{
+                                favoriteIcon = Icon(Icons.favorite);
+                                colorIcon = zwapprRed;
+                              }
+                              print('favorite pressed');
                             },
                           ),
-                          IconButton(
+                          /*IconButton(
                             icon: Icon(Icons.delete),
                             color: zwapprDarkGray,
                             onPressed: () {
                               _favoriteService.delete(thing.uid).then(onGoBack);
                               print('delete pressed ');
                             },
-                          ),
+                          ),*/
                           SizedBox(height: 40),
                         ],
                       )
@@ -84,3 +105,4 @@ Card buildFavoriteCard(thing, BuildContext context, FutureOr onGoBack) {
             ])),
           ])));
 }
+*/

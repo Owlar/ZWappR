@@ -3,8 +3,12 @@ import 'package:zwappr/features/things/models/thing_model.dart';
 
 abstract class ILikeService {
 
-  // Updating me as a user with:
-  /// [uid]
+
   Future<List<ThingModel>> getAll();
+  // Creating a favorite with:
+  /// [userId]
+  Future<void> create(String userId);
+  // get all liked things
+  Future<Map> get();
 
 }

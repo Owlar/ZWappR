@@ -11,5 +11,9 @@ class LikeService implements ILikeService {
   Future<List<ThingModel>> getAll() async => _repository.getAll();
 
 
+  @override
+  Future<Map> get() async => _repository.get();
 
+  @override
+  Future<void> create(String thingId) async => _repository.create(thingId);
 }

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:zwappr/features/activity/methods/favorite_card.dart';
+
 import 'package:zwappr/features/activity/services/favorite_service.dart';
 import 'package:zwappr/features/activity/services/i_favorite_service.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
@@ -176,7 +176,7 @@ class _FavoritePageState extends State<FavoritePage> {
                             }
                           },
                         ),
-                        SizedBox(height: 40),
+                        SizedBox(height: 80),
                       ],
                     ))
               ])),

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:zwappr/features/activity/services/favorite_service.dart';
 import 'package:zwappr/features/activity/services/i_favorite_service.dart';
-import 'package:zwappr/features/profile/methods/like_card.dart';
+
 import 'package:zwappr/features/profile/services/i_like_service.dart';
 import 'package:zwappr/features/profile/services/like_service.dart';
 import 'package:zwappr/features/profile/ui/widgets/back_btn_blue.dart';
@@ -71,10 +71,6 @@ class _LikePageState extends State<LikePage> {
                   if (snapshot.hasError) {
                     return Center(child: Text("${snapshot.error}"));
                   } else {
-                    print(snapshot.data["data"]);
-
-
-
                     return ListView.builder(
                       padding: const EdgeInsets.all(14.0),
                       itemCount: snapshot.data["data"].length,

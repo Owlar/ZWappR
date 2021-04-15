@@ -292,11 +292,9 @@ class _MapPageState extends State<MapPage> {
                                             });
                                             _favoriteService.delete(_infoWindowOwner.uid);
                                             print(_infoWindowOwner.uid);
-                                            Timer(Duration(seconds: 5), () {
-                                              stateSetter(() {
-                                                favoriteIcon = Icon(Icons.favorite);
-                                                colorIcon = zwapprRed;
-                                              });
+                                            stateSetter(() {
+                                              favoriteIcon = Icon(Icons.favorite);
+                                              colorIcon = zwapprRed;
                                             });
                                           } else {
                                             flagInfoWindow = true;

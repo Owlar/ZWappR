@@ -215,55 +215,68 @@ class _MapPageState extends State<MapPage> {
                 ),
                 Container(
                     padding: EdgeInsets.all(12.0),
-                    child: Row(children: <Widget>[
-                      Expanded(
-                        flex: 3,
-                        child: _infoWindowOwner.imageUrl == null
-                            ? Image.asset("assets/images/thing_image_placeholder.png")
-                            : Image.network(_infoWindowOwner.imageUrl),
-                      ),
-                      SizedBox(width: 10),
-                      Expanded(
-                          flex: 4,
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: <Widget>[
-                                Text(_infoWindowOwner.title == null ? "" : _infoWindowOwner.title,
-                                    style: TextStyle(
-                                        fontSize: 22, fontWeight: FontWeight.bold
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                          Expanded(
+                            flex: 3,
+                            child: _infoWindowOwner.imageUrl == null
+                                ? Image.asset("assets/images/thing_image_placeholder.png")
+                                : Image.network(_infoWindowOwner.imageUrl),
+                          ),
+                          SizedBox(width: 10),
+                          Expanded(
+                              flex: 4,
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  children: <Widget>[
+                                    Text(_infoWindowOwner.title == null ? "" : _infoWindowOwner.title,
+                                        style: TextStyle(
+                                            fontSize: 26, fontWeight: FontWeight.bold
+                                        ),
+                                        overflow: TextOverflow.ellipsis
                                     ),
-                                    overflow: TextOverflow.ellipsis
-                                ),
-                                SizedBox(height: 4),
-                                Text(_infoWindowOwner.description == null ? "" : _infoWindowOwner.description,
-                                    style: TextStyle(fontSize: 16),
-                                    overflow: TextOverflow.ellipsis
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                    _infoWindowOwner.exchangeValue == null
-                                        ? ""
-                                        : _infoWindowOwner.exchangeValue + " kr",
-                                    style: TextStyle(
-                                        fontSize: 14, fontWeight: FontWeight.bold),
-                                    overflow: TextOverflow.ellipsis
-                                ),
-                                SizedBox(height: 4),
-                                Text(
-                                    _infoWindowOwner.condition == null
-                                        ? ""
-                                        : "Brukstilstand: " + _infoWindowOwner.condition,
-                                    style: TextStyle(fontSize: 14),
-                                    overflow: TextOverflow.ellipsis
-                                ),
-                                Text(
-                                  _infoWindowOwner.category == null
-                                      ? ""
-                                      : "Kategori: " + _infoWindowOwner.category,
-                                  style: TextStyle(fontSize: 14),
-                                ),
-                              ])),
-                    ])
+                                    SizedBox(height: 4),
+                                    Text(_infoWindowOwner.description == null ? "" : _infoWindowOwner.description,
+                                        style: TextStyle(fontSize: 18),
+                                        overflow: TextOverflow.ellipsis
+                                    ),
+                                    SizedBox(height: 10),
+                                    Text(
+                                        _infoWindowOwner.exchangeValue == null
+                                            ? ""
+                                            : _infoWindowOwner.exchangeValue + " kr",
+                                        style: TextStyle(
+                                            fontSize: 20, fontWeight: FontWeight.bold),
+                                        overflow: TextOverflow.ellipsis
+                                    ),
+                                    SizedBox(height: 4),
+                                    Text(
+                                        _infoWindowOwner.condition == null
+                                            ? ""
+                                            : "Brukstilstand: " + _infoWindowOwner.condition,
+                                        style: TextStyle(fontSize: 18),
+                                        overflow: TextOverflow.ellipsis
+                                    ),
+                                    Text(
+                                      _infoWindowOwner.category == null
+                                          ? ""
+                                          : "Kategori: " + _infoWindowOwner.category,
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ])
+                          ),
+                          Expanded(
+                              flex: 1,
+                              child: Column(
+                                  children: [
+                                    Icon(Icons.favorite, size: 30, color: zwapprRed),
+                                    SizedBox(height: 100),
+                                  ]
+                              )
+                          )
+                      ]
+                    )
 
                 )
               ]

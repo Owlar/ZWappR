@@ -7,25 +7,24 @@ import 'package:zwappr/utils/colors/color_theme.dart';
 
 ListView buildConversationListView(List<ChatUsers> chatUsers,
     List<String> conversationList, FutureOr onGoBack) {
-    return ListView.builder(
-      itemCount: chatUsers.length,
-      shrinkWrap: true,
-      padding: EdgeInsets.only(top: 10),
-      physics: NeverScrollableScrollPhysics(),
-      //physics: BouncingScrollPhysics(),
-      itemBuilder: (context, index) {
+  return ListView.builder(
+    itemCount: chatUsers.length,
+    shrinkWrap: true,
+    padding: EdgeInsets.only(top: 10),
+    physics: NeverScrollableScrollPhysics(),
+    //physics: BouncingScrollPhysics(),
+    itemBuilder: (context, index) {
       return Container(
         child: GestureDetector(
           onTap: () {
             Route route = MaterialPageRoute(
                 builder: (context) => ChatDetailPage(
-                    name: chatUsers[index].name,
-                    image: chatUsers[index].image,
-                    msgId: conversationList[index],
-                    imageOne: chatUsers[index].thingsImage,
-                    imageTwo: chatUsers[index].myThingImage ,
-                   )
-            );
+                      name: chatUsers[index].name,
+                      image: chatUsers[index].image,
+                      msgId: conversationList[index],
+                      imageOne: chatUsers[index].thingsImage,
+                      imageTwo: chatUsers[index].myThingImage,
+                    ));
             Navigator.push(context, route).then(onGoBack);
           },
           child: Container(
@@ -51,8 +50,14 @@ ListView buildConversationListView(List<ChatUsers> chatUsers,
                               right: -6,
                               child: SizedBox(
                                 child: CircleAvatar(
-                                  backgroundImage:
-                                      NetworkImage(chatUsers[index].image),
+                                  backgroundColor: zwapprWhite,
+                                  backgroundImage: chatUsers[index]
+                                              .image
+                                              .toString() !=
+                                          "null"
+                                      ? NetworkImage(chatUsers[index].image)
+                                      : AssetImage(
+                                          "assets/images/default_profile_avatar.png"),
                                   maxRadius: 14,
                                 ),
                               ),

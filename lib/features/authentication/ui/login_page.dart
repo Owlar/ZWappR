@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                         GestureDetector(
                           onTap: () {},
                           child: Text(
-                            'Log inn',
+                            'Logg inn',
                             style: new TextStyle(
                                 color: tabBarLogin,
                                 fontWeight: FontWeight.bold,

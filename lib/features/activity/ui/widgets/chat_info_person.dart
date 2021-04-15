@@ -31,7 +31,13 @@ class ChatInfoPerson extends StatelessWidget {
             ),
             SizedBox(width: 2),
             CircleAvatar(
-              backgroundImage: NetworkImage(image),
+              backgroundImage: image
+                  .toString() !=
+                  "null"
+                  ? NetworkImage(image)
+                  : AssetImage(
+                  "assets/images/default_profile_avatar.png"),
+              backgroundColor: zwapprWhite,
               maxRadius: 20,
             ),
             SizedBox(width: 12),

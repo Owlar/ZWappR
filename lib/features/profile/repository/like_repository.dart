@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
-import 'package:zwappr/features/authentication/models/user_model.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
 
 

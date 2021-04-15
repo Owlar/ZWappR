@@ -1,15 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
-import 'package:zwappr/features/activity/services/favorite_service.dart';
-import 'package:zwappr/features/activity/services/i_favorite_service.dart';
-
 import 'package:zwappr/features/profile/services/i_like_service.dart';
 import 'package:zwappr/features/profile/services/like_service.dart';
 import 'package:zwappr/features/profile/ui/widgets/back_btn_blue.dart';
-import 'package:zwappr/features/things/models/thing_model.dart';
-import 'package:zwappr/utils/colors/color_theme.dart';
 
 class LikePage extends StatefulWidget {
   @override

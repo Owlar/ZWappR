@@ -190,6 +190,88 @@ class _MapPageState extends State<MapPage> {
     ));
   }
 
+  _onInfoWindowTapped(context, ThingMarker _infoWindowOwner) {
+    showModalBottomSheet(context: context, builder: (BuildContext buildContext) {
+      return Container(
+          height: 300,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/background_screen.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text("Tilbake", style: TextStyle(fontSize: 20))
+                    ),
+                  ],
+                ),
+                Container(
+                    padding: EdgeInsets.all(12.0),
+                    child: Row(children: <Widget>[
+                      Expanded(
+                        flex: 3,
+                        child: _infoWindowOwner.imageUrl == null
+                            ? Image.asset("assets/images/thing_image_placeholder.png")
+                            : Image.network(_infoWindowOwner.imageUrl),
+                      ),
+                      SizedBox(width: 10),
+                      Expanded(
+                          flex: 4,
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: <Widget>[
+                                Text(_infoWindowOwner.title == null ? "" : _infoWindowOwner.title,
+                                    style: TextStyle(
+                                        fontSize: 22, fontWeight: FontWeight.bold
+                                    ),
+                                    overflow: TextOverflow.ellipsis
+                                ),
+                                SizedBox(height: 4),
+                                Text(_infoWindowOwner.description == null ? "" : _infoWindowOwner.description,
+                                    style: TextStyle(fontSize: 16),
+                                    overflow: TextOverflow.ellipsis
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                    _infoWindowOwner.exchangeValue == null
+                                        ? ""
+                                        : _infoWindowOwner.exchangeValue + " kr",
+                                    style: TextStyle(
+                                        fontSize: 14, fontWeight: FontWeight.bold),
+                                    overflow: TextOverflow.ellipsis
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                    _infoWindowOwner.condition == null
+                                        ? ""
+                                        : "Brukstilstand: " + _infoWindowOwner.condition,
+                                    style: TextStyle(fontSize: 14),
+                                    overflow: TextOverflow.ellipsis
+                                ),
+                                Text(
+                                  _infoWindowOwner.category == null
+                                      ? ""
+                                      : "Kategori: " + _infoWindowOwner.category,
+                                  style: TextStyle(fontSize: 14),
+                                ),
+                              ])),
+                    ])
+
+                )
+              ]
+          )
+      );
+    });
+  }
+
   void _filterMarkersByCategory() async {
     flag = true;
     setState(() {
@@ -319,10 +401,13 @@ class _MapPageState extends State<MapPage> {
       position: cluster.location,
       infoWindow: InfoWindow(
           title: cluster.items.last.title,
-          snippet: "$_CATEGORY${cluster.items.last.category}"
+          snippet: "$_CATEGORY${cluster.items.last.category}",
+          onTap: () {
+            _onInfoWindowTapped(context, cluster.items.last);
+          }
       ),
       onTap: () {
-          cluster.items.forEach((p) => print(p));
+          cluster.items.forEach((p) => print(p.title));
       },
       icon: await _getMarkerBitmap(cluster.isMultiple
           ? 125 : 75, text: cluster.isMultiple

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
 import 'package:zwappr/features/activity/services/favorite_service.dart';
 import 'package:zwappr/features/activity/services/i_favorite_service.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';

@@ -21,4 +21,7 @@ class FavoriteService implements IFavoriteService{
     // TODO: implement put
     throw UnimplementedError();
   }
+
+  @override
+  Future<void> delete(String thingId) async => _repository.delete(thingId);
 }

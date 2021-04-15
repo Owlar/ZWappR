@@ -16,4 +16,7 @@ abstract class IFavoriteService {
   // Getting me as a user
   Future<Map> getMe();
 
+  // delete favorite
+  Future<void> delete(String thingId);
+
 }

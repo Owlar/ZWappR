@@ -13,6 +13,7 @@ import 'package:zwappr/features/authentication/services/i_authentication_service
 import 'package:zwappr/features/authentication/ui/login_page.dart';
 import 'package:zwappr/features/profile/services/i_profile_service.dart';
 import 'package:zwappr/features/profile/services/profile_service.dart';
+import 'package:zwappr/features/profile/ui/pages/like_page.dart';
 import 'package:zwappr/features/profile/ui/pages/settings_page.dart';
 import 'package:zwappr/features/profile/ui/widgets/menu.dart';
 import 'package:zwappr/features/profile/ui/widgets/profile_picture.dart';
@@ -49,8 +50,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future getGallery() async {
     final image = await imagePicker.getImage(
-        source: ImageSource.gallery, imageQuality: 50
-    );
+        source: ImageSource.gallery, imageQuality: 50);
     setState(() {
       _image = File(image.path);
     });
@@ -87,50 +87,49 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> photoPicker() async {
-      return showDialog<void>(
-        context: context,
-        barrierDismissible: true,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title:  Text("Camera or Gallery"),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  Text("Choose camera or gallery"),
-                ],
-              ),
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Camera or Gallery"),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text("Choose camera or gallery"),
+              ],
             ),
-            actions: <Widget>[
-              TextButton(
-                child: new Icon(
-                  Icons.camera_alt,
-                  color: zwapprGreen,
-                ),
-                onPressed: () {
-                  getImage();
-                  Navigator.of(context).pop();
-                },
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: new Icon(
+                Icons.camera_alt,
+                color: zwapprGreen,
               ),
-              TextButton(
-                child: new Icon(
-                  Icons.insert_photo,
-                  color: zwapprGreen,
-                ),
-                onPressed: () {
-                  getGallery();
-                  Navigator.of(context).pop();
-                },
+              onPressed: () {
+                getImage();
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: new Icon(
+                Icons.insert_photo,
+                color: zwapprGreen,
               ),
-            ],
-          );
-        },
-      );
+              onPressed: () {
+                getGallery();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
-
 
   @override
   Widget build(BuildContext context) {
-    Future <UserModel> futureUserModel;
+    Future<UserModel> futureUserModel;
 
     // Future <String> download;
     // download = downloadURL();
@@ -141,104 +140,107 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return Scaffold(
         body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/background_screen.png"),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Center(
-            child: Column(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/images/background_screen.png"),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Center(
+        child: Column(
+          children: [
+            SizedBox(height: 50),
+            ProfilePicture(
+                image: _image,
+                uri: auth.currentUser.photoURL,
+                camera: false,
+                press: () async {
+                  photoPicker();
+                }),
+            SizedBox(height: 20),
+            auth.currentUser.displayName == null
+                ? FutureBuilder<UserModel>(
+                    future: futureUserModel,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Text(snapshot.data.displayName);
+                      } else if (snapshot.hasError) {
+                        return Text("${snapshot.error}");
+                      }
+                      // By default, show a loading spinner.
+                      return CircularProgressIndicator();
+                    },
+                  )
+                : Text(auth.currentUser.displayName.toString()),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(height: 50),
-                ProfilePicture(
-                    image: _image,
-                    uri: auth.currentUser.photoURL,
-                    camera: false,
-                    press: () async {
-                      photoPicker();
-                    }
-                ),
-                SizedBox(height: 20),
-                auth.currentUser.displayName == null ? FutureBuilder<UserModel>(
-                  future: futureUserModel,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Text(snapshot.data.displayName);
-                    } else if (snapshot.hasError) {
-                      return Text("${snapshot.error}");
-                    }
-                    // By default, show a loading spinner.
-                    return CircularProgressIndicator();
-                  },
-                ) : Text(auth.currentUser.displayName.toString()),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButtons(
-                      icon: Icons.settings,
-                      press: (){
-                        print(auth.currentUser.photoURL);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SettingsPage(image: _image)),
-                        );
-                      },
-                    ),
-                    IconButtons(
-                      icon: Icons.edit,
-                      press: (){
-                        Route route = MaterialPageRoute(builder: (context) => EditPage(image: _image));
-                        Navigator.push(context, route).then(onGoBack);
-                      },
-                    ),
-                  ],
-                ),
-                Button(press: (){}),
-                Menu(
-                  text: "Likt",
-                  icon: Icons.check,
-                  press: (){},
-                ),
-                Menu(
-                  text: "Favoritter",
-                  icon: Icons.favorite,
-                  press: (){
+                IconButtons(
+                  icon: Icons.settings,
+                  press: () {
+                    print(auth.currentUser.photoURL);
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => FavoritePage()),
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SettingsPage(image: _image)),
                     );
                   },
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(color: Colors.black),
-                    ),
-                  ),
-                  child: Menu(
-                    text: "Logg ut",
-                    icon: Icons.logout,
-                    press: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                      );
-                      _authenticationService.signOut();
-                    },
-                  ),
+                IconButtons(
+                  icon: Icons.edit,
+                  press: () {
+                    Route route = MaterialPageRoute(
+                        builder: (context) => EditPage(image: _image));
+                    Navigator.push(context, route).then(onGoBack);
+                  },
                 ),
               ],
             ),
-          ),
-        )
-    );
+            Button(press: () {}),
+            Menu(
+              text: "Likt",
+              icon: Icons.check,
+              press: () {
+                Route route =
+                    MaterialPageRoute(builder: (context) => LikePage());
+                Navigator.push(context, route).then(onGoBack);
+              },
+            ),
+            Menu(
+              text: "Favoritter",
+              icon: Icons.favorite,
+              press: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => FavoritePage()),
+                );
+              },
+            ),
+            Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(color: Colors.black),
+                ),
+              ),
+              child: Menu(
+                text: "Logg ut",
+                icon: Icons.logout,
+                press: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                  );
+                  _authenticationService.signOut();
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    ));
   }
 
-  // SOURCES:
-  //https://medium.com/fabcoding/adding-an-image-picker-in-a-flutter-app-pick-images-using-camera-and-gallery-photos-7f016365d856
-  //https://api.flutter.dev/flutter/material/AlertDialog-class.html
+// SOURCES:
+//https://medium.com/fabcoding/adding-an-image-picker-in-a-flutter-app-pick-images-using-camera-and-gallery-photos-7f016365d856
+//https://api.flutter.dev/flutter/material/AlertDialog-class.html
 }
-
-

@@ -42,10 +42,6 @@ class _FavoritePageState extends State<FavoritePage> {
 
   @override
   Widget build(BuildContext context) {
-     //_favoriteService.create("i4MOW9STsTNTzXHBGcw0");
-   //  _favoriteService.create("e2HZ1qJqgrllu2Y1F6dF");
-  //   _favoriteService.create("ui5PnAVC3gYGU8aw48tB");
-    //delete("3ReG0PYyEAUio7qc1lsE");
     return Scaffold(
       body: Container(
         height: double.infinity,
@@ -96,14 +92,14 @@ class _FavoritePageState extends State<FavoritePage> {
             child: Column(children: <Widget>[
               Container(
                   child: Row(children: <Widget>[
-                Expanded(
-                  flex: 2,
-                  child: thing.imageUrl == null
-                      ? Image.asset("assets/images/thing_image_placeholder.png")
-                      : Image.network(thing.imageUrl),
-                ),
-                SizedBox(width: 10),
-                Expanded(
+                  Expanded(
+                    flex: 2,
+                    child: thing.imageUrl == null
+                        ? Image.asset("assets/images/thing_image_placeholder.png")
+                        : Image.network(thing.imageUrl),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
                     flex: 4,
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -141,7 +137,7 @@ class _FavoritePageState extends State<FavoritePage> {
                               style: TextStyle(fontSize: 14),
                               overflow: TextOverflow.ellipsis),
                         ])),
-                Expanded(
+                  Expanded(
                     flex: 1,
                     child: Column(
                       children: [
@@ -163,8 +159,6 @@ class _FavoritePageState extends State<FavoritePage> {
                                   colorIcon = zwapprRed;
                                 });
                               });
-
-                              print('TRUE');
                             }else{
                               flag = true;
                               newStateForCard(() {

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_cluster_manager/google_maps_cluster_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:zwappr/features/map/models/thing_marker_model.dart';
+import 'package:zwappr/features/map/services/favorite_service.dart';
+import 'package:zwappr/features/map/services/i_favorite_service.dart';
 import 'package:zwappr/features/map/services/i_map_service.dart';
 import 'package:zwappr/features/map/services/map_service.dart';
 import 'package:zwappr/features/map/utils/list_category_icons.dart';
@@ -19,6 +21,7 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   static final IMapService _mapService = MapService();
+  static final IFavoriteService _favoriteService = FavoriteService();
   static const _initialZoomLevel = 6.0;
   static const _animationZoomLevel = 17.0;
   static const _stopClusteringZoomLevel = 14.0;
@@ -38,6 +41,12 @@ class _MapPageState extends State<MapPage> {
 
   MapType _currentMapType;
   bool flag = false;
+
+  // InfoWindow
+  Icon favoriteIcon = Icon(Icons.favorite);
+  Color colorIcon = zwapprRed;
+  String currentUid;
+  bool flagInfoWindow = true;
 
 
   Future<void> _getThingsFromServiceAndCreateMarkers() async {
@@ -192,96 +201,125 @@ class _MapPageState extends State<MapPage> {
 
   _onInfoWindowTapped(context, ThingMarker _infoWindowOwner) {
     showModalBottomSheet(context: context, builder: (BuildContext buildContext) {
-      return Container(
-          height: 300,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/background_screen.png"),
-              fit: BoxFit.cover,
+      return StatefulBuilder(builder: (BuildContext context, StateSetter stateSetter) {
+        return Container(
+            height: 300,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/background_screen.png"),
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text("Tilbake", style: TextStyle(fontSize: 20))
-                    ),
-                  ],
-                ),
-                Container(
-                    padding: EdgeInsets.all(12.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                          Expanded(
-                            flex: 3,
-                            child: _infoWindowOwner.imageUrl == null
-                                ? Image.asset("assets/images/thing_image_placeholder.png")
-                                : Image.network(_infoWindowOwner.imageUrl),
-                          ),
-                          SizedBox(width: 10),
-                          Expanded(
-                              flex: 4,
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                                  children: <Widget>[
-                                    Text(_infoWindowOwner.title == null ? "" : _infoWindowOwner.title,
-                                        style: TextStyle(
-                                            fontSize: 26, fontWeight: FontWeight.bold
-                                        ),
-                                        overflow: TextOverflow.ellipsis
-                                    ),
-                                    SizedBox(height: 4),
-                                    Text(_infoWindowOwner.description == null ? "" : _infoWindowOwner.description,
-                                        style: TextStyle(fontSize: 18),
-                                        overflow: TextOverflow.ellipsis
-                                    ),
-                                    SizedBox(height: 10),
-                                    Text(
-                                        _infoWindowOwner.exchangeValue == null
+            child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text("Tilbake", style: TextStyle(fontSize: 20))
+                      ),
+                    ],
+                  ),
+                  Container(
+                      padding: EdgeInsets.all(12.0),
+                      child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Expanded(
+                              flex: 3,
+                              child: _infoWindowOwner.imageUrl == null
+                                  ? Image.asset("assets/images/thing_image_placeholder.png")
+                                  : Image.network(_infoWindowOwner.imageUrl),
+                            ),
+                            SizedBox(width: 10),
+                            Expanded(
+                                flex: 4,
+                                child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                                    children: <Widget>[
+                                      Text(_infoWindowOwner.title == null ? "" : _infoWindowOwner.title,
+                                          style: TextStyle(
+                                              fontSize: 26, fontWeight: FontWeight.bold
+                                          ),
+                                          overflow: TextOverflow.ellipsis
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(_infoWindowOwner.description == null ? "" : _infoWindowOwner.description,
+                                          style: TextStyle(fontSize: 18),
+                                          overflow: TextOverflow.ellipsis
+                                      ),
+                                      SizedBox(height: 10),
+                                      Text(
+                                          _infoWindowOwner.exchangeValue == null
+                                              ? ""
+                                              : _infoWindowOwner.exchangeValue + " kr",
+                                          style: TextStyle(
+                                              fontSize: 20, fontWeight: FontWeight.bold),
+                                          overflow: TextOverflow.ellipsis
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                          _infoWindowOwner.condition == null
+                                              ? ""
+                                              : "Brukstilstand: " + _infoWindowOwner.condition,
+                                          style: TextStyle(fontSize: 18),
+                                          overflow: TextOverflow.ellipsis
+                                      ),
+                                      Text(
+                                        _infoWindowOwner.category == null
                                             ? ""
-                                            : _infoWindowOwner.exchangeValue + " kr",
-                                        style: TextStyle(
-                                            fontSize: 20, fontWeight: FontWeight.bold),
-                                        overflow: TextOverflow.ellipsis
-                                    ),
-                                    SizedBox(height: 4),
-                                    Text(
-                                        _infoWindowOwner.condition == null
-                                            ? ""
-                                            : "Brukstilstand: " + _infoWindowOwner.condition,
+                                            : "Kategori: " + _infoWindowOwner.category,
                                         style: TextStyle(fontSize: 18),
-                                        overflow: TextOverflow.ellipsis
-                                    ),
-                                    Text(
-                                      _infoWindowOwner.category == null
-                                          ? ""
-                                          : "Kategori: " + _infoWindowOwner.category,
-                                      style: TextStyle(fontSize: 18),
-                                    ),
-                                  ])
-                          ),
-                          Expanded(
-                              flex: 1,
-                              child: Column(
-                                  children: [
-                                    Icon(Icons.favorite, size: 30, color: zwapprRed),
-                                    SizedBox(height: 100),
-                                  ]
-                              )
-                          )
-                      ]
-                    )
+                                      ),
+                                    ])
+                            ),
+                            Expanded(
+                                flex: 1,
+                                child: Column(
+                                    children: [
+                                      IconButton(
+                                        icon: favoriteIcon,
+                                        color: colorIcon,
+                                        onPressed: () {
+                                          if (flagInfoWindow) {
+                                            flagInfoWindow = false;
+                                            stateSetter(() {
+                                              favoriteIcon = Icon(Icons.favorite_border_outlined);
+                                              colorIcon = zwapprBlack;
+                                            });
+                                            _favoriteService.delete(_infoWindowOwner.uid);
+                                            print(_infoWindowOwner.uid);
+                                            Timer(Duration(seconds: 5), () {
+                                              stateSetter(() {
+                                                favoriteIcon = Icon(Icons.favorite);
+                                                colorIcon = zwapprRed;
+                                              });
+                                            });
+                                          } else {
+                                            flagInfoWindow = true;
+                                            stateSetter(() {
+                                              favoriteIcon = Icon(Icons.favorite);
+                                              colorIcon = zwapprRed;
+                                            });
+                                            _favoriteService.create(_infoWindowOwner.uid);
+                                            print(_infoWindowOwner.uid);
+                                          }
+                                        },
+                                      ),
+                                    ]
+                                )
+                            )
+                          ]
+                      )
 
-                )
-              ]
-          )
-      );
+                  )
+                ]
+            )
+        );
+      });
     });
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class ThingMarker {
+  final String uid;
   final String title;
   final String description;
   final String imageUrl;
@@ -14,6 +15,7 @@ class ThingMarker {
   bool isLiked;
 
   ThingMarker({
+    @required this.uid,
     @required this.title,
     @required this.description,
     @required this.imageUrl,
@@ -29,6 +31,7 @@ class ThingMarker {
 
   factory ThingMarker.fromJson(Map<String, dynamic> json) {
     return ThingMarker(
+        uid: json["uid"] as String,
         title: json["title"] as String,
         description: json["description"] as String,
         imageUrl: json["imageUrl"] as String,

@@ -9,7 +9,7 @@ class MapRepository {
 
   Future<List<ThingMarker>> getAll() async {
     final response = await http.get(
-        "https://us-central1-zwappr.cloudfunctions.net/api/things",
+        "https://us-central1-zwappr.cloudfunctions.net/api/things/map",
         headers: <String, String>{
           "Content-Type": "application/json; charset=UTF-8",
           "idToken": await _firebaseAuth.currentUser.getIdToken()

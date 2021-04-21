@@ -276,40 +276,6 @@ class _MapPageState extends State<MapPage> {
                                       ),
                                     ])
                             ),
-                            Expanded(
-                                flex: 1,
-                                child: Column(
-                                    children: [
-                                      IconButton(
-                                        icon: favoriteIcon,
-                                        color: colorIcon,
-                                        onPressed: () {
-                                          if (flagInfoWindow) {
-                                            flagInfoWindow = false;
-                                            stateSetter(() {
-                                              favoriteIcon = Icon(Icons.favorite_border_outlined);
-                                              colorIcon = zwapprBlack;
-                                            });
-                                            _favoriteService.delete(_infoWindowOwner.uid);
-                                            print(_infoWindowOwner.uid);
-                                            stateSetter(() {
-                                              favoriteIcon = Icon(Icons.favorite);
-                                              colorIcon = zwapprRed;
-                                            });
-                                          } else {
-                                            flagInfoWindow = true;
-                                            stateSetter(() {
-                                              favoriteIcon = Icon(Icons.favorite);
-                                              colorIcon = zwapprRed;
-                                            });
-                                            _favoriteService.create(_infoWindowOwner.uid);
-                                            print(_infoWindowOwner.uid);
-                                          }
-                                        },
-                                      ),
-                                    ]
-                                )
-                            )
                           ]
                       )
 

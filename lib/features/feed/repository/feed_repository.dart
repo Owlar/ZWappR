@@ -20,7 +20,6 @@ class FeedRepository {
       final Map<String, dynamic> parsed = jsonDecode(response.body);
       return List<ThingModel>.from(parsed["data"].map((x) => ThingModel.fromJson(x)));
     } else {
-      print("Statuscode is " + response.statusCode.toString());
       throw Exception("Failed to fetch data");
     }
   }
@@ -37,7 +36,6 @@ class FeedRepository {
       final Map<String, dynamic> parsed = jsonDecode(response.body);
       return List<ThingModel>.from(parsed["data"].map((x) => ThingModel.fromJson(x)));
     } else {
-      print("Statuscode is " + response.statusCode.toString());
       throw Exception("Failed to fetch data");
     }
   }

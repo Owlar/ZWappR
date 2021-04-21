@@ -81,9 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   FutureOr onGoBack(dynamic value) {
-    setState(() {
-      print('PLS');
-    });
+    setState(() {});
   }
 
   Future<void> photoPicker() async {

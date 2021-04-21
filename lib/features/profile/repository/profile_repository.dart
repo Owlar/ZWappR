@@ -4,10 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:zwappr/features/authentication/models/user_model.dart';
 
-
 class ProfileRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-
 
   Future<UserModel> get() async {
     final response = await http.get(
@@ -25,7 +23,6 @@ class ProfileRepository {
   }
 
   Future<void> put(String name) async {
-
       await http.put(
         "https://us-central1-zwappr.cloudfunctions.net/api/users/me",
         headers: <String, String>{
@@ -36,8 +33,8 @@ class ProfileRepository {
           "displayName": name
         }),
       );
-
   }
+
   Future<void> updateImage(String url) async {
     _firebaseAuth.currentUser.getIdToken(true).then((idToken) async => {
       await http.put(

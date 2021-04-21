@@ -13,7 +13,7 @@ class LikePage extends StatefulWidget {
 class _LikePageState extends State<LikePage> {
   static final ILikeService _likeService = LikeService();
 
-  Future<Map> _getAllLikeFromService() async {
+  Future<Map> _getAllLikesFromService() async {
     return await _likeService.get();
   }
 
@@ -21,13 +21,13 @@ class _LikePageState extends State<LikePage> {
   void initState() {
     super.initState();
     setState(() {
-      _getAllLikeFromService();
+      _getAllLikesFromService();
     });
   }
 
   Future<FutureOr> onGoBack(dynamic value) {
     setState(() {
-      _getAllLikeFromService();
+      _getAllLikesFromService();
     });
   }
 
@@ -53,7 +53,7 @@ class _LikePageState extends State<LikePage> {
             ),
             Expanded(
               child: FutureBuilder<Map>(
-                future: _getAllLikeFromService(),
+                future: _getAllLikesFromService(),
                 builder: (context, AsyncSnapshot snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());

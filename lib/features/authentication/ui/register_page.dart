@@ -52,7 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             });
                           },
                           child: Text(
-                            'Log inn',
+                            'Logg inn',
                             style: new TextStyle(
                                 color: tabBarLogin,
                                 fontWeight: FontWeight.bold,

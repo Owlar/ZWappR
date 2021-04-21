@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:zwappr/features/feed/services/i_favorite_service.dart';
 import 'package:zwappr/features/feed/providers/feedback_position_provider.dart';
+import 'package:zwappr/features/feed/services/favorite_service.dart';
 import 'package:zwappr/features/feed/services/feed_service.dart';
 import 'package:zwappr/features/feed/services/i_feed_service.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
@@ -15,6 +17,7 @@ class FeedPage extends StatefulWidget {
 
 class _FeedPageState extends State<FeedPage> {
   final IFeedService _feedService = FeedService();
+  final IFavoriteService _favoriteService = FavoriteService();
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   List<ThingModel> things = List();
@@ -315,8 +318,18 @@ class _FeedPageState extends State<FeedPage> {
             child: Icon(Icons.favorite, color: zwapprYellow, size: 60),
             color: zwapprBlack,
             onPressed: () {
-
-
+              final _currentThing = things.last;
+              _currentThing.isLiked = true;
+              if (_offerThing == null) {
+                _showDialog("Obs!", "Vennligst velg en av dine egne gjenstander som tilbud");
+              } else {
+                setState(() {
+                  things.remove(_currentThing);
+                  _feedService.seenItem(_currentThing.uid);
+                  _feedService.offerItemInExchangeForLikedItem(_offerThing, _currentThing.uid);
+                  _favoriteService.create(_currentThing.uid);
+                });
+              }
             },
           ),
           RaisedButton(

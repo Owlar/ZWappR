@@ -17,4 +17,8 @@ abstract class IFeedService {
   /// [thingLikedUid]
   Future<void> offerItemInExchangeForLikedItem(ThingModel thingOffer, String thingLikedUid);
 
+  // Blacklisting seen thing with:
+  /// [seenThingUid]
+  Future<void> seenItem(String seenThingUid);
+
 }

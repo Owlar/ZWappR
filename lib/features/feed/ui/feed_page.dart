@@ -361,6 +361,7 @@ class _FeedPageState extends State<FeedPage> {
       } else {
         setState(() {
           things.remove(thing);
+          _feedService.seenItem(thing.uid);
           _feedService.offerItemInExchangeForLikedItem(_offerThing, thing.uid);
         });
       }
@@ -368,6 +369,7 @@ class _FeedPageState extends State<FeedPage> {
       thing.isSwipedOff = true;
       setState(() {
         things.remove(thing);
+        _feedService.seenItem(thing.uid);
       });
     }
 

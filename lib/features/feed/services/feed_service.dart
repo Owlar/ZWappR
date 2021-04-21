@@ -33,4 +33,18 @@ class FeedService implements IFeedService {
       }),
     );
   }
+
+  @override
+  Future<void> seenItem(String thingSeenUid) async {
+    await http.post(
+      "https://us-central1-zwappr.cloudfunctions.net/api/things/seen/$thingSeenUid",
+      headers: <String, String>{
+        "Content-Type": "application/json; charset=UTF-8",
+        "idToken": await _firebaseAuth.currentUser.getIdToken()
+      },
+      body: jsonEncode(<String, String>{
+        "seen": thingSeenUid,
+      }),
+    );
+  }
 }

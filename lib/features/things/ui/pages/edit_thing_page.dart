@@ -8,11 +8,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/features/things/services/i_things_service.dart';
 import 'package:zwappr/features/things/services/things_service.dart';
+import 'package:zwappr/features/things/ui/widgets/back_btn_blue.dart';
 import 'package:zwappr/features/things/utils/list_categories.dart';
 import 'package:zwappr/features/things/utils/list_conditions.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 import 'package:zwappr/utils/location/user_geo_position.dart';
-import 'package:zwappr/features/things/ui/widgets/back_btn_blue.dart';
 
 class EditThingPage extends StatefulWidget {
   final ThingModel thingToBeEdited;

@@ -301,6 +301,12 @@ class _FeedPageState extends State<FeedPage> {
             child: Icon(Icons.close, color: zwapprRed, size: 60),
             color: zwapprBlack,
             onPressed: () {
+              final _currentThing = things.last;
+              _currentThing.isSwipedOff = true;
+              setState(() {
+                things.remove(_currentThing);
+                _feedService.seenItem(_currentThing.uid);
+              });
             },
           ),
           RaisedButton(
@@ -310,6 +316,7 @@ class _FeedPageState extends State<FeedPage> {
             color: zwapprBlack,
             onPressed: () {
 
+
             },
           ),
           RaisedButton(
@@ -318,7 +325,17 @@ class _FeedPageState extends State<FeedPage> {
             child: Icon(Icons.check, color: zwapprGreen, size: 60),
             color: zwapprBlack,
             onPressed: () {
-
+              final _currentThing = things.last;
+              _currentThing.isLiked = true;
+              if (_offerThing == null) {
+                _showDialog("Obs!", "Vennligst velg en av dine egne gjenstander som tilbud");
+              } else {
+                setState(() {
+                  things.remove(_currentThing);
+                  _feedService.seenItem(_currentThing.uid);
+                  _feedService.offerItemInExchangeForLikedItem(_offerThing, _currentThing.uid);
+                });
+              }
             },
           ),
         ]

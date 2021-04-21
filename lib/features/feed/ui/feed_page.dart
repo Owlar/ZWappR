@@ -60,13 +60,14 @@ class _FeedPageState extends State<FeedPage> {
                     child: FutureBuilder(
                       future: _getOwnThingsFromService(),
                       builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        }
                         if (snapshot.hasError) {
                           return Text("${snapshot.error}");
                         }
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return Center(
-                              child: CircularProgressIndicator()
-                          );
+                        if (snapshot.data.isEmpty) {
+                          return Center(child: Text("Ingen gjenstander å tilby", style: TextStyle(fontSize: 18)));
                         } else {
                           return ListView.builder(
                             shrinkWrap: true,

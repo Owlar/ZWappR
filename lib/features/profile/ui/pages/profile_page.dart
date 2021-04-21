@@ -131,112 +131,109 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     Future<UserModel> futureUserModel;
 
-    // Future <String> download;
-    // download = downloadURL();
     futureUserModel = _profileService.get();
     List providerData = auth.currentUser.providerData.toString().split(',');
     List email = providerData[1].split(':');
-    //String url;
 
     return Scaffold(
         body: Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/images/background_screen.png"),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Center(
-        child: Column(
-          children: [
-            SizedBox(height: 50),
-            ProfilePicture(
-                image: _image,
-                uri: auth.currentUser.photoURL,
-                camera: false,
-                press: () async {
-                  photoPicker();
-                }),
-            SizedBox(height: 20),
-            auth.currentUser.displayName == null
-                ? FutureBuilder<UserModel>(
-                    future: futureUserModel,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return Text(snapshot.data.displayName);
-                      } else if (snapshot.hasError) {
-                        return Text("${snapshot.error}");
-                      }
-                      // By default, show a loading spinner.
-                      return CircularProgressIndicator();
-                    },
-                  )
-                : Text(auth.currentUser.displayName.toString()),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/background_screen.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Center(
+            child: Column(
               children: [
-                IconButtons(
-                  icon: Icons.settings,
-                  press: () {
-                    print(auth.currentUser.photoURL);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => SettingsPage(image: _image)),
-                    );
-                  },
+                SizedBox(height: 50),
+                ProfilePicture(
+                    image: _image,
+                    uri: auth.currentUser.photoURL,
+                    camera: false,
+                    press: () async {
+                      photoPicker();
+                    }),
+                SizedBox(height: 20),
+                auth.currentUser.displayName == null
+                    ? FutureBuilder<UserModel>(
+                        future: futureUserModel,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return Text(snapshot.data.displayName);
+                          } else if (snapshot.hasError) {
+                            return Text("${snapshot.error}");
+                          }
+                          // By default, show a loading spinner.
+                          return CircularProgressIndicator();
+                        },
+                      )
+                    : Text(auth.currentUser.displayName.toString()),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButtons(
+                      icon: Icons.settings,
+                      press: () {
+                        print(auth.currentUser.photoURL);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SettingsPage(image: _image)),
+                        );
+                      },
+                    ),
+                    IconButtons(
+                      icon: Icons.edit,
+                      press: () {
+                        Route route = MaterialPageRoute(
+                            builder: (context) => EditPage(image: _image));
+                        Navigator.push(context, route).then(onGoBack);
+                      },
+                    ),
+                  ],
                 ),
-                IconButtons(
-                  icon: Icons.edit,
+                Button(press: () {}),
+                Menu(
+                  text: "Likt",
+                  icon: Icons.check,
                   press: () {
-                    Route route = MaterialPageRoute(
-                        builder: (context) => EditPage(image: _image));
+                    Route route =
+                        MaterialPageRoute(builder: (context) => LikePage());
                     Navigator.push(context, route).then(onGoBack);
                   },
                 ),
+                Menu(
+                  text: "Favoritter",
+                  icon: Icons.favorite,
+                  press: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => FavoritePage()),
+                    );
+                  },
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(color: Colors.black),
+                    ),
+                  ),
+                  child: Menu(
+                    text: "Logg ut",
+                    icon: Icons.logout,
+                    press: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()),
+                      );
+                      _authenticationService.signOut();
+                    },
+                  ),
+                ),
               ],
             ),
-            Button(press: () {}),
-            Menu(
-              text: "Likt",
-              icon: Icons.check,
-              press: () {
-                Route route =
-                    MaterialPageRoute(builder: (context) => LikePage());
-                Navigator.push(context, route).then(onGoBack);
-              },
-            ),
-            Menu(
-              text: "Favoritter",
-              icon: Icons.favorite,
-              press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => FavoritePage()),
-                );
-              },
-            ),
-            Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Colors.black),
-                ),
-              ),
-              child: Menu(
-                text: "Logg ut",
-                icon: Icons.logout,
-                press: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
-                  );
-                  _authenticationService.signOut();
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
+          ),
     ));
   }
 

@@ -26,14 +26,12 @@ class _ThingsPageState extends State<ThingsPage> {
     super.initState();
     setState(() {
       _getThingsFromService();
-      print('############################# INIT REFRESH #############################');
     });
   }
 
   Future<FutureOr> onGoBack(dynamic value) {
     setState(() {
       _getThingsFromService();
-      print('############################# REFRESH #############################');
     });
   }
 
@@ -59,7 +57,6 @@ class _ThingsPageState extends State<ThingsPage> {
                     child: CircularProgressIndicator()
                 );
               } else {
-                print('############################# REDO #############################');
                 return ListView.builder(
                   padding: const EdgeInsets.all(14.0),
                   itemCount: snapshot.data.length,
@@ -78,7 +75,7 @@ class _ThingsPageState extends State<ThingsPage> {
             Navigator.push(context, route).then(onGoBack);
           },
           backgroundColor: zwapprYellow,
-          label: Text("Ny ting", style: TextStyle(color: zwapprBlack, fontSize: 16)),
+          label: Text("Ny gjenstand", style: TextStyle(color: zwapprBlack, fontSize: 16)),
           icon: Icon(Icons.add, color: zwapprBlack, size: 30),
         )
     );

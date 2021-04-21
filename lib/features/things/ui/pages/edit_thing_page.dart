@@ -12,6 +12,7 @@ import 'package:zwappr/features/things/utils/list_categories.dart';
 import 'package:zwappr/features/things/utils/list_conditions.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 import 'package:zwappr/utils/location/user_geo_position.dart';
+import 'package:zwappr/features/things/ui/widgets/back_btn_blue.dart';
 
 class EditThingPage extends StatefulWidget {
   final ThingModel thingToBeEdited;
@@ -144,6 +145,7 @@ class _EditThingPageState extends State<EditThingPage> {
           ),
           child: Column(
             children: <Widget>[
+              BackBtnBlue(),
               Expanded(
                 child: FlatButton(
                   onPressed: () async {

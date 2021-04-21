@@ -413,12 +413,6 @@ class _MapPageState extends State<MapPage> {
                   Expanded(
                     child: Text(selectedCategory),
                   ),
-                  IconButton(
-                    icon: Icon(Icons.arrow_forward),
-                    onPressed: () {
-                      // TODO: Implement
-                    },
-                  )
                 ]
             )
         )

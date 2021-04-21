@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:zwappr/features/things/models/thing_model.dart';
 import 'package:zwappr/features/things/services/i_things_service.dart';
 import 'package:zwappr/features/things/services/things_service.dart';
+import 'package:zwappr/features/things/ui/widgets/back_btn_blue.dart';
 import 'package:zwappr/features/things/utils/list_categories.dart';
 import 'package:zwappr/features/things/utils/list_conditions.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
@@ -128,6 +129,7 @@ class _NewThingPageState extends State<NewThingPage> {
           ),
           child: Column(
             children: <Widget>[
+              BackBtnBlue(),
               Expanded(
                 child: FlatButton(
                   onPressed: () async {

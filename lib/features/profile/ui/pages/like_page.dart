@@ -33,7 +33,6 @@ class _LikePageState extends State<LikePage> {
 
   @override
   Widget build(BuildContext context) {
-    // _likeService.create("C487VTHqJ4UlNzbPcTZE");
 
     return Scaffold(
       body: Container(
@@ -50,7 +49,7 @@ class _LikePageState extends State<LikePage> {
             BackBtnBlue(),
             Text(
               "Likte gjenstander",
-              style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
             Expanded(
               child: FutureBuilder<Map>(
@@ -60,7 +59,7 @@ class _LikePageState extends State<LikePage> {
                     return Center(child: CircularProgressIndicator());
                   }
                   if (!snapshot.hasData) {
-                    return Center(child: Text("Ingen Likte gjenstander"));
+                    return Center(child: Text("Ingen likte gjenstander"));
                   }
                   if (snapshot.hasError) {
                     return Center(child: Text("${snapshot.error}"));
@@ -77,149 +76,127 @@ class _LikePageState extends State<LikePage> {
                                 child: Column(children: <Widget>[
                                   Container(
                                       child: Row(children: <Widget>[
-                                    Expanded(
-                                        flex: 2,
-                                        child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.stretch,
-                                            children: <Widget>[
-                                              Text(
-                                                  thing["myItem"]["title"] ==
-                                                      null
-                                                      ? ""
-                                                      : thing["myItem"]
-                                                  ["title"],
+                                        Expanded(
+                                            flex: 2,
+                                            child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.stretch,
+                                                children: <Widget>[
+                                                  Text(
+                                                      thing["myItem"]["title"] ==
+                                                          null
+                                                          ? ""
+                                                          : thing["myItem"]
+                                                      ["title"],
 
-                                                  overflow:
-                                                  TextOverflow.ellipsis),
-                                              thing["myItem"]["imageUrl"] ==
+                                                      overflow:
+                                                      TextOverflow.ellipsis),
+                                                  thing["myItem"]["imageUrl"] ==
+                                                          null
+                                                      ? Image.asset(
+                                                          "assets/images/thing_image_placeholder.png")
+                                                      : Image.network(
+                                                          thing["myItem"]
+                                                              ["imageUrl"]),
+
+                                                ])),
+                                        SizedBox(width: 10),
+                                        Expanded(
+                                          flex: 2,
+                                            child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                children: <Widget>[
+                                                  Text(
+                                                      thing["offerItem"]["title"] ==
+                                                          null
+                                                          ? ""
+                                                          : thing["offerItem"]
+                                                      ["title"],
+
+                                                      overflow:
+                                                      TextOverflow.ellipsis),
+                                                  thing["offerItem"]["imageUrl"] ==
                                                       null
-                                                  ? Image.asset(
+                                                      ? Image.asset(
                                                       "assets/images/thing_image_placeholder.png")
-                                                  : Image.network(
-                                                      thing["myItem"]
-                                                          ["imageUrl"]),
+                                                      : Image.network(
+                                                      thing["offerItem"]
+                                                      ["imageUrl"]),
 
-                                            ])),
-                                    SizedBox(width: 10),
-                                    Expanded(
-                                      flex: 2,
-                                        child: Column(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.stretch,
-                                            children: <Widget>[
-                                              Text(
-                                                  thing["offerItem"]["title"] ==
-                                                      null
-                                                      ? ""
-                                                      : thing["offerItem"]
-                                                  ["title"],
-
-                                                  overflow:
-                                                  TextOverflow.ellipsis),
-                                              thing["offerItem"]["imageUrl"] ==
-                                                  null
-                                                  ? Image.asset(
-                                                  "assets/images/thing_image_placeholder.png")
-                                                  : Image.network(
-                                                  thing["offerItem"]
-                                                  ["imageUrl"]),
-
-                                            ])),
-                                    Expanded(
-                                        flex: 4,
-                                        child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.stretch,
-                                            children: <Widget>[
-                                              Text(
-                                                  thing["offerItem"]["title"] ==
-                                                          null
-                                                      ? ""
-                                                      : thing["offerItem"]
-                                                          ["title"],
-                                                  style: TextStyle(
-                                                      fontSize: 22,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                  overflow:
-                                                      TextOverflow.ellipsis),
-                                              SizedBox(height: 4),
-                                              Text(
-                                                  thing["offerItem"]
-                                                              ["description"] ==
-                                                          null
-                                                      ? ""
-                                                      : thing["offerItem"]
-                                                          ["description"],
-                                                  style:
-                                                      TextStyle(fontSize: 16),
-                                                  overflow:
-                                                      TextOverflow.ellipsis),
-                                              SizedBox(height: 10),
-                                              Text(
-                                                  thing["offerItem"][
-                                                              "exchangeValue"] ==
-                                                          null
-                                                      ? ""
-                                                      : thing["offerItem"][
-                                                              "exchangeValue"] +
-                                                          " kr",
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                  overflow:
-                                                      TextOverflow.ellipsis),
-                                              SizedBox(height: 4),
-                                              Text(
-                                                  thing["offerItem"]
-                                                              ["condition"] ==
-                                                          null
-                                                      ? ""
-                                                      : "Brukstilstand: " +
-                                                          thing["offerItem"]
-                                                              ["condition"],
-                                                  style:
-                                                      TextStyle(fontSize: 14),
-                                                  overflow:
-                                                      TextOverflow.ellipsis),
-                                              Text(
-                                                  thing["offerItem"]
-                                                              ["category"] ==
-                                                          null
-                                                      ? ""
-                                                      : "Kategori: " +
-                                                          thing["offerItem"]
-                                                              ["category"],
-                                                  style:
-                                                      TextStyle(fontSize: 14),
-                                                  overflow:
-                                                      TextOverflow.ellipsis),
-                                            ])),
-                                    /*Expanded(
-                                        flex: 1,
-                                        child: Column(
-                                          children: [
-
-                                            IconButton(
-                                              icon: Icon(Icons.check),
-                                              color: zwapprGreen,
-                                              onPressed: () {
-                                                print('Like pressed');
-                                              },
-                                            ),
-                                            IconButton(
-                                              icon: Icon(Icons.delete),
-                                              color: zwapprDarkGray,
-                                              onPressed: () {
-                                                print('delete pressed ');
-                                              },
-                                            ),
-                                            SizedBox(height: 40),
-                                          ],
-                                        ))*/
-                                  ])),
+                                                ])),
+                                        SizedBox(width: 6),
+                                        Expanded(
+                                            flex: 4,
+                                            child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.stretch,
+                                                children: <Widget>[
+                                                  Text(
+                                                      thing["offerItem"]["title"] ==
+                                                              null
+                                                          ? ""
+                                                          : thing["offerItem"]
+                                                              ["title"],
+                                                      style: TextStyle(
+                                                          fontSize: 22,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                      overflow:
+                                                          TextOverflow.ellipsis),
+                                                  SizedBox(height: 4),
+                                                  Text(
+                                                      thing["offerItem"]
+                                                                  ["description"] ==
+                                                              null
+                                                          ? ""
+                                                          : thing["offerItem"]
+                                                              ["description"],
+                                                      style:
+                                                          TextStyle(fontSize: 16),
+                                                      overflow:
+                                                          TextOverflow.ellipsis),
+                                                  SizedBox(height: 10),
+                                                  Text(
+                                                      thing["offerItem"][
+                                                                  "exchangeValue"] ==
+                                                              null
+                                                          ? ""
+                                                          : thing["offerItem"][
+                                                                  "exchangeValue"] +
+                                                              " kr",
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                      overflow:
+                                                          TextOverflow.ellipsis),
+                                                  SizedBox(height: 4),
+                                                  Text(
+                                                      thing["offerItem"]
+                                                                  ["condition"] ==
+                                                              null
+                                                          ? ""
+                                                          : "Brukstilstand: " +
+                                                              thing["offerItem"]
+                                                                  ["condition"],
+                                                      style:
+                                                          TextStyle(fontSize: 14),
+                                                      overflow:
+                                                          TextOverflow.ellipsis),
+                                                  Text(
+                                                      thing["offerItem"]
+                                                                  ["category"] ==
+                                                              null
+                                                          ? ""
+                                                          : "Kategori: " +
+                                                              thing["offerItem"]
+                                                                  ["category"],
+                                                      style:
+                                                          TextStyle(fontSize: 14),
+                                                      overflow:
+                                                          TextOverflow.ellipsis),
+                                                ])),
+                                      ])),
                                 ])));
                       },
                     );

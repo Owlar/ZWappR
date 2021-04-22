@@ -8,6 +8,28 @@ import 'package:zwappr/features/authentication/ui/register_page.dart';
 import 'package:zwappr/features/home/ui/home_page.dart';
 import 'package:zwappr/utils/colors/color_theme.dart';
 
+
+class EmailValidator{
+  static String validate(String value){
+
+      if (value.isEmpty)
+        return "Vennligst skriv inn e-post";
+      else
+        return null;
+  }
+}
+
+class PasswordValidator{
+  static String validate(String value){
+
+    if (value.isEmpty)
+      return "Vennligst skriv inn passord";
+    else
+      return null;
+  }
+}
+
+
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -23,6 +45,7 @@ class _LoginPageState extends State<LoginPage> {
 
   static final IAuthenticationService _authenticationService =
       AuthenticationService();
+
 
   @override
   Widget build(BuildContext context) {
@@ -129,12 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                             prefixIcon: Icon(Icons.account_circle,
                                 color: zwapprBlack, size: 34)),
                         controller: emailController,
-                        validator: (value) {
-                          if (value.isEmpty)
-                            return "Vennligst skriv inn e-post";
-                          else
-                            return null;
-                        },
+                        validator: EmailValidator.validate,
                       ),
                       SizedBox(height: 4),
                       TextFormField(
@@ -145,12 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                             prefixIcon: Icon(Icons.lock_outline,
                                 color: zwapprBlack, size: 34)),
                         controller: passwordController,
-                        validator: (value) {
-                          if (value.isEmpty)
-                            return "Vennligst skriv inn passord";
-                          else
-                            return null;
-                        },
+                        validator: PasswordValidator.validate,
                       ),
                       SizedBox(height: 32),
                       ButtonTheme(

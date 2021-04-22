@@ -25,7 +25,7 @@ void main() {
       // Use Mockito to return a successful response when it calls the
       // provided http.Client.
       when(client.get("https://us-central1-zwappr.cloudfunctions.net/api/things/me"))
-          .thenAnswer((_) async => http.Response('{"userId": 1, "id": 2, "title": "mock"}', 200));
+          .thenAnswer((_) async => http.Response('["userId": 1, "id": 2, "title": "mock"]', 200));
 
       expect(await getAll(client), isA<List<ThingModel>>());
     });

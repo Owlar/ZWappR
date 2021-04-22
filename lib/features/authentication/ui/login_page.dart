@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
@@ -127,13 +128,23 @@ class _LoginPageState extends State<LoginPage> {
                             filled: true,
                             labelText: "E-post",
                             prefixIcon: Icon(Icons.account_circle,
-                                color: zwapprBlack, size: 34)),
+                                color: zwapprBlack, size: 34
+                            )
+                        ),
                         controller: emailController,
                         validator: (value) {
-                          if (value.isEmpty)
+                          if (value.isEmpty) {
                             return "Vennligst skriv inn e-post";
-                          else
+                          }
+                          else if (EmailValidator.validate(value) != null) {
+                            if (!EmailValidator.validate(value))
+                              return "Vennligst oppgi en gyldig e-postadresse";
+                            else
+                              return null;
+                          }
+                          else {
                             return null;
+                          }
                         },
                       ),
                       SizedBox(height: 4),
@@ -143,7 +154,8 @@ class _LoginPageState extends State<LoginPage> {
                             filled: true,
                             labelText: "Passord",
                             prefixIcon: Icon(Icons.lock_outline,
-                                color: zwapprBlack, size: 34)),
+                                color: zwapprBlack, size: 34)
+                        ),
                         controller: passwordController,
                         validator: (value) {
                           if (value.isEmpty)
@@ -152,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
                             return null;
                         },
                       ),
-                      SizedBox(height: 32),
+                      SizedBox(height: 22),
                       ButtonTheme(
                         minWidth: 220,
                         child: RaisedButton(

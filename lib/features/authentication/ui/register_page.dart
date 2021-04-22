@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:zwappr/features/authentication/services/authentication_service.dart';
@@ -140,10 +141,18 @@ class _RegisterPageState extends State<RegisterPage> {
                           labelText: "E-post",
                         ),
                         validator: (value) {
-                          if (value.isEmpty)
+                          if (value.isEmpty) {
                             return "Vennligst skriv inn e-post";
-                          else
+                          }
+                          else if (EmailValidator.validate(value) != null) {
+                            if (!EmailValidator.validate(value))
+                              return "Vennligst oppgi en gyldig e-postadresse";
+                            else
+                              return null;
+                          }
+                          else {
                             return null;
+                          }
                         },
                       ),
                       SizedBox(height: 4),
@@ -155,10 +164,15 @@ class _RegisterPageState extends State<RegisterPage> {
                           labelText: "Passord",
                         ),
                         validator: (value) {
-                          if (value.isEmpty)
-                            return "Vennligst lag passord";
-                          else
+                          if (value.isEmpty) {
+                            return "Vennligst lag et passord";
+                          }
+                          else if (value.length < 6) {
+                            return "Vennligst lag et passord som har minst 6 tegn";
+                          }
+                          else {
                             return null;
+                          }
                         },
                       ),
                       SizedBox(height: 42),

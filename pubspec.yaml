@@ -80,6 +80,9 @@ dependencies:
   # Notifications
   flutter_local_notifications: ^4.0.1+2
 
+  # Email validator
+  email_validator: '^1.0.6'
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

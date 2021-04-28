@@ -13,7 +13,31 @@ class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
+class EmailValidatorClass{
+  static String validate(String value){
+    if (value.isEmpty) {
+      return "Vennligst skriv inn e-post";
+    }
+    else if (EmailValidator.validate(value) != null) {
+      if (!EmailValidator.validate(value))
+        return "Vennligst oppgi en gyldig e-postadresse";
+      else
+        return null;
+    }
+    else {
+      return null;
+    }
+  }
+}
+class PasswordValidatorClass{
+  static String validate(String value){
 
+    if (value.isEmpty)
+      return "Vennligst skriv inn passord";
+    else
+      return null;
+  }
+}
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -132,20 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                             )
                         ),
                         controller: emailController,
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return "Vennligst skriv inn e-post";
-                          }
-                          else if (EmailValidator.validate(value) != null) {
-                            if (!EmailValidator.validate(value))
-                              return "Vennligst oppgi en gyldig e-postadresse";
-                            else
-                              return null;
-                          }
-                          else {
-                            return null;
-                          }
-                        },
+                        validator: EmailValidatorClass.validate,
                       ),
                       SizedBox(height: 4),
                       TextFormField(
@@ -157,12 +168,7 @@ class _LoginPageState extends State<LoginPage> {
                                 color: zwapprBlack, size: 34)
                         ),
                         controller: passwordController,
-                        validator: (value) {
-                          if (value.isEmpty)
-                            return "Vennligst skriv inn passord";
-                          else
-                            return null;
-                        },
+                        validator: PasswordValidatorClass.validate,
                       ),
                       SizedBox(height: 22),
                       ButtonTheme(

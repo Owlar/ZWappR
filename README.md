@@ -1,6 +1,7 @@
 # ZWappR
 
-BO-G40-ZWappR
+This app was created as part of my Bachelor Thesis.
+ZWappR lets users exchange goods by using swiping gestures, and promotes a local trading culture which helps save the environment.
 
 ## Getting Started
 
